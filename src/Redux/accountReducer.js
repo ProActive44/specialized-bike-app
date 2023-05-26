@@ -7,6 +7,7 @@ import {
 const initState = {
   AllUsers: [],
   currUser: {},
+  isLogin:false
 };
 
 const accountReducer = (state = initState, action) => {
@@ -20,7 +21,7 @@ const accountReducer = (state = initState, action) => {
       return { ...state, AllUsers: [...state.AllUsers, payload] };
 
     case GET_CURRENT_USER:
-      return { ...state, currUser: payload };
+      return { ...state, isLogin:true, currUser: payload };
 
     default:
       return state;
