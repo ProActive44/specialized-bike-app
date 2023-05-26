@@ -5,6 +5,11 @@
     box-shadow: 0 0 5px;
 }
 
+.model_signup {
+    margin: 10px auto;
+    padding: 25px;
+}
+
 .hover_text_color {
     text-decoration: underline;
 }
@@ -15,18 +20,17 @@
 }
 
 .item_center {
-    display: inline;
+    display: flex;
 }
 
 .btn {
-    background-color: #c68409;
+    color: #c68409;
     width: 100%;
-
 }
 
 .btn:hover {
-    background-color: black;
-    color: white;
+    color: black;
+    /* background-color: #c68409; */
 }
 
 .small_font {
