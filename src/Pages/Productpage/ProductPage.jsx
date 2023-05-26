@@ -1,15 +1,18 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { handleGetData } from '../../Redux/action';
-import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter, Image, Divider, Stack, Heading, Text } from '@chakra-ui/react'
+import { getProducts } from '../../Redux/action';
+import { Card, CardBody, CardFooter, Image, Divider, Stack, Heading, Text,Box } from '@chakra-ui/react'
 export default function ProductPage() {
-  const isLoad = useSelector((state) => state.isLoading);
-  const data = useSelector((state) => state.Data);
+  const isLoad = useSelector((store) =>{
+        console.log(store)
+    return store.productsReducer.isLoading;
+  }
+  )
+
+  const data = useSelector((state) => state.productsReducer.AllProducts);
   const dispatch = useDispatch();
-  console.log(data)
   React.useEffect(() => {
-    dispatch(handleGetData);
+    dispatch(getProducts);
 
   }, [dispatch]);
 
