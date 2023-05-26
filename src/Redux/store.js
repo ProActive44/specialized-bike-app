@@ -5,7 +5,7 @@ import { cartReducer } from './cartReducer';
 import { accountReducer } from './accountReducer';
 
 
-const rootReducer = combineReducers(productsReducer, cartReducer, accountReducer);
+const rootReducer = combineReducers({productsReducer, cartReducer, accountReducer})
 
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
