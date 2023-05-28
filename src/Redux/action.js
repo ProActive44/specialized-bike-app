@@ -50,14 +50,15 @@ const getCartDataSuccessAction = (payload)=>{
     payload
    }
 }
-const getCartDataFailureAction = (payload)=>{
+const getCartDataFailureAction = ()=>{
     return {
         type: GET_CART_FAILURE
     }
 }
 const postCartDataAction = (payload)=>{
     return {
-        type : POST_CART_PRODUCT
+        type : POST_CART_PRODUCT,
+        payload
     }
 }
 const deleteCartDataAction = (payload)=>{
