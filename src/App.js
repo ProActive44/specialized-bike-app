@@ -1,8 +1,6 @@
 import './App.css';
 import Footer from './Components/Footer';
 import Navbar from './Components/Navbar';
-import Homepage from './Pages/Homepage/Homepage';
-import ProductPage from './Pages/Productpage/ProductPage';
 import AllRoutes from './Routes/AllRoutes';
 
 

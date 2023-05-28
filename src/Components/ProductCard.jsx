@@ -11,20 +11,28 @@ import React from "react";
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { postCartProduct } from "../Redux/action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = ({ productData, discount }) => {
   const [imageIdx, setImageIdx] = useState(0);
   const [wish, setWish] = useState(false);
   const dispatch = useDispatch()
+  const cartData = useSelector((store)=>{
+    return store.cartReducer.cartProducts;
+  })
 
   const handleColorClick = (index) => {
     setImageIdx(index);
   };
 
   const handleAddToCart = ()=>{
-    dispatch(postCartProduct(productData))
-    alert("Item added to cart")
+    const existProd = cartData.find((prod)=>prod.id === productData.id)
+    if(existProd){
+      alert("product already exist")
+    }else{
+      dispatch(postCartProduct(productData, ))
+      alert("Item added to cart")
+    }
   }
 
   //   console.log(typeof(productData.price))
