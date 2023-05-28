@@ -4,6 +4,7 @@ import ProductCard from './ProductCard';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 
 const getData = (setData)=>{
     axios.get(`https://specialized-bike-json-server.onrender.com/products?_page=11&_limit=3`)
@@ -15,6 +16,7 @@ const Discount = () => {
 
   const [data, setData] = useState([])
 //   console.log(data)
+  const navigate = useNavigate()
     
     useEffect(()=>{
         getData(setData)
@@ -33,7 +35,7 @@ const Discount = () => {
                 </Flex>
             </Box>
             <Box>
-                <Button variant={'outline'} colorScheme='yellow'> CATALOGUE </Button>
+                <Button variant={'outline'} colorScheme='yellow' onClick={()=>navigate("/productPage")}> CATALOGUE </Button>
             </Box>
         </Box>
     );

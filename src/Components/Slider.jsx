@@ -14,6 +14,7 @@ import bicycle2 from "../Images/bicycle2.png";
 import bicycle3 from "../Images/bicycle3.png";
 import bicycle4 from "../Images/bicycle4.png";
 import bgImage1 from "../Images/backgroundImage1.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const arrowStyles = {
@@ -68,6 +69,8 @@ const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const intervalId = useRef(null);
   const slidesCount = slides.length;
+
+  const navigate = useNavigate()
 
   const prevSlide = () => {
    
@@ -204,7 +207,7 @@ const Slider = () => {
                           : "gray"
                       }
                       w={{ base: "90px", md: "120px" }}
-                      // h={'50px'}
+                      onClick={()=>navigate("/productPage")}
                     >
                       Shop Now
                     </Button>
