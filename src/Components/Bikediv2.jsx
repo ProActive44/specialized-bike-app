@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box, Button, Flex, Heading, Img, Text } from "@chakra-ui/react";
 import BikeImage1 from "../Images/BikeImage1.jpg";
+import { useNavigate } from 'react-router-dom';
 
 const Bikediv2 = () => {
+
+   const navigate = useNavigate()
+
     return (
         <Box
       maxW={"1366px"}
@@ -28,7 +32,7 @@ const Bikediv2 = () => {
           >
             Find Your Perfect Bike
           </Text>
-          <Button variant={"outline"} colorScheme="blue">
+          <Button variant={"outline"} colorScheme="blue" onClick={()=>navigate("/productPage")}>
             Shop Now
           </Button>
         </Box>
