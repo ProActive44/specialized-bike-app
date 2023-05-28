@@ -15,6 +15,8 @@ import {
 import "./accountpage.css"
 import { useDispatch } from "react-redux"
 import { postNewUser } from "../../Redux/action";
+import { useNavigate } from "react-router-dom";
+
 
 
 export const Signup = () => {
@@ -25,7 +27,9 @@ export const Signup = () => {
     const [contact, setcontact] = useState("")
     const [password, setpassword] = useState("")
 
+
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -40,11 +44,9 @@ export const Signup = () => {
 
     const sendEmail = (e) => {
 
-
         e.preventDefault();
         console.log(userDetails);
-        console.log(">>>>>>>>>>>>>>>>>>>>");
-        emailjs.sendForm('service_fkfregs', 'template_n8ly4bv', form.current, 'wfw69oML3MWqQ0Srh')
+        emailjs.sendForm('fafa', 'fafaf', form.current, 'wfw69oML3MWqQ0Srh')
             .then((result) => {
                 console.log(result.text);
                 console.log("Message Sent");
@@ -53,6 +55,7 @@ export const Signup = () => {
             });
 
         dispatch(postNewUser(userDetails))
+        navigate('/signupsuccess')
 
     };
 
@@ -60,7 +63,7 @@ export const Signup = () => {
         <div className="model_signup">
             <Heading fontWeight="10px" fontSize="32px">Create An Account</Heading>
             <br />
-            <form ref={form} onSubmit={sendEmail} >
+            <form ref={form} onSubmit={sendEmail}  >
                 <FormLabel> Email </FormLabel>
                 <Input type="email" name="user_email" placeholder="Email" required onChange={(e) => setemail(e.target.value)} />
                 <br />
@@ -93,7 +96,7 @@ export const Signup = () => {
                 </InputGroup>
                 <br />
                 <br />
-                <div >
+                <div>
 
                     <div className="item_center"><Checkbox required>I Accept The <a href="https://www.specialized.com/sg/en/terms-and-conditions" className="hover_text_color">Specialized Terms & Conditions</a> </Checkbox>
                     </div>
@@ -106,8 +109,6 @@ export const Signup = () => {
                 <ButtonGroup variant='outline' width="100%" >
                     <Button type="submit" colorScheme="yellow" className="btn">  Create Account </Button>
                 </ButtonGroup>
-
-
 
             </form>
         </div >
