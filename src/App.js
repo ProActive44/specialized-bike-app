@@ -10,10 +10,11 @@ function App() {
     <div className="App">
       {/*  use your component here don't make any changes in previous code  */}
 
-      <Navbar/>
+      {/* <Navbar/>
       <AllRoutes/>
-      <Footer/>
-    </div>
+      <Footer/> */}
+      <ProductPage/>
+      </div>
   );
 }
 
