@@ -4,7 +4,6 @@ import {
   Show,
   Flex,
   HStack,
-  Link,
   Hide,
   InputGroup,
   Input,
@@ -12,6 +11,7 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom"
 // import { Link } from "react-router-dom"
 import React, { useEffect } from "react";
 import Logo from "../Images/Mainlogo.png";
@@ -150,7 +150,7 @@ const Navbar = () => {
                 <Link>
                   <Image
                     src={wishIcon}
-                    alt="cartIcon"
+                    alt="wishIcon"
                     color={"white"}
                     w={"40px"}
                   />
@@ -165,10 +165,10 @@ const Navbar = () => {
                     w={"80px"}
                   />
                 </Link>
-                <Link>
+                <Link to='/login'>
                   <Image
                     src={accountIcon}
-                    alt="cartIcon"
+                    alt="accountIcon"
                     color={"white"}
                     w={"40px"}
                   />
