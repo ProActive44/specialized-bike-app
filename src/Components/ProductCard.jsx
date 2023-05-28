@@ -43,6 +43,7 @@ const ProductCard = ({ productData, discount }) => {
       color={"black"}
       borderRadius={"20px"}
       p="10px"   
+      textAlign="left" 
       //   w={'250px'}
       //   h={"300px"}
     >

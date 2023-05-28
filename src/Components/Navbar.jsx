@@ -82,7 +82,7 @@ const Navbar = () => {
             <Hide below="md">
               <HStack color={"white"} spacing="10px">
                 <Link
-                  to="/mountain"
+                  to="/productPage"
                   className="categories"
                   _hover={{ underLine: "none" }}
                 >

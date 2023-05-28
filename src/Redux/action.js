@@ -39,10 +39,10 @@ const getSingleProductAction = (payload)=>{
 }
 
 // Products page dispatch functions
-export const getProducts = (dispatch) => {
+export const getProducts =(page)=> (dispatch) => {
   dispatch(getProductsRequestAction());
   axios
-    .get(`https://specialized-bike-json-server.onrender.com/products`)
+    .get(`https://specialized-bike-json-server.onrender.com/products?_page=${page}&_limit=9`)
     .then((res) => dispatch(getProductsSuccessAction(res.data)))
     .catch(() => dispatch(getProductsFailureAction()));
 };
@@ -54,6 +54,13 @@ export const getSingleProduct = (id) => (dispatch) => {
     .then((res)=>dispatch(getSingleProductAction(res.data)))
     .catch(() => dispatch(getProductsFailureAction()));
 };
+
+export const filteredProduct = (category)=>(dispatch)=>{
+  dispatch(getProductsRequestAction());
+  axios.get(`https://specialized-bike-json-server.onrender.com/products?category=${category}`)
+  .then((res)=>dispatch(getProductsSuccessAction(res.data)))
+  .catch((err)=>dispatch(getProductsFailureAction()))
+}
 
 // -------------------------------------------------------------------------------------- //
 
