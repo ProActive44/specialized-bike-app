@@ -10,27 +10,41 @@ import {
   InputRightAddon,
   Spacer,
   Text,
+  MenuButton,
+  Button,
+  Menu,
+  MenuList,
+  MenuItem,
+  useDisclosure,
+  Avatar,
+  MenuDivider,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom"
-// import { Link } from "react-router-dom"
 import React, { useEffect } from "react";
 import Logo from "../Images/Mainlogo.png";
-import { Search2Icon } from "@chakra-ui/icons";
+import { ChevronDownIcon, EmailIcon, PhoneIcon, Search2Icon } from "@chakra-ui/icons";
 import wishIcon from "../Images/Wishlist icon.png";
 import cartIcon from "../Images/CartIcon.png";
 import accountIcon from "../Images/AccountIcon.png";
 import "./Navbar.css";
 import MenuBtn from "./MenuBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartProducts } from "../Redux/action";
+import { getCartProducts, logOutUser } from "../Redux/action";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch();
   const cartReducer = useSelector((store) => {
     return store.cartReducer;
   });
-  const number = cartReducer.cartProducts.length
-  console.log(number);
+  const currUser = useSelector((store) => {
+    return store.accountReducer.currUser;
+  });
+  console.log("curruser", currUser);
+  const number = cartReducer.cartProducts.length;
+  // console.log(cartReducer);
+
 
   useEffect(() => {
     dispatch(getCartProducts);
@@ -51,14 +65,16 @@ const Navbar = () => {
           {/* Hidden menu */}
           <Box position="relative" ml={"10px"}>
             <Show below="lg">
-              <MenuBtn />
+              <MenuBtn cartNumber={number} currUser={currUser} />
             </Show>
           </Box>
           {/* <Spacer /> */}
 
           {/* LogoBox */}
           <Box ml={"20px"} w={"120px"} mr={"10px"}>
-            <Image maxW={"100%"} src={Logo} py={"5px"} />
+            <Link to="/">
+              <Image maxW={"100%"} src={Logo} py={"5px"} />
+            </Link>
           </Box>
 
           {/* Categories */}
@@ -147,7 +163,7 @@ const Navbar = () => {
           <Hide below="lg">
             <Box mr={"20px"}>
               <HStack spacing={"10px"}>
-                <Link>
+                <Link to='wishlist'>
                   <Image
                     src={wishIcon}
                     alt="wishIcon"
@@ -155,32 +171,108 @@ const Navbar = () => {
                     w={"40px"}
                   />
                 </Link>
-                <Link >
-                  
-                  <Text position={'absolute'} ml={'75px'} color={'white'} bg={'red'} borderRadius={'15px'} px={'3px'} >{number > 0 && <span>{number}</span>}</Text>
+                <Link>
+                  <Text
+                    position={"absolute"}
+                    ml={"75px"}
+                    color={"white"}
+                    bg={"red.500"}
+                    borderRadius={"15px"}
+                    px={"3px"}
+                  >
+                    {number > 0 && <span>{number}</span>}
+                  </Text>
                   <Image
                     src={cartIcon}
                     alt="cartIcon"
                     color={"white"}
                     w={"80px"}
+                    pt="5px"
                   />
                 </Link>
-                <Link to='/login'>
-                  <Image
-                    src={accountIcon}
-                    alt="accountIcon"
-                    color={"white"}
-                    w={"40px"}
-                  />
-                 
+                <Link>
+                  <Menu >
+                    {({ isOpen }) => (
+                      <>
+                        <MenuButton>
+                          <Image
+                            isActive={isOpen}
+                            src={accountIcon}
+                            alt="accountIcon"
+                            color={"white"}
+                            w={"40px"}
+                            pt={'8px'}
+                          />
+                        </MenuButton>
+                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'}  boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
+                          {Object.keys(currUser).length === 0 ? (<>
+                            <MenuItem bg={'yellow.500'} borderRadius={'5px'}>You are not logged in</MenuItem> <MenuDivider />
+                            <MenuItem  bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                              <Link to="/login">
+                               <Text w='100%'  px={'60px'} >SIGN IN </Text>
+                              </Link>
+                              </MenuItem >
+                              {/* <br /> */}
+                              <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                             <Link to="/signup">
+                                <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
+                              </Link>
+                              <br />
+                            </MenuItem> </>
+                          ) : (
+                            <Box   borderRadius={'10px'} >
+                              <Text py={'5px'}>ACCOUNT</Text> <MenuDivider />
+                              <Button
+                                leftIcon={<Avatar size={"xs"} bg="blue.600" />}
+                                w="100%"
+                                borderRadius={"10px 10px 0 0"}
+                                variant="outline"
+                                colorScheme="facebook"
+                              >
+                                {currUser.firstName + " " + currUser.lastName}
+                              </Button>
+                              <br />
+                              <Button
+                                leftIcon={<PhoneIcon />}
+                                w="100%"
+                                borderRadius={"0"}
+                                colorScheme="facebook"
+                              >
+                                {currUser.contact}
+                              </Button>
+                              <Button
+                                leftIcon={<EmailIcon />}
+                                w="100%"
+                                borderRadius={"0"}
+                                variant="outline"
+                                colorScheme="facebook"
+                              >
+                                {currUser.email}
+                              </Button>
+                              <br />
+                              <Button
+                                w="100%"
+                                colorScheme="red"
+                                borderRadius={"10"}
+                                mt={"10px"}
+                                onClick={()=>{dispatch(logOutUser); navigate("/")}}
+                              >
+                                LOGOUT
+                              </Button>
+                            </Box>
+                          )}
+                        </MenuList>
+                      </>
+                    )}
+                  </Menu>
                 </Link>
               </HStack>
             </Box>
           </Hide>
         </Flex>
-        {/* White line */}
       </Box>
 
+      {/* White line */}
       <Box
         position={"sticky"}
         zIndex={200}

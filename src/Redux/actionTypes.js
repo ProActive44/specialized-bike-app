@@ -19,3 +19,4 @@ export const DELETE_CART_PRODUCT = 'DELETE_CART_PRODUCT'
 // for Account page REDUCER
 export const POST_NEW_USER = 'POST_NEW_USER'
 export const GET_CURRENT_USER = 'GET_CURRENT_USER' 
+export const LOG_OUT_USER = 'LOG_OUT_USER'
