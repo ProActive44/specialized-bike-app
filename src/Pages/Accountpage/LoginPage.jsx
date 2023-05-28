@@ -31,7 +31,8 @@ import { getCurrentUser } from "../../Redux/action";
 
 export const Login = () => {
     const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
+    const [password, setpassword] = useState("")
+    const [isAuth, setIsAuth] = useState(false)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -51,12 +52,15 @@ export const Login = () => {
             if (email === user.email && password === user.password) {
                 alert("successful");
                 dispatch(getCurrentUser(user))
-                navigate('/Homepage')
+                navigate('/')
+                setIsAuth(true)
                 return;
             }
         })
-        console.log(currUser);
-        alert("Wrong Credentails");
+        // console.log(currUser);
+        if(isAuth){
+            alert("Wrong Credentails");
+        }
 
     }
 
