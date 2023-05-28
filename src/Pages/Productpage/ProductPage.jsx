@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts } from '../../Redux/action';
 import {
@@ -10,15 +10,18 @@ import { AddIcon } from '@chakra-ui/icons'
 import ProductCard from '../../Components/ProductCard';
 import { MinusIcon } from '@chakra-ui/icons';
 export default function ProductPage() {
+
+  const [page, setPage] = useState(1);
+
   const data = useSelector((state) => state.productsReducer.AllProducts);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getProducts);
+    dispatch(getProducts(page));
   }, [dispatch]);
 
   return (
     <Box display={'flex'} >
-      <Box w='29%' gridTemplateRows={'repeat(2, 1fr)'} color={'white'} fontSize={'34px'} marginTop={'1.5em'} fontWeight={'600'}>
+      <Box w='20%' gridTemplateRows={'repeat(2, 1fr)'} color={'white'} fontSize={'34px'} marginTop={'1.5em'} fontWeight={'600'}>
         MOUNTAIN
         <Box fontSize={'22px'} marginTop={'1.5em'} >Filters</Box>
         <Box mt={5}>
@@ -81,14 +84,14 @@ export default function ProductPage() {
         </Box>
 
       </Box>
-      <Box w='63%' display={'grid'} gridTemplateColumns={'repeat(3, 1fr)'} gap='20px' paddingTop={'10em'}>
+      <Box w='75%' m='auto' display={'grid'} gridTemplateColumns={'repeat(3, 1fr)'} gap='20px' paddingTop={'10em'}>
         {
           data?.map((prod) => {
-            return <ProductCard productData={prod} key={prod.id} w="30%" />
+            return <ProductCard productData={prod} key={prod.id} discount='20'/>
           })
         }
       </Box>
-      <Box w='8%' h={'100em'} ></Box>
+      {/* <Box ></Box> */}
     </Box>
 
   )
