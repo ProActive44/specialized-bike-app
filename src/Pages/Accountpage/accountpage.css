@@ -6,8 +6,10 @@
 }
 
 .model_signup {
-    margin: 10px auto;
+    margin: auto;
     padding: 25px;
+    background-color: #262626;
+    color: white;
 }
 
 .hover_text_color {
