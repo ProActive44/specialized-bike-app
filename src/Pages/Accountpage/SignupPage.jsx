@@ -15,6 +15,8 @@ import {
 import "./accountpage.css"
 import { useDispatch } from "react-redux"
 import { postNewUser } from "../../Redux/action";
+import { useNavigate } from "react-router-dom";
+
 
 
 export const Signup = () => {
@@ -25,7 +27,9 @@ export const Signup = () => {
     const [contact, setcontact] = useState("")
     const [password, setpassword] = useState("")
 
+
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -40,11 +44,9 @@ export const Signup = () => {
 
     const sendEmail = (e) => {
 
-
         e.preventDefault();
         console.log(userDetails);
-        console.log(">>>>>>>>>>>>>>>>>>>>");
-        emailjs.sendForm('service_fkfregs', 'template_n8ly4bv', form.current, 'wfw69oML3MWqQ0Srh')
+        emailjs.sendForm('fafa', 'fafaf', form.current, 'wfw69oML3MWqQ0Srh')
             .then((result) => {
                 console.log(result.text);
                 console.log("Message Sent");
@@ -53,6 +55,7 @@ export const Signup = () => {
             });
 
         dispatch(postNewUser(userDetails))
+        navigate('/signupsuccess')
 
     };
 
@@ -60,21 +63,21 @@ export const Signup = () => {
         <div className="model_signup">
             <Heading fontWeight="10px" fontSize="32px">Create An Account</Heading>
             <br />
-            <form ref={form} onSubmit={sendEmail} >
+            <form ref={form} onSubmit={sendEmail}  >
                 <FormLabel> Email </FormLabel>
-                <Input type="email" name="user_email" placeholder="Email" required onChange={(e) => setemail(e.target.value)} />
+                <Input type="email" name="user_email" placeholder="Email" required focusBorderColor='yellow.600' onChange={(e) => setemail(e.target.value)} />
                 <br />
 
                 <FormLabel> First Name </FormLabel>
-                <Input type="text" name="user_name" placeholder="First Name" required onChange={(e) => setfirstName(e.target.value)} />
+                <Input type="text" name="user_name" placeholder="First Name" required focusBorderColor='yellow.600' onChange={(e) => setfirstName(e.target.value)} />
                 <br />
 
                 <FormLabel> Last Name </FormLabel>
-                <Input type="text" placeholder="Last Name" onChange={(e) => setlastName(e.target.value)} />
+                <Input type="text" placeholder="Last Name" focusBorderColor='yellow.600' onChange={(e) => setlastName(e.target.value)} />
                 <br />
 
                 <FormLabel> Contact Info </FormLabel>
-                <Input type="text" placeholder="Contact Info" onChange={(e) => setcontact(e.target.value)} />
+                <Input type="text" placeholder="Contact Info" focusBorderColor='yellow.600' onChange={(e) => setcontact(e.target.value)} />
                 <br />
 
                 <FormLabel> Create Password </FormLabel>
@@ -83,17 +86,20 @@ export const Signup = () => {
                         type={show ? 'text' : 'password'}
                         placeholder='Create Password'
                         name="user_password"
+                        focusBorderColor='yellow.600'
                         onChange={(e) => setpassword(e.target.value)}
                     />
                     <InputRightElement width='4.5rem' >
-                        <Button h='1.75rem' size='sm' onClick={handleClick} >
-                            {show ? 'Hide' : 'Show'}
-                        </Button>
+                        <ButtonGroup variant='outline' >
+                            <Button h='1.75rem' size='sm' colorScheme="yellow" className="btn" onClick={handleClick} >
+                                {show ? 'Hide' : 'Show'}
+                            </Button>
+                        </ButtonGroup>
                     </InputRightElement>
                 </InputGroup>
                 <br />
                 <br />
-                <div >
+                <div>
 
                     <div className="item_center"><Checkbox required>I Accept The <a href="https://www.specialized.com/sg/en/terms-and-conditions" className="hover_text_color">Specialized Terms & Conditions</a> </Checkbox>
                     </div>
@@ -106,8 +112,6 @@ export const Signup = () => {
                 <ButtonGroup variant='outline' width="100%" >
                     <Button type="submit" colorScheme="yellow" className="btn">  Create Account </Button>
                 </ButtonGroup>
-
-
 
             </form>
         </div >

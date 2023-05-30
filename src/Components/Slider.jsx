@@ -14,6 +14,7 @@ import bicycle2 from "../Images/bicycle2.png";
 import bicycle3 from "../Images/bicycle3.png";
 import bicycle4 from "../Images/bicycle4.png";
 import bgImage1 from "../Images/backgroundImage1.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const arrowStyles = {
@@ -69,13 +70,15 @@ const Slider = () => {
   const intervalId = useRef(null);
   const slidesCount = slides.length;
 
+  const navigate = useNavigate()
+
   const prevSlide = () => {
-   
+
     setCurrentSlide((s) => (s === 0 ? slidesCount - 1 : s - 1));
   };
 
   const nextSlide = () => {
-    
+
     setCurrentSlide((s) => (s === slidesCount - 1 ? 0 : s + 1));
   };
 
@@ -110,11 +113,11 @@ const Slider = () => {
       _dark={{
         bg: "#3e3e3e",
       }}
-      p={ {base: 5, md: 10} }
+      p={{ base: 5, md: 10 }}
       alignItems="center"
       justifyContent="center"
-      
-      // border={'1px solid red'}
+
+    // border={'1px solid red'}
     >
       <Flex
         w="full"
@@ -137,7 +140,7 @@ const Slider = () => {
               backgroundColor="transparent"
               // p="10px"
               position="relative"
-              // border="1px solid green"
+            // border="1px solid green"
             >
               <Flex
                 direction={{ base: "column", xl: "row" }}
@@ -146,8 +149,8 @@ const Slider = () => {
                 flexWrap="wrap"
               >
                 <Box
-                 w={{ base: "100%", md: "50%" }}
-                 h={{ base: "auto", md: "100%" }}
+                  w={{ base: "100%", md: "50%" }}
+                  h={{ base: "auto", md: "100%" }}
                   // border="1px solid red"
                   position="relative"
                 >
@@ -169,27 +172,27 @@ const Slider = () => {
                   mt={{ base: "20px", md: "0" }}
                   // border={'1px solid red'}
                   position={{ base: "absolute", md: "static" }}
-                    top={{ base: "60%", md: "auto" }}
-                    left={{ base: "50%", md: "auto" }}
-                    transform={{ base: "translate(-50%, -50%)", md: "none" }}
+                  top={{ base: "60%", md: "auto" }}
+                  left={{ base: "50%", md: "auto" }}
+                  transform={{ base: "translate(-50%, -50%)", md: "none" }}
                 >
                   <Stack
                     textAlign="left"
                     w="90%"
-                    h={{ base: "95%",sm:"95%", md: "90%" }}
+                    h={{ base: "95%", sm: "95%", md: "90%" }}
                     m={{ base: "0 auto", md: "0 auto" }}
-                    mt={{base:'5px', sm:'10px', md:'20px', xl:'30px'}}
-                    // mb="8" 
-                    
-                    // border={'1px solid green'}
+                    mt={{ base: '5px', sm: '10px', md: '20px', xl: '30px' }}
+                  // mb="8" 
+
+                  // border={'1px solid green'}
                   >
-                    <Text fontSize={{ base: "xs",sm:'sm',md:'md', xl:"xl" }} letterSpacing={{base:'0.1em',md:"0.2em"}} color={{base:"yellow",md:'red.500'}}>
+                    <Text fontSize={{ base: "xs", sm: 'sm', md: 'md', xl: "xl" }} letterSpacing={{ base: '0.1em', md: "0.2em" }} color={{ base: "yellow", md: 'red.500' }}>
                       {slide.miniDesc}
                     </Text>
-                    <Heading fontSize={{ base: "xl",sm:'xl',md:'2xl', xl: "6xl" }} fontFamily={"cursive"}>
+                    <Heading fontSize={{ base: "xl", sm: 'xl', md: '2xl', xl: "6xl" }} fontFamily={"cursive"}>
                       {slide.label}
                     </Heading>
-                    <Text as="span" fontWeight="2xl" fontSize={{ base: "sm",sm:'md', md: "xl" }} py={{ base: "10px",sm:'20px', md: "30px" }}>
+                    <Text as="span" fontWeight="2xl" fontSize={{ base: "sm", sm: 'md', md: "xl" }} py={{ base: "10px", sm: '20px', md: "30px" }}>
                       {slide.description}
                     </Text>
                     <Button
@@ -198,13 +201,13 @@ const Slider = () => {
                         sid === 0
                           ? "red"
                           : sid === 1
-                          ? "blue"
-                          : sid === 2
-                          ? "yellow"
-                          : "gray"
+                            ? "blue"
+                            : sid === 2
+                              ? "yellow"
+                              : "gray"
                       }
                       w={{ base: "90px", md: "120px" }}
-                      // h={'50px'}
+                      onClick={() => navigate("/productPage")}
                     >
                       Shop Now
                     </Button>
