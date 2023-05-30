@@ -1,19 +1,22 @@
 import './App.css';
 import Footer from './Components/Footer';
 import Navbar from './Components/Navbar';
-import Homepage from './Pages/Homepage/Homepage';
 import AllRoutes from './Routes/AllRoutes';
-
-
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <div className="App">
-      {/*  use your component here don't make any changes in previous code  */}
-
-      <Navbar/>
-      <AllRoutes/>
-      <Footer/>
+      <Navbar />
+      <AllRoutes />
+      <Footer /> 
     </div>
   );
 }

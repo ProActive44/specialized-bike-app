@@ -1,27 +1,27 @@
 import {
   GET_CURRENT_USER,
-  GET_USERS_SUCCESS,
+  LOG_OUT_USER,
   POST_NEW_USER,
 } from "./actionTypes";
 
 const initState = {
   AllUsers: [],
   currUser: {},
-  isLogin:false
+  isLogin: false,
 };
 
 const accountReducer = (state = initState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    // case GET_USERS_SUCCESS:
-    //   return { ...state, AllUsers: payload };
-
     case POST_NEW_USER:
       return { ...state, AllUsers: [...state.AllUsers, payload] };
 
     case GET_CURRENT_USER:
-      return { ...state, isLogin:true, currUser: payload };
+      return { ...state, isLogin: true, currUser: payload };
+
+    case LOG_OUT_USER:
+      return { ...state, isLogin: false, currUser: {} };
 
     default:
       return state;
