@@ -59,7 +59,7 @@ const Navbar = () => {
         position={"sticky"}
         top={0}
         zIndex={"1000"}
-        // border={'1px solid red'}
+      // border={'1px solid red'}
       >
         <Flex align={"center"} mx={"20px"}>
           {/* Hidden menu */}
@@ -204,23 +204,23 @@ const Navbar = () => {
                             pt={'8px'}
                           />
                         </MenuButton>
-                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'}  boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
+                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'} boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
                           {Object.keys(currUser).length === 0 ? (<>
                             <MenuItem bg={'yellow.500'} borderRadius={'5px'}>You are not logged in</MenuItem> <MenuDivider />
-                            <MenuItem  bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
                               <Link to="/login">
-                               <Text w='100%'  px={'60px'} >SIGN IN </Text>
+                                <Text w='100%' px={'60px'} >SIGN IN </Text>
                               </Link>
-                              </MenuItem >
-                              {/* <br /> */}
-                              <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
-                             <Link to="/signup">
-                                <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
+                            </MenuItem >
+                            {/* <br /> */}
+                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
+                              <Link to="/signup">
+                                <Text w='100%' _hover={{ bg: "red" }} px={'60px'} >SIGN UP </Text>
                               </Link>
                               <br />
                             </MenuItem> </>
                           ) : (
-                            <Box   borderRadius={'10px'} >
+                            <Box borderRadius={'10px'} >
                               <Text py={'5px'}>ACCOUNT</Text> <MenuDivider />
                               <Button
                                 leftIcon={<Avatar size={"xs"} bg="blue.600" />}
@@ -255,7 +255,7 @@ const Navbar = () => {
                                 colorScheme="red"
                                 borderRadius={"10"}
                                 mt={"10px"}
-                                onClick={()=>{dispatch(logOutUser); navigate("/")}}
+                                onClick={() => { dispatch(logOutUser); navigate("/") }}
                               >
                                 LOGOUT
                               </Button>

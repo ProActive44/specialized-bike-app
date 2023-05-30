@@ -58,7 +58,8 @@ export const Login = () => {
             }
         })
         // console.log(currUser);
-        if(isAuth){
+        if (isAuth) {
+            console.log(">>>>>>>>>>>>>>>>>>");
             alert("Wrong Credentails");
         }
 
@@ -71,7 +72,7 @@ export const Login = () => {
                 <br />
                 <form onSubmit={handleSubmit}>
                     <FormLabel> Email </FormLabel>
-                    <Input type="email" placeholder="Email" required onChange={(e) => setemail(e.target.value)} />
+                    <Input type="email" placeholder="Email" focusBorderColor='yellow.600' required onChange={(e) => setemail(e.target.value)} />
                     <br />
 
                     <FormLabel> Password </FormLabel>
@@ -79,13 +80,16 @@ export const Login = () => {
                         <Input
                             type={show ? 'text' : 'password'}
                             placeholder='Password'
+                            focusBorderColor='yellow.600'
                             required
                             onChange={(e) => setpassword(e.target.value)}
                         />
                         <InputRightElement width='4.5rem' >
-                            <Button h='1.75rem' size='sm' onClick={handleClick} >
-                                {show ? 'Hide' : 'Show'}
-                            </Button>
+                            <ButtonGroup variant='outline' >
+                                <Button h='1.75rem' size='sm' onClick={handleClick} className="btn" colorScheme="yellow">
+                                    {show ? 'Hide' : 'Show'}
+                                </Button>
+                            </ButtonGroup>
                         </InputRightElement>
                     </InputGroup>
 
@@ -115,11 +119,11 @@ export const Login = () => {
                         <Button onClick={onOpen} className="btn" colorScheme="yellow">Create Account</Button>
                     </ButtonGroup>
                 </form>
-                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={true}>
+                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={true} >
                     <ModalOverlay />
                     <ModalContent>
                         <ModalCloseButton />
-                        <Signup />
+                        <Signup onClose={onClose} />
                     </ModalContent>
                 </Modal>
 
