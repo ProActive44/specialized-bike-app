@@ -15,7 +15,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <Box
-      maxW={"1366px"}
+      maxW={"100%"}
       bg={"rgb(28,28,28)"}
       px={"40px"}
       pt={"40px"}

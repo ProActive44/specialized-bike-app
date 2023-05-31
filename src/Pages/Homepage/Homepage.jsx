@@ -18,7 +18,7 @@ const Homepage = () => {
   // console.log(state);
 
   return (
-    <Box color="white" maxW={"1366px"}>
+    <Box color="white" maxW={"100%"}>
 
       <Slider />
       <AboutDiv />

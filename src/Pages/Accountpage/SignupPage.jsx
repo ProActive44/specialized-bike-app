@@ -98,7 +98,7 @@ export const Signup = ({ onClose }) => {
   };
 
   return (
-    <Box className="model_signup" maxW={"1024px"}
+    <Box className="model_signup" maxW={"100%"}
     //  w={{base:'90%', md:'100%'}} m='auto'
      >
       <Heading fontWeight="600" fontSize="32px" color={"white"}>

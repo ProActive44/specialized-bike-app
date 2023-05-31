@@ -108,7 +108,7 @@ const Slider = () => {
   return (
     <Flex
       w="full"
-      maxW={'1366px'}
+      maxW={'100%'}
       bg="#262626"
       _dark={{
         bg: "#3e3e3e",

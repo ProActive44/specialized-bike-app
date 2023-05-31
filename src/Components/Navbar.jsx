@@ -93,7 +93,7 @@ const Navbar = () => {
   return (
     <>
       <Box
-        maxW={"1366px"}
+        maxW={"100%"}
         bg={"rgb(28,28,28)"}
         // m={"auto"}
         h={["55px", "55px", "65px", "65px", "65px", "65px"]}
@@ -330,14 +330,14 @@ const Navbar = () => {
         zIndex={200}
         top={["55px", "55px", "65px", "65px", "65px", "65px"]}
         bg="white"
-        maxW={"1366px"}
+        maxW={"100%"}
         h={"0.6px"}
         mx={["10px", "20px", "30px", "40px"]}
       ></Box>
 
       {/* navBelow */}
       <Box
-        maxW={"1366px"}
+        maxW={"100%"}
         h={["35px", "40px", "45px"]}
         position={"sticky"}
         top={["56px", "56px", "66px", "66px", "66px", "66px"]}
