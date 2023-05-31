@@ -4,6 +4,12 @@ import {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -20,22 +26,31 @@ import {
   Flex,
   Avatar,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { logOutUser } from "../Redux/action";
 
-const MenuBtn = ({ cartNumber, currUser }) => {
+const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLogoutAlertOpen, setIsLogoutAlertOpen] = useState(false);
   const btnRef = useRef();
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  console.log("currUser", currUser)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleLogout = ()=>{
-     onClose()
-     dispatch(logOutUser)
-  }
+  const handleLogout = () => {
+    setIsLogoutAlertOpen(true);
+  };
+
+  const cancelLogout = () => {
+    setIsLogoutAlertOpen(false);
+  };
+
+  const confirmLogout = () => {
+    setIsLogoutAlertOpen(false);
+    onClose();
+    dispatch(logOutUser);
+  };
 
   return (
     <Menu border="1px solid red">
@@ -46,7 +61,7 @@ const MenuBtn = ({ cartNumber, currUser }) => {
         variant="outline"
         colorScheme="black"
         color={"white"}
-        size={["sm", "sm", "md", "lg","xl", "2xl"]}
+        size={["sm", "sm", "md", "lg", "xl", "2xl"]}
         ref={btnRef}
         onClick={onOpen}
       />
@@ -76,43 +91,150 @@ const MenuBtn = ({ cartNumber, currUser }) => {
                         )}
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel  textAlign='left' p={'0'}>
+                    <AccordionPanel textAlign="left" p={"0"}>
                       {Object.keys(currUser).length === 0 ? (
-                          <Box py={'20px'}>
-                            <Button  w="100%" borderRadius={'10'} variant='outline' colorScheme='facebook' onClick={()=>{navigate("/login"); onClose()}}>SIGN IN</Button><br/>
-                            {/* <Button leftIcon={<PhoneIcon />} w="100%" borderRadius={'0'} colorScheme='facebook'>9764584028</Button> */}
-                            <Button  w="100%" borderRadius={'10'} variant='outline' colorScheme='facebook' onClick={()=>{navigate("/signup"); onClose()}}>SIGN UP</Button><br/>
+                        <Box py={"20px"}>
+                          <Button
+                            w="100%"
+                            borderRadius={"10"}
+                            variant="outline"
+                            colorScheme="facebook"
+                            onClick={() => {
+                              navigate("/login");
+                              onClose();
+                            }}
+                          >
+                            SIGN IN
+                          </Button>
+                          <br />
+                          {/* <Button leftIcon={<PhoneIcon />} w="100%" borderRadius={'0'} colorScheme='facebook'>9764584028</Button> */}
+                          <Button
+                            w="100%"
+                            borderRadius={"10"}
+                            variant="outline"
+                            colorScheme="facebook"
+                            onClick={() => {
+                              navigate("/login");
+                              onClose();
+                            }}
+                          >
+                            SIGN UP
+                          </Button>
+                          <br />
                         </Box>
-                      ): (
-                        <Box py={'20px'}>
-                          <Button leftIcon={<Avatar size={'xs'} bg='blue.600' />} w="100%" borderRadius={'10px 10px 0 0'} variant='outline' colorScheme='facebook'>{currUser.firstName+" "+currUser.lastName}</Button><br/>
-                          <Button leftIcon={<PhoneIcon />} w="100%" borderRadius={'0'} colorScheme='facebook'>{currUser.contact}</Button>
-                          <Button leftIcon={<EmailIcon />}  w="100%" borderRadius={'0'} variant='outline' colorScheme='facebook'>{currUser.email}</Button><br/>
-                          <Button w="100%" colorScheme='red' borderRadius={'10'} my={'10px'} onClick={handleLogout}>LOGOUT</Button>
+                      ) : (
+                        <Box py={"20px"}>
+                          <Button
+                            leftIcon={<Avatar size={"xs"} bg="blue.600" />}
+                            w="100%"
+                            borderRadius={"10px 10px 0 0"}
+                            variant="outline"
+                            colorScheme="facebook"
+                          >
+                            {currUser.firstName + " " + currUser.lastName}
+                          </Button>
+                          <br />
+                          <Button
+                            leftIcon={<PhoneIcon />}
+                            w="100%"
+                            borderRadius={"0"}
+                            colorScheme="facebook"
+                          >
+                            {currUser.contact}
+                          </Button>
+                          <Button
+                            leftIcon={<EmailIcon />}
+                            w="100%"
+                            borderRadius={"0"}
+                            variant="outline"
+                            colorScheme="facebook"
+                          >
+                            {currUser.email}
+                          </Button>
+                          <br />
+                          <Button
+                            w="100%"
+                            colorScheme="red"
+                            borderRadius={"10"}
+                            my={"10px"}
+                            onClick={handleLogout}
+                          >
+                            LOGOUT
+                          </Button>
                         </Box>
                       )}
-                        
                     </AccordionPanel>
                   </>
                 )}
               </AccordionItem>
-              <AccordionItem _hover= {{ backgroundColor: "blue.600",borderRadius: '10px', color:'black' }}>
-                <Button variant={'unstyled'} w={'100%'}>Cart<span>  ({cartNumber > 0 && <span>{cartNumber}</span>})</span></Button>
+              <AccordionItem
+                _hover={{
+                  backgroundColor: "blue.600",
+                  borderRadius: "10px",
+                  color: "black",
+                }}
+              >
+                <Button variant={"unstyled"} w={"100%"}>
+                  Cart<span> ({cartNumber > 0 && <span>{cartNumber}</span>})</span>
+                </Button>
               </AccordionItem>
-              <AccordionItem _hover= {{ backgroundColor: "blue.600",borderRadius: '10px', color:'black' }}>
-                <Button variant={'unstyled'} w={'100%'}>Wishlist</Button>
+              <AccordionItem
+                _hover={{
+                  backgroundColor: "blue.600",
+                  borderRadius: "10px",
+                  color: "black",
+                }}
+              >
+                <Button variant={"unstyled"} w={"100%"}>
+                  Wishlist<span> ({wishNumber > 0 && <span>{wishNumber}</span>})</span>
+                </Button>
               </AccordionItem>
-            </Accordion >
-         <Flex direction={'column'} my={'20px'}>
-            <Button colorScheme='facebook' variant='ghost'>MOUNTAIN</Button>
-            <Button colorScheme='facebook' variant='ghost'>ROAD</Button>
-            <Button colorScheme='facebook' variant='ghost'>ACTIVE</Button>
-            <Button colorScheme='facebook' variant='ghost'>ELECTRIC</Button>
-            <Button colorScheme='facebook' variant='ghost'>KIDS</Button>
-        </Flex>
+            </Accordion>
+            <Flex direction={"column"} my={"20px"}>
+              <Button colorScheme="facebook" variant="ghost">
+                MOUNTAIN
+              </Button>
+              <Button colorScheme="facebook" variant="ghost">
+                ROAD
+              </Button>
+              <Button colorScheme="facebook" variant="ghost">
+                ACTIVE
+              </Button>
+              <Button colorScheme="facebook" variant="ghost">
+                ELECTRIC
+              </Button>
+              <Button colorScheme="facebook" variant="ghost">
+                KIDS
+              </Button>
+            </Flex>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
+      <AlertDialog
+        isOpen={isLogoutAlertOpen}
+        leastDestructiveRef={btnRef}
+        onClose={cancelLogout}
+        size={{base:'xs', md:'md'}}
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent bg="rgb(28,28,28)">
+          <AlertDialogHeader color="white">
+            Confirm Logout
+          </AlertDialogHeader>
+          <AlertDialogBody color="white">
+            Are you sure you want to log out?
+          </AlertDialogBody>
+          <AlertDialogFooter gap={'10px'}>
+            <Button colorScheme="red" onClick={confirmLogout}>
+              Logout
+            </Button>
+            <Button ref={btnRef} onClick={cancelLogout}>
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Menu>
   );
 };
