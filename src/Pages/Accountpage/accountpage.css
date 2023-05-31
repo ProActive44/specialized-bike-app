@@ -1,15 +1,17 @@
-.main_form_div {
+/* .main_form_div {
     margin: 10px auto;
     padding: 25px;
-    width: 32%;
-    color: white;
-}
+    width: 40%;
+    box-shadow: 0 0 5px;
+} */
 
 .model_signup {
-    margin: auto;
+    margin: 10px auto;
     padding: 25px;
-    background-color: #262626;
-    color: white;
+}
+
+.model_signup :focus{
+    outline: none;
 }
 
 .hover_text_color {
@@ -51,24 +53,5 @@
 
 .create_account_btn:hover {
     font-weight: bold;
-    text-decoration: underline;
-}
-
-.model_background {
-    background-color: #262626;
-    color: #c68409;
-}
-
-.main_div_success {
-    margin: 40px auto;
-    width: 60%;
-    padding: 35px;
-    color: white;
-
-}
-
-.first_div_success {
-    display: flex;
-    justify-content: space-between;
     text-decoration: underline;
 }

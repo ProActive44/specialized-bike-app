@@ -14,6 +14,7 @@ import { addWish, postCartProduct, removeWish } from "../Redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { BsCart3 } from "react-icons/bs";
 
 const ProductCard = ({ productData}) => {
   const [imageIdx, setImageIdx] = useState(0);
@@ -50,7 +51,7 @@ const ProductCard = ({ productData}) => {
     if(existProd){
       toastIdRef.current = toast({ description: 'Product Already Present in cart' })
     }else{
-      dispatch(postCartProduct(productData, ))
+      dispatch(postCartProduct(productData))
       toast({
         title: 'Item added to Cart',
         status: 'success',
@@ -60,7 +61,7 @@ const ProductCard = ({ productData}) => {
   }
 
   const handleAddToWishlist = () => {
-    dispatch(addWish(currproduct));
+    dispatch(addWish(productData));
     toast({
       title: 'Added To WishList',
       status: 'success',
@@ -70,7 +71,7 @@ const ProductCard = ({ productData}) => {
   };
 
   const handleRemoveFromWishlist = () => {
-    dispatch(removeWish(currproduct.id));
+    dispatch(removeWish(productData.id));
     toast({
       title: 'Removed From WishList',
       status: 'warning',
@@ -135,32 +136,35 @@ const ProductCard = ({ productData}) => {
         <Text>€{productData.price}</Text>
       </Box>
       <Flex m={"5px"} justify={"space-between"} align={"center"}>
-        <Box>
-          <IconButton
-            aria-label="Search database"
-            icon={
-              wish === true ? (
-                <FaHeart size={"30px"} color="red" />
-              ) : (
-                <FaRegHeart size={"30px"} color="red" />
-              )
-            }
-            variant="outline"
-            p={""}
-            onClick={() => {
-              if (wish) {
-                handleRemoveFromWishlist();
-              } else {
-                handleAddToWishlist();
-              }
-              setWish((prev) => !prev);
-            }}
-          />
-          {/* <FaRegHeart size={'30px'} /> */}
-        </Box>
-        <Button variant="outline" colorScheme="orange" onClick={handleAddToCart}>
+      <Box>
+                <IconButton
+                  aria-label="Search database"
+                  border=""
+                  icon={
+                    wish ? (
+                      <FaHeart size={"30px"} color="red" />
+                    ) : (
+                      <FaRegHeart size={"30px"} color="red" />
+                    )
+                  }
+                  // variant="outline"
+                  p={""}
+                  bg={"#f3f0f3"}
+                  _hover={{ bg: "#f3f0f3" }}
+                  onClick={() => {
+                    if (wish) {
+                      handleRemoveFromWishlist();
+                    } else {
+                      handleAddToWishlist();
+                    }
+                    setWish((prev) => !prev);
+                  }}
+                />
+              </Box>
+        {/* <Button variant="outline" colorScheme="orange" onClick={handleAddToCart}>
           Add to cart
-        </Button>
+        </Button> */}
+        <Button colorScheme="red" size={{base:'sm', md:'md'}}><Text onClick={handleAddToCart} fontSize={{base:'sm'}}>ADD TO CART</Text></Button>
       </Flex>
     </Box>
   );

@@ -18,8 +18,15 @@ import {
   useDisclosure,
   Avatar,
   MenuDivider,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../Images/Mainlogo.png";
 import { ChevronDownIcon, EmailIcon, PhoneIcon, Search2Icon } from "@chakra-ui/icons";
 import wishIcon from "../Images/Wishlist icon.png";
@@ -47,7 +54,36 @@ const Navbar = () => {
   // console.log("curruser", currUser);
   const number = cartReducer.cartProducts.length;
   const wishNumber = wishReducer.WishProducts.length;
-  console.log(wishNumber);
+  // console.log(wishNumber);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLogoutAlertOpen, setIsLogoutAlertOpen] = useState(false);
+  const btnRef = useRef();
+
+  const handleLogout = () => {
+    setIsLogoutAlertOpen(true);
+  };
+
+  const cancelLogout = () => {
+    setIsLogoutAlertOpen(false);
+  };
+
+  const toast = useToast()
+  const toastIdRef = useRef()
+
+  const confirmLogout = () => {
+    setIsLogoutAlertOpen(false);
+    onClose();
+    dispatch(logOutUser);
+    toast({
+      title: 'LOGOUT SUCCESSFULL',
+      status: 'success',
+      position: 'top-left',
+      isClosable: true,
+    })
+  };
+
+ 
   
 
   useEffect(() => {
@@ -70,7 +106,7 @@ const Navbar = () => {
           {/* Hidden menu */}
           <Box position="relative" ml={"10px"}>
             <Show below="lg">
-              <MenuBtn cartNumber={number} currUser={currUser} />
+              <MenuBtn cartNumber={number} currUser={currUser} wishNumber={wishNumber}/>
             </Show>
           </Box>
           {/* <Spacer /> */}
@@ -221,19 +257,20 @@ const Navbar = () => {
                         </MenuButton>
                         <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'}  boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
                           {Object.keys(currUser).length === 0 ? (<>
-                            <MenuItem bg={'yellow.500'} borderRadius={'5px'}>You are not logged in</MenuItem> <MenuDivider />
+                            <MenuItem bg={'yellow.500'} borderRadius={'5px'} color={'black'}>YOU ARE NOT LOGGED IN</MenuItem> <MenuDivider />
                             <MenuItem  bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
                               <Link to="/login">
-                               <Text w='100%'  px={'60px'} >SIGN IN </Text>
+                               <Text w='100%'  px={'20px'} >SIGN IN / SIGN UP</Text>
                               </Link>
                               </MenuItem >
                               {/* <br /> */}
-                              <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                              {/* <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
                              <Link to="/signup">
                                 <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
                               </Link>
                               <br />
-                            </MenuItem> </>
+                            </MenuItem> */}
+                            </>
                           ) : (
                             <Box   borderRadius={'10px'} maxW='300px'>
                               <Text py={'5px'}>ACCOUNT</Text> <MenuDivider />
@@ -270,7 +307,7 @@ const Navbar = () => {
                                 colorScheme="red"
                                 borderRadius={"10"}
                                 mt={"10px"}
-                                onClick={()=>{dispatch(logOutUser); navigate("/")}}
+                                onClick={()=>{handleLogout(); navigate("/")}}
                               >
                                 LOGOUT
                               </Button>
@@ -329,6 +366,31 @@ const Navbar = () => {
           </Link>
         </HStack>
       </Box>
+      {/* Logout Alert */}
+      <AlertDialog
+        isOpen={isLogoutAlertOpen}
+        leastDestructiveRef={btnRef}
+        onClose={cancelLogout}
+        size={{base:'xs', md:'md'}}
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent bg="rgb(28,28,28)">
+          <AlertDialogHeader color="white">
+            Confirm Logout
+          </AlertDialogHeader>
+          <AlertDialogBody color="white">
+            Are you sure you want to log out?
+          </AlertDialogBody>
+          <AlertDialogFooter gap={'10px'}>
+            <Button colorScheme="red" onClick={confirmLogout}>
+              Logout
+            </Button>
+            <Button ref={btnRef} onClick={cancelLogout}>
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
