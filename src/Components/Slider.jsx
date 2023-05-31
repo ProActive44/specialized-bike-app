@@ -53,7 +53,7 @@ const Slider = () => {
     },
     {
       img: bicycle3,
-      label: "ALLEZSPRINT",
+      label: "SYMACTIVE",
       miniDesc: " bound to go fast -- there is no other choice ⚡🥇",
       description:
         "Some say XC racing is too serious. @simon_andreassen would beg to differ.",
@@ -73,12 +73,12 @@ const Slider = () => {
   const navigate = useNavigate()
 
   const prevSlide = () => {
-
+   
     setCurrentSlide((s) => (s === 0 ? slidesCount - 1 : s - 1));
   };
 
   const nextSlide = () => {
-
+    
     setCurrentSlide((s) => (s === slidesCount - 1 ? 0 : s + 1));
   };
 
@@ -113,11 +113,12 @@ const Slider = () => {
       _dark={{
         bg: "#3e3e3e",
       }}
-      p={{ base: 5, md: 10 }}
+      p={ {base: 5, md: 10} }
+      mt={"-20px"}
       alignItems="center"
       justifyContent="center"
-
-    // border={'1px solid red'}
+      
+      // border={'1px solid red'}
     >
       <Flex
         w="full"
@@ -138,9 +139,8 @@ const Slider = () => {
               bg={`url(${bgImage1}) no-repeat center`}
               bgSize="cover"
               backgroundColor="transparent"
-              // p="10px"
               position="relative"
-            // border="1px solid green"
+              // border="1px solid green"
             >
               <Flex
                 direction={{ base: "column", xl: "row" }}
@@ -149,8 +149,8 @@ const Slider = () => {
                 flexWrap="wrap"
               >
                 <Box
-                  w={{ base: "100%", md: "50%" }}
-                  h={{ base: "auto", md: "100%" }}
+                 w={{ base: "100%", md: "50%" }}
+                 h={{ base: "auto", md: "100%" }}
                   // border="1px solid red"
                   position="relative"
                 >
@@ -163,7 +163,9 @@ const Slider = () => {
                   >
                     {sid + 1} / {slidesCount}
                   </Text>
-                  <Box px={"10px"} pt="14px" >
+                  <Box px={"10px"} pt="14px"
+                   p={sid===2? {base:null, md:"20px"}: null}
+                   >
                     <Image src={slide.img} alt="carousel image" />
                   </Box>
                 </Box>
@@ -172,27 +174,27 @@ const Slider = () => {
                   mt={{ base: "20px", md: "0" }}
                   // border={'1px solid red'}
                   position={{ base: "absolute", md: "static" }}
-                  top={{ base: "60%", md: "auto" }}
-                  left={{ base: "50%", md: "auto" }}
-                  transform={{ base: "translate(-50%, -50%)", md: "none" }}
+                    top={{ base: "60%", md: "auto" }}
+                    left={{ base: "50%", md: "auto" }}
+                    transform={{ base: "translate(-50%, -50%)", md: "none" }}
                 >
                   <Stack
                     textAlign="left"
                     w="90%"
-                    h={{ base: "95%", sm: "95%", md: "90%" }}
+                    h={{ base: "95%",sm:"95%", md: "90%" }}
                     m={{ base: "0 auto", md: "0 auto" }}
-                    mt={{ base: '5px', sm: '10px', md: '20px', xl: '30px' }}
-                  // mb="8" 
-
-                  // border={'1px solid green'}
+                    mt={{base:'5px', sm:'10px', md:'20px', xl:'30px'}}
+                    // mb="8" 
+                    
+                    // border={'1px solid green'}
                   >
-                    <Text fontSize={{ base: "xs", sm: 'sm', md: 'md', xl: "xl" }} letterSpacing={{ base: '0.1em', md: "0.2em" }} color={{ base: "yellow", md: 'red.500' }}>
+                    <Text fontSize={{ base: "xs",sm:'sm',md:'md', xl:"xl" }} letterSpacing={{base:'0.1em',md:"0.2em"}} color={{base:"yellow",md:'red.500'}}>
                       {slide.miniDesc}
                     </Text>
-                    <Heading fontSize={{ base: "xl", sm: 'xl', md: '2xl', xl: "6xl" }} fontFamily={"cursive"}>
+                    <Heading fontSize={{ base: "xl",sm:'xl',md:'2xl', xl: "6xl" }} fontFamily={"cursive"}>
                       {slide.label}
                     </Heading>
-                    <Text as="span" fontWeight="2xl" fontSize={{ base: "sm", sm: 'md', md: "xl" }} py={{ base: "10px", sm: '20px', md: "30px" }}>
+                    <Text as="span" fontWeight="2xl" fontSize={{ base: "sm",sm:'md', md: "xl" }} py={{ base: "10px",sm:'20px', md: "30px" }}>
                       {slide.description}
                     </Text>
                     <Button
@@ -201,13 +203,13 @@ const Slider = () => {
                         sid === 0
                           ? "red"
                           : sid === 1
-                            ? "blue"
-                            : sid === 2
-                              ? "yellow"
-                              : "gray"
+                          ? "blue"
+                          : sid === 2
+                          ? "yellow"
+                          : "gray"
                       }
                       w={{ base: "90px", md: "120px" }}
-                      onClick={() => navigate("/productPage")}
+                      onClick={()=>navigate("/productPage")}
                     >
                       Shop Now
                     </Button>

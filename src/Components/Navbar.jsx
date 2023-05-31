@@ -28,26 +28,31 @@ import accountIcon from "../Images/AccountIcon.png";
 import "./Navbar.css";
 import MenuBtn from "./MenuBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartProducts, logOutUser } from "../Redux/action";
+import { getCartProducts, getWishList, logOutUser } from "../Redux/action";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  // const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch();
   const cartReducer = useSelector((store) => {
     return store.cartReducer;
   });
+  const wishReducer = useSelector((store)=>{
+    return store.wishReducer;
+  })
   const currUser = useSelector((store) => {
     return store.accountReducer.currUser;
   });
-  console.log("curruser", currUser);
+  // console.log("curruser", currUser);
   const number = cartReducer.cartProducts.length;
-  // console.log(cartReducer);
-
+  const wishNumber = wishReducer.WishProducts.length;
+  console.log(wishNumber);
+  
 
   useEffect(() => {
     dispatch(getCartProducts);
+    dispatch(getWishList);
   }, []);
   return (
     <>
@@ -59,7 +64,7 @@ const Navbar = () => {
         position={"sticky"}
         top={0}
         zIndex={"1000"}
-      // border={'1px solid red'}
+        // border={'1px solid red'}
       >
         <Flex align={"center"} mx={"20px"}>
           {/* Hidden menu */}
@@ -163,7 +168,17 @@ const Navbar = () => {
           <Hide below="lg">
             <Box mr={"20px"}>
               <HStack spacing={"10px"}>
-                <Link to='wishlist'>
+                <Link to='/wishlist'>
+                <Text
+                    position={"absolute"}
+                    ml={"33px"}
+                    color={"white"}
+                    bg={"red.500"}
+                    borderRadius={"15px"}
+                    px={"3px"}
+                  >
+                    {wishNumber > 0 && <span>{wishNumber}</span>}
+                  </Text>
                   <Image
                     src={wishIcon}
                     alt="wishIcon"
@@ -171,12 +186,12 @@ const Navbar = () => {
                     w={"40px"}
                   />
                 </Link>
-                <Link>
+                <Link to='/cart'>
                   <Text
                     position={"absolute"}
                     ml={"75px"}
                     color={"white"}
-                    bg={"red.500"}
+                    bg={"yellow.500"}
                     borderRadius={"15px"}
                     px={"3px"}
                   >
@@ -204,23 +219,23 @@ const Navbar = () => {
                             pt={'8px'}
                           />
                         </MenuButton>
-                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'} boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
+                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'}  boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
                           {Object.keys(currUser).length === 0 ? (<>
                             <MenuItem bg={'yellow.500'} borderRadius={'5px'}>You are not logged in</MenuItem> <MenuDivider />
-                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
+                            <MenuItem  bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
                               <Link to="/login">
-                                <Text w='100%' px={'60px'} >SIGN IN </Text>
+                               <Text w='100%'  px={'60px'} >SIGN IN </Text>
                               </Link>
-                            </MenuItem >
-                            {/* <br /> */}
-                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
-                              <Link to="/signup">
-                                <Text w='100%' _hover={{ bg: "red" }} px={'60px'} >SIGN UP </Text>
+                              </MenuItem >
+                              {/* <br /> */}
+                              <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                             <Link to="/signup">
+                                <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
                               </Link>
                               <br />
                             </MenuItem> </>
                           ) : (
-                            <Box borderRadius={'10px'} >
+                            <Box   borderRadius={'10px'} maxW='300px'>
                               <Text py={'5px'}>ACCOUNT</Text> <MenuDivider />
                               <Button
                                 leftIcon={<Avatar size={"xs"} bg="blue.600" />}
@@ -255,7 +270,7 @@ const Navbar = () => {
                                 colorScheme="red"
                                 borderRadius={"10"}
                                 mt={"10px"}
-                                onClick={() => { dispatch(logOutUser); navigate("/") }}
+                                onClick={()=>{dispatch(logOutUser); navigate("/")}}
                               >
                                 LOGOUT
                               </Button>

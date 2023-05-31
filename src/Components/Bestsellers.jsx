@@ -5,10 +5,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const getData = (setData)=>{
+const getData = (setData, setLoading)=>{
     axios.get(`https://specialized-bike-json-server.onrender.com/products?_page=2&_limit=3`)
-    .then((res)=>setData(res.data))
+    .then((res)=>{setData(res.data);setLoading(false)})
     .catch((err)=>console.log(err))
 }
 
@@ -16,15 +17,20 @@ const getData = (setData)=>{
 const Bestsellers = () => {
 
   const [data, setData] = useState([])
-//   console.log(data)
+  const [isLoading, setLoading] = useState(false)
   const navigate = useNavigate()
     
     useEffect(()=>{
-        getData(setData)
+        setLoading(true)
+        getData(setData, setLoading)
     } ,[])
 
     return (
         <Box textAlign={'left'} mx={{base:'30px',sm:'100px',md:'50px'}} my={'40px'} >
+            {
+                isLoading ? <Heading>Loading...</Heading> :
+            
+            <>
             <Box my={'20px'}><Heading>CHOOSE OUR BEST SELLERS</Heading></Box>
             <Box my={'20px'}>
                 <Flex gap={{base:'10px',md:'20px'}} direction={{base:'column', md:'row'}}>
@@ -38,6 +44,8 @@ const Bestsellers = () => {
             <Box>
                 <Button variant={'outline'} colorScheme='yellow' onClick={()=>navigate("/productPage")}> CATALOGUE </Button>
             </Box>
+            </>
+}
         </Box>
     );
 };

@@ -30,7 +30,7 @@ const MenuBtn = ({ cartNumber, currUser }) => {
   const btnRef = useRef();
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log("currUser", currUser)
+  
 
   const handleLogout = ()=>{
      onClose()

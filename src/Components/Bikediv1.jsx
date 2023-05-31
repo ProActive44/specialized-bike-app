@@ -4,7 +4,7 @@ import BikeImage2 from "../Images/BikeImage2.png";
 import { useNavigate } from "react-router-dom";
 
 const Bikediv1 = () => {
-
+  
   const navigate = useNavigate()
 
   return (
@@ -32,7 +32,7 @@ const Bikediv1 = () => {
           >
             It's not just a new bike, it's you, only faster
           </Text>
-          <Button variant={"outline"} colorScheme="yellow" onClick={() => navigate("/productPage")}>
+          <Button variant={"outline"} colorScheme="yellow" onClick={()=>navigate("/productPage")}>
             CATALOGUE
           </Button>
         </Box>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  ADD_TO_WISHLIST,
   DELETE_CART_PRODUCT,
   GET_CART_FAILURE,
   GET_CART_REQUEST,
@@ -9,9 +10,13 @@ import {
   GET_PRODUCT_REQUEST,
   GET_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_SUCCESS,
+  GET_WISHLIST_FAILURE,
+  GET_WISHLIST_REQUEST,
+  GET_WISHLIST_SUCCESS,
   LOG_OUT_USER,
   POST_CART_PRODUCT,
   POST_NEW_USER,
+  REMOVE_FROM_WISHLIST,
 } from "./actionTypes";
 
 // Product page actionObj  ------------------------------------------------------
@@ -114,7 +119,7 @@ export const postCartProduct = (newProduct) => (dispatch) => {
 
 export const deleteCartProduct = (id) => (dispatch) => {
   axios
-    .delete(`https://specialized-bike-json-server.onrender.com/cart${id}`)
+    .delete(`https://specialized-bike-json-server.onrender.com/cart/${id}`)
     .then((res) => dispatch(deleteCartDataAction(res.data)));
 };
 
@@ -154,3 +159,59 @@ export const logOutUser = (dispatch)=>{
 }
 
 // --------------------------------------------------------------------------------------------
+
+
+
+// Wishlist page actionObj --------------------------------------------------------------------
+
+const getWishRequestAction = ()=>{
+  return {
+    type : GET_WISHLIST_REQUEST
+  }
+}
+const getWishSuccessAction = (payload)=>{
+  return {
+    type : GET_WISHLIST_SUCCESS,
+    payload
+  }
+}
+const getWishFailureAction = ()=>{
+  return {
+    type : GET_WISHLIST_FAILURE
+  }
+}
+const addWishAction = (payload)=>{
+  return {
+    type : ADD_TO_WISHLIST,
+    payload
+  }
+}
+const removeWishAction = (payload)=>{
+   return {
+    type : REMOVE_FROM_WISHLIST,
+    payload
+   }
+}
+
+// wishlist page dispatch function
+export const getWishList = (dispatch)=>{
+  dispatch(getWishRequestAction());
+  axios.get(`https://specialized-bike-json-server.onrender.com/wishList`)
+  .then((res)=>dispatch(getWishSuccessAction(res.data)))
+  .catch(()=>dispatch(getWishFailureAction()))
+}
+
+
+export const removeWish = (id)=> (dispatch)=>{
+  dispatch(getWishRequestAction());
+  axios.delete(`https://specialized-bike-json-server.onrender.com/wishList/${id}`)  
+  .then((res)=>dispatch(removeWishAction(id)))
+  .catch(()=>dispatch(getWishFailureAction()))
+}
+
+export const addWish = (newWish)=>(dispatch)=>{
+  dispatch(getWishRequestAction());
+  axios.post(`https://specialized-bike-json-server.onrender.com/wishList`, newWish)
+  .then((res)=>dispatch(addWishAction(res.data)))
+}
+
