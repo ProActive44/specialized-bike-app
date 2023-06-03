@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logOutUser } from "../Redux/action";
 
 const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
@@ -51,6 +51,11 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
     onClose();
     dispatch(logOutUser);
   };
+
+  const handleGoToProducts = ()=>{
+    navigate("/productPage");
+    onClose();
+  }
 
   return (
     <Menu border="1px solid red">
@@ -173,10 +178,11 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   borderRadius: "10px",
                   color: "black",
                 }}
-              >
+              > <Link to='/cart'>
                 <Button variant={"unstyled"} w={"100%"}>
                   Cart<span> ({cartNumber > 0 && <span>{cartNumber}</span>})</span>
                 </Button>
+                </Link>
               </AccordionItem>
               <AccordionItem
                 _hover={{
@@ -184,26 +190,27 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   borderRadius: "10px",
                   color: "black",
                 }}
-              >
+              >  <Link to="/wishlist">
                 <Button variant={"unstyled"} w={"100%"}>
                   Wishlist<span> ({wishNumber > 0 && <span>{wishNumber}</span>})</span>
                 </Button>
+                </Link>
               </AccordionItem>
             </Accordion>
             <Flex direction={"column"} my={"20px"}>
-              <Button colorScheme="facebook" variant="ghost">
+              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
                 MOUNTAIN
               </Button>
-              <Button colorScheme="facebook" variant="ghost">
+              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
                 ROAD
               </Button>
-              <Button colorScheme="facebook" variant="ghost">
+              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
                 ACTIVE
               </Button>
-              <Button colorScheme="facebook" variant="ghost">
+              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
                 ELECTRIC
               </Button>
-              <Button colorScheme="facebook" variant="ghost">
+              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
                 KIDS
               </Button>
             </Flex>

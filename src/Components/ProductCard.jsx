@@ -127,10 +127,10 @@ const ProductCard = ({ productData}) => {
           <Flex gap={"5px"}>
             <Text as="del" color={"grey"}>
               €{Math.floor(
-                productData.price + productData.price / discount
+                productData.price + productData.price / 100 * discount
               )}
             </Text>
-            <Text color={"red"}>{discount}%off</Text>{" "}
+            <Text color={"red"}>{discount}%off</Text>
           </Flex>
         )}
         <Text>€{productData.price}</Text>
