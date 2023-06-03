@@ -25,86 +25,86 @@ export default function ProductPage() {
 
   return (
     <Box my={"50px"}>
-    {
-      data.length === 0 ? <Heading color={'white'} fontSize={'9xl'}>Loading</Heading> :
+      {
+        data.length === 0 ? <Heading color={'white'} fontSize={'9xl'}>Loading</Heading> :
 
-      <Box> 
-        <Breadcrumbs w='80%' m='auto'/>
-    <Box display={'flex'} >
-      <Box w='20%' gridTemplateRows={'repeat(2, 1fr)'} color={'white'} fontSize={'34px'} marginTop={'1.5em'} fontWeight={'600'}>
-        MOUNTAIN
-        <Box fontSize={'22px'} marginTop={'1.5em'} >Filters</Box>
-        <Box mt={5}>
-          <Accordion allowMultiple>
-            <AccordionItem borderColor={'grey'} borderTop={'none'}>
-              {({ isExpanded }) => (
-                <>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex='1' textAlign='center'>
-                        CATEGORY                      </Box>
-                      {isExpanded ? (
-                        <MinusIcon fontSize='12px' />
-                      ) : (
-                        <AddIcon fontSize='12px' />
+          <Box>
+            <Breadcrumbs w='80%' m='auto' />
+            <Box display={'flex'} >
+              <Box w='20%' gridTemplateRows={'repeat(2, 1fr)'} color={'white'} fontSize={'34px'} marginTop={'1.5em'} fontWeight={'600'}>
+                MOUNTAIN
+                <Box fontSize={'22px'} marginTop={'1.5em'} >Filters</Box>
+                <Box mt={5}>
+                  <Accordion allowMultiple>
+                    <AccordionItem borderColor={'grey'} borderTop={'none'}>
+                      {({ isExpanded }) => (
+                        <>
+                          <h2>
+                            <AccordionButton>
+                              <Box as="span" flex='1' textAlign='center'>
+                                CATEGORY                      </Box>
+                              {isExpanded ? (
+                                <MinusIcon fontSize='12px' />
+                              ) : (
+                                <AddIcon fontSize='12px' />
+                              )}
+                            </AccordionButton>
+                          </h2>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            Mountain
+                          </AccordionPanel>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            Road
+                          </AccordionPanel>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            Active
+                          </AccordionPanel>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            Electric
+                          </AccordionPanel><AccordionPanel fontSize='12px'>
+                            Kids
+                          </AccordionPanel>
+                        </>
                       )}
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    Mountain
-                  </AccordionPanel>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    Road
-                  </AccordionPanel>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    Active
-                  </AccordionPanel>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    Electric
-                  </AccordionPanel><AccordionPanel fontSize='12px'>
-                    Kids
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-            <AccordionItem borderColor={'grey'} >
-              {({ isExpanded }) => (
-                <>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex='1' textAlign='center'>
-                        PRICE                      </Box>
-                      {isExpanded ? (
-                        <MinusIcon fontSize='12px' />
-                      ) : (
-                        <AddIcon fontSize='12px' />
+                    </AccordionItem>
+                    <AccordionItem borderColor={'grey'} >
+                      {({ isExpanded }) => (
+                        <>
+                          <h2>
+                            <AccordionButton>
+                              <Box as="span" flex='1' textAlign='center'>
+                                PRICE                      </Box>
+                              {isExpanded ? (
+                                <MinusIcon fontSize='12px' />
+                              ) : (
+                                <AddIcon fontSize='12px' />
+                              )}
+                            </AccordionButton>
+                          </h2>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            Low to High
+                          </AccordionPanel>
+                          <AccordionPanel fontSize='12px' pb={2}>
+                            High to Low
+                          </AccordionPanel>
+                        </>
                       )}
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    Low to High
-                  </AccordionPanel>
-                  <AccordionPanel fontSize='12px' pb={2}>
-                    High to Low
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-          </Accordion>
-        </Box>
+                    </AccordionItem>
+                  </Accordion>
+                </Box>
 
-      </Box>
-      <Box w='75%' m='auto' display={'grid'} gridTemplateColumns={'repeat(3, 1fr)'} gap='20px' paddingTop={'2em'}>
-        {
-          data?.map((prod) => {
-            return <ProductCard productData={prod} key={prod.id} discount={prod.id}/>
-          })
-        }
-      </Box>
+              </Box>
+              <Box w='75%' m='auto' display={'grid'} gridTemplateColumns={'repeat(3, 1fr)'} gap='20px' paddingTop={'2em'}>
+                {
+                  data?.map((prod) => {
+                    return <ProductCard productData={prod} key={prod.id} discount={prod.id} />
+                  })
+                }
+              </Box>
+            </Box>
+          </Box>
+      }
     </Box>
-    </Box>
-  }
-</Box>
 
   )
 }

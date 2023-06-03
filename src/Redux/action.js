@@ -36,7 +36,7 @@ const getProductsFailureAction = (payload) => {
     type: GET_PRODUCT_FAILURE,
   };
 };
-const getSingleProductAction = (payload)=>{
+const getSingleProductAction = (payload) => {
   return {
     type: GET_SINGLE_PRODUCT_SUCCESS,
     payload
@@ -44,7 +44,7 @@ const getSingleProductAction = (payload)=>{
 }
 
 // Products page dispatch functions
-export const getProducts =(page)=> (dispatch) => {
+export const getProducts = (page) => (dispatch) => {
   dispatch(getProductsRequestAction());
   axios
     .get(`https://specialized-bike-json-server.onrender.com/products?_page=${page}&_limit=9`)
@@ -56,15 +56,15 @@ export const getSingleProduct = (id) => (dispatch) => {
   dispatch(getProductsRequestAction());
   axios
     .get(`https://specialized-bike-json-server.onrender.com/products/${id}`)
-    .then((res)=>dispatch(getSingleProductAction(res.data)))
+    .then((res) => dispatch(getSingleProductAction(res.data)))
     .catch(() => dispatch(getProductsFailureAction()));
 };
 
-export const filteredProduct = (category)=>(dispatch)=>{
+export const filteredProduct = (category) => (dispatch) => {
   dispatch(getProductsRequestAction());
   axios.get(`https://specialized-bike-json-server.onrender.com/products?category=${category}`)
-  .then((res)=>dispatch(getProductsSuccessAction(res.data)))
-  .catch((err)=>dispatch(getProductsFailureAction()))
+    .then((res) => dispatch(getProductsSuccessAction(res.data)))
+    .catch((err) => dispatch(getProductsFailureAction()))
 }
 
 // -------------------------------------------------------------------------------------- //
@@ -139,7 +139,7 @@ const loginUserAction = (payload) => {
     payload,
   };
 };
-const logOutUserAction = ()=>{
+const logOutUserAction = () => {
   return {
     type: LOG_OUT_USER
   }
@@ -154,7 +154,7 @@ export const getCurrentUser = (currUser) => (dispatch) => {
   dispatch(loginUserAction(currUser));
 };
 
-export const logOutUser = (dispatch)=>{
+export const logOutUser = (dispatch) => {
   dispatch(logOutUserAction());
 }
 
@@ -164,54 +164,54 @@ export const logOutUser = (dispatch)=>{
 
 // Wishlist page actionObj --------------------------------------------------------------------
 
-const getWishRequestAction = ()=>{
+const getWishRequestAction = () => {
   return {
-    type : GET_WISHLIST_REQUEST
+    type: GET_WISHLIST_REQUEST
   }
 }
-const getWishSuccessAction = (payload)=>{
+const getWishSuccessAction = (payload) => {
   return {
-    type : GET_WISHLIST_SUCCESS,
+    type: GET_WISHLIST_SUCCESS,
     payload
   }
 }
-const getWishFailureAction = ()=>{
+const getWishFailureAction = () => {
   return {
-    type : GET_WISHLIST_FAILURE
+    type: GET_WISHLIST_FAILURE
   }
 }
-const addWishAction = (payload)=>{
+const addWishAction = (payload) => {
   return {
-    type : ADD_TO_WISHLIST,
+    type: ADD_TO_WISHLIST,
     payload
   }
 }
-const removeWishAction = (payload)=>{
-   return {
-    type : REMOVE_FROM_WISHLIST,
+const removeWishAction = (payload) => {
+  return {
+    type: REMOVE_FROM_WISHLIST,
     payload
-   }
+  }
 }
 
 // wishlist page dispatch function
-export const getWishList = (dispatch)=>{
+export const getWishList = (page) => (dispatch) => {
   dispatch(getWishRequestAction());
   axios.get(`https://specialized-bike-json-server.onrender.com/wishList`)
-  .then((res)=>dispatch(getWishSuccessAction(res.data)))
-  .catch(()=>dispatch(getWishFailureAction()))
+    .then((res) => dispatch(getWishSuccessAction(res.data)))
+    .catch(() => dispatch(getWishFailureAction()))
 }
 
 
-export const removeWish = (id)=> (dispatch)=>{
+export const removeWish = (id) => (dispatch) => {
   dispatch(getWishRequestAction());
-  axios.delete(`https://specialized-bike-json-server.onrender.com/wishList/${id}`)  
-  .then((res)=>dispatch(removeWishAction(id)))
-  .catch(()=>dispatch(getWishFailureAction()))
+  axios.delete(`https://specialized-bike-json-server.onrender.com/wishList/${id}`)
+    .then((res) => dispatch(removeWishAction(id)))
+    .catch(() => dispatch(getWishFailureAction()))
 }
 
-export const addWish = (newWish)=>(dispatch)=>{
+export const addWish = (newWish) => (dispatch) => {
   dispatch(getWishRequestAction());
   axios.post(`https://specialized-bike-json-server.onrender.com/wishList`, newWish)
-  .then((res)=>dispatch(addWishAction(res.data)))
+    .then((res) => dispatch(addWishAction(res.data)))
 }
 
