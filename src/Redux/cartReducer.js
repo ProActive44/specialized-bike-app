@@ -1,8 +1,10 @@
 import {
-    DELETE_CART_PRODUCT,
+  DEC_CART_QUANTITY,
+  DELETE_CART_PRODUCT,
   GET_CART_FAILURE,
   GET_CART_REQUEST,
   GET_CART_SUCCESS,
+  INC_CART_QUANTITY,
   POST_CART_PRODUCT,
 } from "./actionTypes";
 
@@ -24,18 +26,51 @@ const cartReducer = (state = initState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        cartProducts: payload,
+        cartProducts: payload
       };
 
     case GET_CART_FAILURE:
       return { ...state, isLoading: false, isError: true };
 
     case POST_CART_PRODUCT:
-        return {...state, cartProducts:[...state.cartProducts, payload]}           // update cart
-                
+      return {
+        ...state,
+        cartProducts: [...state.cartProducts, { ...payload, quantity: 1 }],
+      }; // update cart
+
     case DELETE_CART_PRODUCT:
-        const newProducts = state.cartProducts.filter((ele)=> ele.id !== payload.id)    
-        return {...state, cartProducts: newProducts}                                  // Delete from cart
+      const newProducts = state.cartProducts.filter(
+        (ele) => ele.id !== payload
+      );
+      return { ...state, cartProducts: newProducts }; // Delete from cart
+
+    case INC_CART_QUANTITY:
+      return {
+        ...state,
+        cartProducts: state.cartProducts.map((product) => {
+          if (product.id === payload && product.quantity < 10) {
+            return {
+              ...product,
+              quantity: product.quantity + 1,
+            };
+          }
+          return product;
+        }),
+      };
+
+    case DEC_CART_QUANTITY:
+      return {
+        ...state,
+        cartProducts: state.cartProducts.map((product) => {
+          if (product.id === payload && product.quantity > 1) {
+            return {
+              ...product,
+              quantity: product.quantity - 1,
+            };
+          }
+          return product;
+        }),
+      };
 
     default:
       return state;

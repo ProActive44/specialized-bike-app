@@ -9,7 +9,7 @@ const KnowmoreData = {
   image1: mainDivImage,
   image2: firstFlexImage,
   image3: secondFlexImage,
-  title1: "SPECILIZED. SINCE 1974",
+  title1: "SPECIALIZED. SINCE 1974",
   title2: "BECAUSE MOUNTAIN BIKES NEED TRAILS",
   title3: "IMPROVING THE LIVES OF YOUTH THROUGH CYCLING",
   description1:

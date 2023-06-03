@@ -20,7 +20,7 @@ export default function ProductPage() {
     const data = useSelector((state) => state.wishReducer.WishProducts);
     const dispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(getWishList(page));
+        dispatch(getWishList);
     }, [dispatch]);
 
     return (
