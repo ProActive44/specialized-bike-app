@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
             Products
           </BreadcrumbLink>
         </BreadcrumbItem>,
-        <BreadcrumbItem key="details" isCurrentPage>
+        <BreadcrumbItem key="details">
           <BreadcrumbLink color="white">Details</BreadcrumbLink>
         </BreadcrumbItem>
       );
@@ -33,8 +33,19 @@ const Breadcrumbs = () => {
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>,
-        <BreadcrumbItem key="products" isCurrentPage>
+        <BreadcrumbItem key="products">
           <BreadcrumbLink color="white">Products</BreadcrumbLink>
+        </BreadcrumbItem>
+      );
+    } else if (paths.includes("cart")) {
+      breadcrumbTrail.push(
+        <BreadcrumbItem key="home">
+          <BreadcrumbLink as={Link} to="/" color="white">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>,
+        <BreadcrumbItem key="cart" isCurrentPage>
+          <BreadcrumbLink color="white">Cart</BreadcrumbLink>
         </BreadcrumbItem>
       );
     } else {

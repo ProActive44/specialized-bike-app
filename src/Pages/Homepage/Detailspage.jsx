@@ -103,7 +103,7 @@ const Detailspage = () => {
 
   const handlequickOrder = ()=>{
     handleAddToCart();
-    // Navigate("/cartPage")
+    navigate("/cart")
   }
 
   const discount = currproduct.id;

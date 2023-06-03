@@ -21,7 +21,7 @@ const Bikediv3 = ({HeadingText, paraGraph, image}) => {
         bg={`url(${image}) no-repeat center`}
         bgPosition={"center"}
         bgSize="cover"
-        // filter="brightness(0.9) contrast(0.8) saturate(1.5)"
+        filter="brightness(1) contrast(0.8) saturate(1)"
       ></Box>
       <Box position="relative" zIndex={1}>
         <Heading my={"20px"}>

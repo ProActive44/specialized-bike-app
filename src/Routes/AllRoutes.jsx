@@ -4,6 +4,7 @@ import Homepage from "../Pages/Homepage/Homepage";
 import { Login } from "../Pages/Accountpage/LoginPage";
 import ProductPage from "../Pages/Productpage/ProductPage";
 import Detailspage from "../Pages/Homepage/Detailspage";
+import CartPage from "../Pages/Cartpage/Cartpage";
 
 const AllRoutes = () => {
   return (
@@ -12,7 +13,16 @@ const AllRoutes = () => {
       <Route path="/login" element={<Login/>} />
       <Route path="/productPage" element={<ProductPage/>}/>
       <Route path="/productPage/details/:id" element={<Detailspage/>}/>
+      <Route path="/cart" element={<CartPage/>} />
+      <Route />
       <Route path="*" element={<Homepage/>}/>
+
+      {/* Extra Routes */}{/* Not working properly */}
+      {/* <Route path="/productPage/Mountain" element={<ProductPage Mountain/>} />
+      <Route path="/productPage/Road" element={<ProductPage Road/>} />
+      <Route path="/productPage/Active" element={<ProductPage Active/>} />
+      <Route path="/productPage/Kids" element={<ProductPage Kids/>} />
+      <Route path="/productPage/Electric" element={<ProductPage />} /> */}
     </Routes>
   );
 };
