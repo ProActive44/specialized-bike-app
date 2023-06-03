@@ -5,6 +5,8 @@ import { Login } from "../Pages/Accountpage/LoginPage";
 import ProductPage from "../Pages/Productpage/ProductPage";
 import Detailspage from "../Pages/Homepage/Detailspage";
 import CartPage from "../Pages/Cartpage/Cartpage";
+import Wishlist from "../Components/Wishlist"
+
 
 const AllRoutes = () => {
   return (
@@ -14,6 +16,7 @@ const AllRoutes = () => {
       <Route path="/productPage" element={<ProductPage/>}/>
       <Route path="/productPage/details/:id" element={<Detailspage/>}/>
       <Route path="/cart" element={<CartPage/>} />
+      <Route path="/wishlist" element= {<Wishlist/> }/>
       <Route path="*" element={<Homepage/>}/>
 
       {/* Extra Routes */}{/* Not working properly */}

@@ -61,6 +61,18 @@ const Detailspage = () => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
 
+  const wishData = useSelector((store)=>{
+    return store.wishReducer.WishProducts;
+  })
+  useEffect(() => {
+    const wishProd = wishData.find((prod) => prod.id === currproduct.id);
+    if (wishProd) {
+      setWish(true);
+    } else {
+      setWish(false);
+    }
+  }, [wishData, currproduct.id]);
+
   const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
