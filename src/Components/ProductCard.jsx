@@ -16,26 +16,26 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
 
-const ProductCard = ({ productData}) => {
+const ProductCard = ({ productData }) => {
   const [imageIdx, setImageIdx] = useState(0);
   const [wish, setWish] = useState(false);
   const toast = useToast()
   const toastIdRef = useRef()
 
   const dispatch = useDispatch()
-  const cartData = useSelector((store)=>{
+  const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
   })
-  const wishData = useSelector((store)=>{
+  const wishData = useSelector((store) => {
     return store.wishReducer.WishProducts;
   })
-// console.log(wishData)
+  // console.log(wishData)
 
   const handleColorClick = (index) => {
     setImageIdx(index);
   };
 
- 
+
   useEffect(() => {
     const wishProd = wishData.find((prod) => prod.id === productData.id);
     if (wishProd) {
@@ -46,11 +46,11 @@ const ProductCard = ({ productData}) => {
   }, [wishData, productData.id]);
 
 
- const handleAddToCart = ()=>{
-    const existProd = cartData.find((prod)=>prod.id === productData.id)
-    if(existProd){
+  const handleAddToCart = () => {
+    const existProd = cartData.find((prod) => prod.id === productData.id)
+    if (existProd) {
       toastIdRef.current = toast({ description: 'Product Already Present in cart' })
-    }else{
+    } else {
       dispatch(postCartProduct(productData))
       toast({
         title: 'Item added to Cart',
@@ -88,10 +88,10 @@ const ProductCard = ({ productData}) => {
       bg={"#f3f0f3"}
       color={"black"}
       borderRadius={"20px"}
-      p="10px"   
-      textAlign="left" 
-      //   w={'250px'}
-      //   h={"300px"}
+      p="10px"
+      textAlign="left"
+    //   w={'250px'}
+    //   h={"300px"}
     >
       <Image
         w="100%"
@@ -99,8 +99,8 @@ const ProductCard = ({ productData}) => {
         borderRadius={"20px"}
         m={"auto"}
         p={"10px"}
-        _hover={{cursor:"pointer"}}
-        onClick={()=>navigate(`/productPage/details/${productData.id}`)}
+        _hover={{ cursor: "pointer" }}
+        onClick={() => navigate(`/productPage/details/${productData.id}`)}
       />
       <Flex my={"10px"}>
         {productData.color.map((color, index) => {
@@ -136,35 +136,35 @@ const ProductCard = ({ productData}) => {
         <Text>€{productData.price}</Text>
       </Box>
       <Flex m={"5px"} justify={"space-between"} align={"center"}>
-      <Box>
-                <IconButton
-                  aria-label="Search database"
-                  border=""
-                  icon={
-                    wish ? (
-                      <FaHeart size={"30px"} color="red" />
-                    ) : (
-                      <FaRegHeart size={"30px"} color="red" />
-                    )
-                  }
-                  // variant="outline"
-                  p={""}
-                  bg={"#f3f0f3"}
-                  _hover={{ bg: "#f3f0f3" }}
-                  onClick={() => {
-                    if (wish) {
-                      handleRemoveFromWishlist();
-                    } else {
-                      handleAddToWishlist();
-                    }
-                    setWish((prev) => !prev);
-                  }}
-                />
-              </Box>
+        <Box>
+          <IconButton
+            aria-label="Search database"
+            border=""
+            icon={
+              wish ? (
+                <FaHeart size={"30px"} color="red" />
+              ) : (
+                <FaRegHeart size={"30px"} color="red" />
+              )
+            }
+            // variant="outline"
+            p={""}
+            bg={"#f3f0f3"}
+            _hover={{ bg: "#f3f0f3" }}
+            onClick={() => {
+              if (wish) {
+                handleRemoveFromWishlist();
+              } else {
+                handleAddToWishlist();
+              }
+              setWish((prev) => !prev);
+            }}
+          />
+        </Box>
         {/* <Button variant="outline" colorScheme="orange" onClick={handleAddToCart}>
           Add to cart
         </Button> */}
-        <Button colorScheme="red" size={{base:'sm', md:'md'}}><Text onClick={handleAddToCart} fontSize={{base:'sm'}}>ADD TO CART</Text></Button>
+        <Button colorScheme="red" size={{ base: 'sm', md: 'md' }}><Text onClick={handleAddToCart} fontSize={{ base: 'sm' }}>ADD TO CART</Text></Button>
       </Flex>
     </Box>
   );

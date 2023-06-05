@@ -48,17 +48,6 @@ const Breadcrumbs = () => {
           <BreadcrumbLink color="white">Cart</BreadcrumbLink>
         </BreadcrumbItem>
       );
-    } else if (paths.includes("wishlist")) {
-      breadcrumbTrail.push(
-        <BreadcrumbItem key="home">
-          <BreadcrumbLink as={Link} to="/" color="white">
-            Home
-          </BreadcrumbLink>
-        </BreadcrumbItem>,
-        <BreadcrumbItem key="wishlist" isCurrentPage>
-          <BreadcrumbLink color="white">Wishlists</BreadcrumbLink>
-        </BreadcrumbItem>
-      );
     } else {
       breadcrumbTrail.push(
         <BreadcrumbItem key="home" isCurrentPage>

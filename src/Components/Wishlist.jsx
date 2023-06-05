@@ -30,7 +30,6 @@ export default function ProductPage() {
                 data.length === 0 ? <Heading color={'white'} fontSize={'9xl'}>Loading</Heading> :
                     <Box>
                         <Breadcrumbs w='80%' m='auto' />
-                        <Heading style={{ color: "white" }}>My Wishlists</Heading>
                         <Box display={'flex'} >
 
                             <Box w='75%' m='auto' display={'grid'} gridTemplateColumns={'repeat(3, 1fr)'} gap='20px' paddingTop={'2em'}>

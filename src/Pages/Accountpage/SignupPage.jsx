@@ -26,13 +26,13 @@ export const Signup = ({ onClose }) => {
   const [contact, setcontact] = useState("");
   const [password, setpassword] = useState("");
 
-//   const [randomNumber, setRandomNumber] = useState(0);
-//   useEffect(() => {
-//     // Generate a random number between 1 and 100
-//     const newRandomNumber = Math.floor(100000 + Math.random() * 900000);
-//     setRandomNumber(newRandomNumber);
-//   }, []);
-//   console.log(randomNumber);
+  //   const [randomNumber, setRandomNumber] = useState(0);
+  //   useEffect(() => {
+  //     // Generate a random number between 1 and 100
+  //     const newRandomNumber = Math.floor(100000 + Math.random() * 900000);
+  //     setRandomNumber(newRandomNumber);
+  //   }, []);
+  //   console.log(randomNumber);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,13 +57,13 @@ export const Signup = ({ onClose }) => {
     // console.log(">>>>>>>>>>>>>>>>>>>>");
     // emailjs.sendForm('service_fkfregs', 'template_n8ly4bv', form.current, 'wfw69oML3MWqQ0Srh')
     emailjs.sendForm('sdasf', 'dsfsd', form.current, 'wfw69oML3MWqQ0Srh')
-    // emailjs
-    //   .sendForm(
-    //     "service_m3g8gtd",
-    //     "template_bfckf1l",
-    //     form.current,
-    //     "40ZEcegptxkkeCq57"
-    //   )
+      // emailjs
+      //   .sendForm(
+      //     "service_m3g8gtd",
+      //     "template_bfckf1l",
+      //     form.current,
+      //     "40ZEcegptxkkeCq57"
+      //   )
       .then(
         (result) => {
           console.log(result.text);
@@ -77,20 +77,20 @@ export const Signup = ({ onClose }) => {
 
     dispatch(postNewUser(userDetails));
     toast({
-        title: 'ACCOUNT CREATED',
-        status: 'success',
+      title: 'ACCOUNT CREATED',
+      status: 'success',
+      position: 'top-left',
+      isClosable: true,
+    })
+    setTimeout(() => {
+      toast({
+        title: 'CREDENTIALS SENT TO YOUR EMAIL',
+        status: 'info',
         position: 'top-left',
         isClosable: true,
       })
-      setTimeout(()=>{
-        toast({
-            title: 'CREDENTIALS SENT TO YOUR EMAIL',
-            status: 'info',
-            position: 'top-left',
-            isClosable: true,
-          })
-      }, 1000)
-      
+    }, 1000)
+
     // navigate("/login");
     if (onClose) {
       onClose();
@@ -100,7 +100,7 @@ export const Signup = ({ onClose }) => {
   return (
     <Box className="model_signup" maxW={"100%"}
     //  w={{base:'90%', md:'100%'}} m='auto'
-     >
+    >
       <Heading fontWeight="600" fontSize="32px" color={"white"}>
         Create an Account
       </Heading>
@@ -178,9 +178,9 @@ export const Signup = ({ onClose }) => {
         <br />
         <div>
           <div className="item_center">
-            <Checkbox colorScheme="yellow" required fontSize={{base:"xs", sm:'sm', md:'md'}}>
+            <Checkbox colorScheme="yellow" required fontSize={{ base: "xs", sm: 'sm', md: 'md' }}>
               I Accept The{" "}
-              <Link className="hover_text_color" fontSize={{base:"xs", sm:'sm', md:'md'}}>
+              <Link className="hover_text_color" fontSize={{ base: "xs", sm: 'sm', md: 'md' }}>
                 Specialized Terms & Conditions
               </Link>{" "}
             </Checkbox>

@@ -5,6 +5,8 @@ import AllRoutes from './Routes/AllRoutes';
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+
+
 function App() {
   const location = useLocation();
 
@@ -14,9 +16,11 @@ function App() {
 
   return (
     <div className="App">
+
       <Navbar />
-      <AllRoutes/>
-      <Footer /> 
+      <AllRoutes />
+      <Footer />
+
     </div>
   );
 }
