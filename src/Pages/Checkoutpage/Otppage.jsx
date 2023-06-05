@@ -1,4 +1,4 @@
-import { FormLabel, Input, ButtonGroup, Button } from "@chakra-ui/react";
+import { FormLabel, Input, ButtonGroup, Button, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 
@@ -9,6 +9,7 @@ export const Otppage = ({ setModalNumber }) => {
   const fourthInputRef = useRef(null);
 
   const formRef = useRef();
+  const toast = useToast()
 
   const handleotp = (e) => {
     e.preventDefault();
@@ -23,10 +24,21 @@ export const Otppage = ({ setModalNumber }) => {
       thirdnum === "3" &&
       forthnum === "4"
     ) {
-      alert("Successfull");
+      toast({
+                title: 'PAYMENT SUCCESSFULL',
+                status: 'success',
+                position: 'top-left',
+                isClosable: true,
+              })
       setModalNumber(1);
     } else {
-      alert("Wrong OTP");
+      toast({
+        title: 'WRONG OTP',
+        status: 'error',
+        position: 'top-left',
+        isClosable: true,
+      })
+      e.target.reset();
     }
   };
 
@@ -70,7 +82,7 @@ export const Otppage = ({ setModalNumber }) => {
     const newRandomNumber = Math.floor(100000 + Math.random() * 900000);
     setRandomNumber(newRandomNumber);
   }, []);
-  console.log(randomNumber);
+  // console.log(randomNumber);
 
   return (
     <div style={{ color: "white" }}>
