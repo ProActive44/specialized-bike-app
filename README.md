@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+#### To run the App :-
+Step-1 Fetch the code using below command -
+**git clone https://github.com/ProActive44/specialized-bike-app.git**
+Step-2 use **npm install** to install all the dependencies.
+Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm start** to run the app.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Live site URL - https://specializedstore.vercel.app/
 
-## Available Scripts
+#### We have used below serivces to build our site.
+1. HTML
+2. CSS
+3. ReactJS
+4. Redux
+5. EmailJS
+6. Chakra UI
 
-In the project directory, you can run:
+#### Prjoect was contributed by - 
+1. Prasad Mhaske
+2. Rishabh Gupta
+3. Vanshika Agrawal
+4. Vineet Singh
 
-### `npm start`
+#### Site Flow
+1. Home Page - 
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/71e59a47-cd9c-4f2b-bd04-8bec9c754635)
+ 2. SignIn/Login Page 
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/523c7e4a-cc62-465d-b4d0-90bbe2a9985d)
+3. WishList Page -
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/78bfdf79-fa4b-4eba-a897-e42af9bc1675)
+4. Product Page -
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/ca2bee15-c4c4-4d6d-b262-b0b691654aa1)
+5. Product Details Page - 
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/744f6005-0df5-430a-94b8-dc8bcfa39588)
+6. Cart page - 
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/de1ae23c-fe69-4fa7-8c13-0f3751cf6e45)
+7. Payment Page - 
+![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/4268c34c-fa48-404f-9471-4d92effdc867)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
