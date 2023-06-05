@@ -18,54 +18,130 @@ import {
   useDisclosure,
   Avatar,
   MenuDivider,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useToast,
+  Divider,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../Images/Mainlogo.png";
-import { ChevronDownIcon, EmailIcon, PhoneIcon, Search2Icon } from "@chakra-ui/icons";
+import {
+  EmailIcon,
+  PhoneIcon,
+  Search2Icon,
+} from "@chakra-ui/icons";
 import wishIcon from "../Images/Wishlist icon.png";
 import cartIcon from "../Images/CartIcon.png";
 import accountIcon from "../Images/AccountIcon.png";
 import "./Navbar.css";
 import MenuBtn from "./MenuBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartProducts, logOutUser } from "../Redux/action";
+import {
+  debouncingFunction,
+  getCartProducts,
+  getWishList,
+  logOutUser,
+} from "../Redux/action";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const navigate = useNavigate();
+  // const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch();
   const cartReducer = useSelector((store) => {
     return store.cartReducer;
   });
+  const wishReducer = useSelector((store) => {
+    return store.wishReducer;
+  });
   const currUser = useSelector((store) => {
     return store.accountReducer.currUser;
   });
-  console.log("curruser", currUser);
+  // console.log("curruser", currUser);
   const number = cartReducer.cartProducts.length;
-  // console.log(cartReducer);
+  const wishNumber = wishReducer.WishProducts.length;
+  // console.log(wishNumber);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLogoutAlertOpen, setIsLogoutAlertOpen] = useState(false);
+  const btnRef = useRef();
+
+  const handleLogout = () => {
+    setIsLogoutAlertOpen(true);
+  };
+
+  const cancelLogout = () => {
+    setIsLogoutAlertOpen(false);
+  };
+
+  const toast = useToast();
+
+  const confirmLogout = () => {
+    setIsLogoutAlertOpen(false);
+    onClose();
+    dispatch(logOutUser);
+    toast({
+      title: "LOGOUT SUCCESSFULL",
+      status: "success",
+      position: "top-left",
+      isClosable: true,
+    });
+  };
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const timeout = useRef(null);
+  const debouncingProducts = useSelector((store) => {
+    return store.productsReducer.debouncingArr;
+  });
+  console.log(debouncingProducts);
+  // Debouncing
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    if(value !== ""){
+        setSearchQuery(value);
+    }
+  };
+
+  useEffect(() => {
+    clearTimeout(timeout.current);
+
+    timeout.current = setTimeout(() => {
+      if(searchQuery !== ""){
+        dispatch(debouncingFunction(searchQuery));
+      }
+    }, 500);
+  }, [searchQuery]);
 
 
   useEffect(() => {
     dispatch(getCartProducts);
+    dispatch(getWishList);
   }, []);
   return (
     <>
       <Box
-        maxW={"1366px"}
+        maxW={"100%"}
         bg={"rgb(28,28,28)"}
         // m={"auto"}
         h={["55px", "55px", "65px", "65px", "65px", "65px"]}
         position={"sticky"}
         top={0}
         zIndex={"1000"}
-      // border={'1px solid red'}
+        // border={'1px solid red'}
       >
         <Flex align={"center"} mx={"20px"}>
           {/* Hidden menu */}
           <Box position="relative" ml={"10px"}>
             <Show below="lg">
-              <MenuBtn cartNumber={number} currUser={currUser} />
+              <MenuBtn
+                cartNumber={number}
+                currUser={currUser}
+                wishNumber={wishNumber}
+              />
             </Show>
           </Box>
           {/* <Spacer /> */}
@@ -89,28 +165,28 @@ const Navbar = () => {
                   MOUNTAIN
                 </Link>
                 <Link
-                  to="/mountain"
+                  to="/productPage"
                   className="categories"
                   _hover={{ underLine: "none" }}
                 >
                   ROAD
                 </Link>
                 <Link
-                  to="/mountain"
+                  to="/productPage"
                   className="categories"
                   _hover={{ underLine: "none" }}
                 >
                   ACTIVE
                 </Link>
                 <Link
-                  to="/mountain"
+                  to="/productPage"
                   className="categories"
                   _hover={{ underLine: "none" }}
                 >
                   ELECTRIC
                 </Link>
                 <Link
-                  to="/mountain"
+                  to="/productPage"
                   className="categories"
                   _hover={{ underLine: "none" }}
                 >
@@ -142,6 +218,7 @@ const Navbar = () => {
                   //   width: "400px",
                   borderRadius: "20px",
                 }}
+                onChange={handleSearch}
               />
               <InputRightAddon
                 zIndex="1"
@@ -157,13 +234,44 @@ const Navbar = () => {
                 <Search2Icon />
               </InputRightAddon>
             </InputGroup>
+            <Box
+              position="absolute"
+              top="50px"
+              bg="rgb(38,38,38)"
+              borderRadius='10px'
+              w={["150px", "250px", "200px", "200px", "320px", "400px"]}
+              color="white"
+              px={"10px"}
+            >
+              {debouncingProducts.length > 0 && searchQuery &&
+                debouncingProducts?.map((ele) => {
+                  return (
+                    <>
+                      <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={(e)=>{navigate(`/productPage/details/${ele.id}`)}}>
+                        {ele.name}
+                      </Text>
+                      <Divider />
+                    </>
+                  );
+                })}
+            </Box>
           </Box>
           <Spacer />
 
           <Hide below="lg">
             <Box mr={"20px"}>
               <HStack spacing={"10px"}>
-                <Link to='wishlist'>
+                <Link to="/wishlist">
+                  <Text
+                    position={"absolute"}
+                    ml={"33px"}
+                    color={"white"}
+                    bg={"red.500"}
+                    borderRadius={"15px"}
+                    px={"3px"}
+                  >
+                    {wishNumber > 0 && <span>{wishNumber}</span>}
+                  </Text>
                   <Image
                     src={wishIcon}
                     alt="wishIcon"
@@ -171,12 +279,12 @@ const Navbar = () => {
                     w={"40px"}
                   />
                 </Link>
-                <Link>
+                <Link to="/cart">
                   <Text
                     position={"absolute"}
                     ml={"75px"}
                     color={"white"}
-                    bg={"red.500"}
+                    bg={"yellow.500"}
                     borderRadius={"15px"}
                     px={"3px"}
                   >
@@ -191,7 +299,7 @@ const Navbar = () => {
                   />
                 </Link>
                 <Link>
-                  <Menu >
+                  <Menu>
                     {({ isOpen }) => (
                       <>
                         <MenuButton>
@@ -201,27 +309,49 @@ const Navbar = () => {
                             alt="accountIcon"
                             color={"white"}
                             w={"40px"}
-                            pt={'8px'}
+                            pt={"8px"}
                           />
                         </MenuButton>
-                        <MenuList p={'10px'} bg={'rgb(38,38,38)'} color={'white'} textAlign={'center'} border={'none'} boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px'>
-                          {Object.keys(currUser).length === 0 ? (<>
-                            <MenuItem bg={'yellow.500'} borderRadius={'5px'}>You are not logged in</MenuItem> <MenuDivider />
-                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
-                              <Link to="/login">
-                                <Text w='100%' px={'60px'} >SIGN IN </Text>
-                              </Link>
-                            </MenuItem >
-                            {/* <br /> */}
-                            <MenuItem bg={'rgb(38,38,38)'} _hover={{ bg: "red" }} borderRadius={'10px'}>
-                              <Link to="/signup">
-                                <Text w='100%' _hover={{ bg: "red" }} px={'60px'} >SIGN UP </Text>
+                        <MenuList
+                          p={"10px"}
+                          bg={"rgb(38,38,38)"}
+                          color={"white"}
+                          textAlign={"center"}
+                          border={"none"}
+                          boxShadow="rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, white 0px 1px 3px 1px"
+                        >
+                          {Object.keys(currUser).length === 0 ? (
+                            <>
+                              <MenuItem
+                                bg={"yellow.500"}
+                                borderRadius={"5px"}
+                                color={"black"}
+                              >
+                                YOU ARE NOT LOGGED IN
+                              </MenuItem>{" "}
+                              <MenuDivider />
+                              <MenuItem
+                                bg={"rgb(38,38,38)"}
+                                _hover={{ bg: "red" }}
+                                borderRadius={"10px"}
+                              >
+                                <Link to="/login">
+                                  <Text w="100%" px={"20px"}>
+                                    SIGN IN / SIGN UP
+                                  </Text>
+                                </Link>
+                              </MenuItem>
+                              {/* <br /> */}
+                              {/* <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
+                             <Link to="/signup">
+                                <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
                               </Link>
                               <br />
-                            </MenuItem> </>
+                            </MenuItem> */}
+                            </>
                           ) : (
-                            <Box borderRadius={'10px'} >
-                              <Text py={'5px'}>ACCOUNT</Text> <MenuDivider />
+                            <Box borderRadius={"10px"} maxW="300px">
+                              <Text py={"5px"}>ACCOUNT</Text> <MenuDivider />
                               <Button
                                 leftIcon={<Avatar size={"xs"} bg="blue.600" />}
                                 w="100%"
@@ -255,7 +385,10 @@ const Navbar = () => {
                                 colorScheme="red"
                                 borderRadius={"10"}
                                 mt={"10px"}
-                                onClick={() => { dispatch(logOutUser); navigate("/") }}
+                                onClick={() => {
+                                  handleLogout();
+                                  navigate("/");
+                                }}
                               >
                                 LOGOUT
                               </Button>
@@ -278,14 +411,14 @@ const Navbar = () => {
         zIndex={200}
         top={["55px", "55px", "65px", "65px", "65px", "65px"]}
         bg="white"
-        maxW={"1366px"}
+        maxW={"100%"}
         h={"0.6px"}
         mx={["10px", "20px", "30px", "40px"]}
       ></Box>
 
       {/* navBelow */}
       <Box
-        maxW={"1366px"}
+        maxW={"100%"}
         h={["35px", "40px", "45px"]}
         position={"sticky"}
         top={["56px", "56px", "66px", "66px", "66px", "66px"]}
@@ -314,6 +447,29 @@ const Navbar = () => {
           </Link>
         </HStack>
       </Box>
+      {/* Logout Alert */}
+      <AlertDialog
+        isOpen={isLogoutAlertOpen}
+        leastDestructiveRef={btnRef}
+        onClose={cancelLogout}
+        size={{ base: "xs", md: "md" }}
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent bg="rgb(28,28,28)">
+          <AlertDialogHeader color="white">Confirm Logout</AlertDialogHeader>
+          <AlertDialogBody color="white">
+            Are you sure you want to log out?
+          </AlertDialogBody>
+          <AlertDialogFooter gap={"10px"}>
+            <Button colorScheme="red" onClick={confirmLogout}>
+              Logout
+            </Button>
+            <Button ref={btnRef} onClick={cancelLogout}>
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import "./accountpage.css"
 import {
     FormLabel,
@@ -6,24 +6,20 @@ import {
     Heading,
     Checkbox,
     Button,
-    CheckboxIcon,
     ButtonGroup,
     InputGroup,
     InputRightElement,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalCloseButton,
-    ModalBody,
-    ModalFooter,
-    useDisclosure
+    useDisclosure,
+    Box, Link, Text, FormControl, useToast
 }
     from "@chakra-ui/react";
 import { Signup } from "./SignupPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { calcLength } from "framer-motion";
 import { getCurrentUser } from "../../Redux/action";
 
 
@@ -32,12 +28,19 @@ import { getCurrentUser } from "../../Redux/action";
 export const Login = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("")
-    const [isAuth, setIsAuth] = useState(false)
 
+    
     const { isOpen, onOpen, onClose } = useDisclosure()
+    
+    const AllUsers = useSelector((store) => store.accountReducer.AllUsers)
+    const isLogin = useSelector((store) => store.accountReducer.isLogin)
+    
+    // const currUser = useSelector((store) => store.accountReducer.currUser);
+   console.log(AllUsers)
 
-    const store = useSelector((store) => store.accountReducer.AllUsers)
-    const currUser = useSelector((store) => store.accountReducer.currUser);
+   const toast = useToast()
+  const toastIdRef = useRef()
+
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -48,35 +51,45 @@ export const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        store.map((user) => {
-            if (email === user.email && password === user.password) {
-                alert("successful");
-                dispatch(getCurrentUser(user))
-                navigate('/')
-                setIsAuth(true)
-                return;
-            }
-        })
-        // console.log(currUser);
-        if (isAuth) {
-            console.log(">>>>>>>>>>>>>>>>>>");
-            alert("Wrong Credentails");
+        const user = AllUsers.find(
+            (user) => user.email === email && user.password === password
+          );
+        
+        if (user) {
+            toast({
+                title: 'SIGNIN SUCCESSFULL',
+                status: 'success',
+                position: 'top-left',
+                isClosable: true,
+              })
+            dispatch(getCurrentUser(user))
+            navigate('/')
+        }else{
+            toast({
+                title: 'WRONG CREDENTIALS',
+                status: 'error',
+                position: 'top-left',
+                isClosable: true,
+              })
         }
 
     }
 
     return (
-        <div>
-            <div className="main_form_div">
-                <Heading fontWeight="10px" fontSize="32px">Sign in to your Account</Heading>
+        <Box>
+            <Box className="main_form_div" w={{base:"90%",sm:"80%", md:'60%', lg:"40%"}} m='10px auto' p={{base:"25px"}}
+            //  border={'1px solid red'}
+             bg={null}>
+                <Heading fontWeight="600" fontSize="32px" color={'white'}>Sign in to your Account</Heading>
                 <br />
-                <form onSubmit={handleSubmit}>
-                    <FormLabel> Email </FormLabel>
-                    <Input type="email" placeholder="Email" focusBorderColor='yellow.600' required onChange={(e) => setemail(e.target.value)} />
+                <form onSubmit={handleSubmit} style={{color:'white'}}>
+                <FormControl>
+                    <FormLabel mb={'5px'}> Email </FormLabel>
+                    <Input mb={'10px'} type="email" placeholder="Email" focusBorderColor='yellow.600' required onChange={(e) => setemail(e.target.value)} />
                     <br />
 
-                    <FormLabel> Password </FormLabel>
-                    <InputGroup size='md'>
+                    <FormLabel mb={'5px'}> Password </FormLabel>
+                    <InputGroup size='md' >
                         <Input
                             type={show ? 'text' : 'password'}
                             placeholder='Password'
@@ -85,29 +98,27 @@ export const Login = () => {
                             onChange={(e) => setpassword(e.target.value)}
                         />
                         <InputRightElement width='4.5rem' >
-                            <ButtonGroup variant='outline' >
-                                <Button h='1.75rem' size='sm' onClick={handleClick} className="btn" colorScheme="yellow">
-                                    {show ? 'Hide' : 'Show'}
-                                </Button>
-                            </ButtonGroup>
+                            <Button h='1.75rem' size='sm' colorScheme="yellow" onClick={handleClick} >
+                                {show ? 'Hide' : 'Show'}
+                            </Button>
                         </InputRightElement>
                     </InputGroup>
 
                     <br />
                     <br />
-                    <div className="item_display_corner">
+                    <Box className="item_display_corner" mb={'10px'} fontSize={{base:"sm", sm:'md'}}>
                         <div>
-                            <Checkbox  >Remember Me</Checkbox>
+                            <Checkbox colorScheme='yellow'  fontSize={{base:"sm", sm:'md'}}>Remember Me</Checkbox>
                         </div>
-                        <div><a href="">Forgot your password?</a> </div>
-                    </div>
+                        <div><Link>Forgot your password?</Link> </div>
+                    </Box>
 
 
-                    <div className="item_center">
-                        <p className="small_font">
-                            I accept the Specialized <a href="https://www.specialized.com/sg/en/terms-of-use" className="hover_text_color">Terms of Use</a> and acknowledge Specialized will use my information in accordance with its <a href="https://www.specialized.com/sg/en/privacy-policy" className="hover_text_color">Privacy Policy.</a>
-                        </p>
-                    </div>
+                    <Box className="item_center" my={'10px'}>
+                        <Text className="small_font" color={'grey'}>
+                            I accept the Specialized <Link className="hover_text_color">Terms of Use</Link> and acknowledge Specialized will use my information in accordance with its <a href="https://www.specialized.com/sg/en/privacy-policy" className="hover_text_color">Privacy Policy.</a>
+                        </Text>
+                    </Box>
                     <br />
                     <ButtonGroup variant='outline' width="100%" >
                         <Button type="submit" className="btn" colorScheme="yellow">  Sign In  </Button>
@@ -118,16 +129,17 @@ export const Login = () => {
                     <ButtonGroup variant='outline' width="100%" >
                         <Button onClick={onOpen} className="btn" colorScheme="yellow">Create Account</Button>
                     </ButtonGroup>
+                    </FormControl>
                 </form>
-                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={true} >
+                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size={{base:'xs', sm:'sm',md:'lg'}}>
                     <ModalOverlay />
-                    <ModalContent>
-                        <ModalCloseButton />
+                    <ModalContent bg='rgb(38,38,38)' borderRadius={'20px'}>
+                        <ModalCloseButton color={'white'} />
                         <Signup onClose={onClose} />
                     </ModalContent>
                 </Modal>
 
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }

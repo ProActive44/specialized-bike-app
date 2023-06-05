@@ -15,7 +15,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <Box
-      maxW={"1366px"}
+      maxW={"100%"}
       bg={"rgb(28,28,28)"}
       px={"40px"}
       pt={"40px"}
@@ -96,7 +96,7 @@ const Footer = () => {
         <Box w={{ base: "90%", lg: "20%" }} m='auto' mt='10px' className="newsletterfooter">
           <Text fontWeight={800}>NEWSLETTER</Text>
           <InputGroup my={"20px"}>
-            <Input type="tel" placeholder="join our newsletter" />
+            <Input type="tel" placeholder="join our newsletter" focusBorderColor='white'/>
             <InputRightAddon
               children="JOIN"
               bg={"grey"}
