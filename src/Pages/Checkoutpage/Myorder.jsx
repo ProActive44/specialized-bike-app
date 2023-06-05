@@ -30,11 +30,10 @@ import {
   getCartProducts,
   incCartQuantity,
 } from "../../Redux/action";
-import Breadcrumbs from "../../Components/Breadcrumb";
 import { useNavigate } from "react-router-dom";
 import EmptyCartImage from "../../Images/empty_cart.png";
 
-const CartPage = () => {
+const Myorder = ({setSelectedBox}) => {
   const [totalBill, setTotalBill] = useState(0);
 
   const cartItems = useSelector((store) => {
@@ -81,14 +80,13 @@ const CartPage = () => {
   if (cartItems.length === 0) {
     return (
       <Box mt="30px">
-        <Breadcrumbs />
         <Box w="50%" m="auto" mb={"20px"} color="white">
           <Image src={EmptyCartImage} w="100%" />
           <Heading mt={"-50px"}>
             Your cart is <span style={{ color: "red" }}>Empty!</span>
           </Heading>
           <Text my={"10px"}>
-            Looks like you have not added anything to your cart. Go ahead &
+            Looks like you Don't have any orders now. Go ahead &
             explore top categories.
           </Text>
           <Button colorScheme="red" onClick={() => navigate("/productPage")}>
@@ -100,11 +98,10 @@ const CartPage = () => {
   }
 
   return (
-    <Box p={4} bgColor={"#262626"} mt={"20px"}>
-      <Breadcrumbs />
+    <Box bgColor={"#262626"} mt={"20px"} >
       <Box>
         <Text fontSize="4xl" mb={4} color="white" fontWeight="bold">
-          YOUR ORDER
+          YOUR ORDERS
         </Text>
         <Flex direction={"column"} gap="15px">
           {cartItems?.map((item) => (
@@ -117,7 +114,7 @@ const CartPage = () => {
               // border={"1px solid red"}
               borderRadius={"10px"}
               justifyContent="space-between"
-              w={{ base: "95%", sm: "90%", md: "90%", lg: "80%", xl: "70%" }}
+              w={{ base: "95%", sm: "90%", md: "90%", lg: "85%", xl: "90%" }}
               m="auto"
               py={"10px"}
               px={{ base: "5px", md: "20px" }}
@@ -254,7 +251,7 @@ const CartPage = () => {
       </Box>
       <Box>
         <Stack
-          w={{ base: "95%", sm: "90%", md: "90%", lg: "80%", xl: "70%" }}
+          w={{ base: "95%", sm: "90%", md: "90%", lg: "85%", xl: "90%" }}
           m="auto"
           gap={"20px"}
           h={{ base: "380px", sm: "350px", md: "155px" }}
@@ -317,7 +314,7 @@ const CartPage = () => {
               mx={"5px"}
               my={"5px"}
               size={"md"}
-              onClick={() => navigate("/payment")}
+              onClick={() =>setSelectedBox(3)}
             >
               MAKE AN ORDER
             </Button>
@@ -328,4 +325,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default Myorder;

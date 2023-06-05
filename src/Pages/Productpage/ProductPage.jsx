@@ -12,6 +12,7 @@ import {
   Select,
   Grid,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 // import { AddIcon } from "@chakra-ui/icons";
 import ProductCard from "../../Components/ProductCard";
@@ -22,35 +23,35 @@ import FilterCategory from "./FilterCategory";
 import FilterColor from "./FilterColor";
 import { FilterDiscount } from "./FilterDiscount";
 
-export default function ProductPage({Mountain, Road, Active, Kids}) {
+export default function ProductPage() {
   const [page, setPage] = useState(1);
   const [sorting, setSorting] = useState("");
-
+  const toast = useToast();
 
   const data = useSelector((state) => state.productsReducer.AllProducts);
   const isLoading = useSelector((state) => state.productsReducer.isLoading);
   const dispatch = useDispatch();
 
+  const totalPages = useSelector((store) => {
+    return store.productsReducer.totalPages;
+  });
 
-  const totalPages = useSelector((store)=>{
-    return store.productsReducer.totalPages
-  })
-
-  if(page > totalPages){
-    setPage(1);
+  if (page > totalPages) {
+    if (totalPages !== 0) {
+      setPage(1);
+    }
   }
 
-  const toast = useToast()
   const handlePrevPage = () => {
     if (page === 1) {
-      toast({ description: 'You are on the First page' })
+      toast({ description: "You are on the First page" });
       return;
     }
     setPage((page) => page - 1);
   };
   const handleNextPage = () => {
     if (page === totalPages) {
-      toast({ description: 'You are on the Last page' })
+      toast({ description: "You are on the Last page" });
       return;
     }
     setPage((page) => page + 1);
@@ -66,11 +67,11 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
   };
 
   // Category Filters
-  let [categoryFilter, setCategoryFilter] = useState([])
-  const [priceRangeFilter, setPriceRangeFilter] = useState("")
-  const [discountFilter, setDiscountFilter] = useState("")
-  const [colorFilter, setColorFilter] = useState([])
-  
+  let [categoryFilter, setCategoryFilter] = useState([]);
+  const [priceRangeFilter, setPriceRangeFilter] = useState("");
+  const [discountFilter, setDiscountFilter] = useState("");
+  const [colorFilter, setColorFilter] = useState([]);
+
   const [checkedItems, setCheckedItems] = useState([
     false,
     false,
@@ -80,38 +81,24 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
   const allChecked = checkedItems.every(Boolean);
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
-  
   useEffect(() => {
     let categoryQuery = "";
     let priceQuery = "";
     let discountQuery = "";
     let colorQuery = "";
-  
-    if (Mountain) {
-      categoryFilter = ["Mountain"]
-    }
-    if (Road) {
-      categoryFilter = ["Road"]
-    }
-    if (Active) {
-      categoryFilter = ["Active"]
-    }
-    if (Kids) {
-      categoryFilter = ["Kids"]
-    }
-  
+
     if (categoryFilter.length > 0) {
       categoryQuery = categoryFilter
         .filter((category) => category !== "")
         .map((category) => `category=${category}`)
         .join("&");
     }
-  
+
     if (priceRangeFilter !== "") {
       const [minPrice, maxPrice] = priceRangeFilter.split("-");
       priceQuery = `price_gte=${minPrice}&price_lte=${maxPrice}`;
     }
-  
+
     const regex = /(\d+)%-(\d+)%/;
     const match = discountFilter.match(regex);
     if (match) {
@@ -119,11 +106,19 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
       const secondNumber = parseInt(match[2]);
       discountQuery = `id_gte=${firstNumber}&id_lte=${secondNumber}`;
     }
-  
+
     colorQuery = colorFilter.map((color) => `color_like=${color}`).join("&");
-  
+
     dispatch(
-      getProducts(page, sorting, categoryQuery, priceQuery, colorQuery, discountQuery, totalPages)
+      getProducts(
+        page,
+        sorting,
+        categoryQuery,
+        priceQuery,
+        colorQuery,
+        discountQuery,
+        totalPages
+      )
     );
   }, [
     page,
@@ -133,8 +128,17 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
     colorFilter,
     discountFilter,
   ]);
-  
 
+  const isError = useSelector((store) => {
+    return store.productsReducer.isError;
+  });
+
+  if (totalPages === 0) {
+    return <Box color={'white'} my={'100px'}> <Heading >NO PRODUCTS AVAILABLE</Heading> <Text>Please Refresh the page</Text></Box>
+  }
+  if (isError) {
+    return <Box color={'white'} my={'100px'}> <Heading color={'red'}>UNEXPECTED ERROR OCCURED</Heading> <Text>Please Refresh the page</Text></Box>
+  }
   return (
     <Box my={"50px"}>
       <Box>
@@ -222,19 +226,19 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
                 <Heading size="md" color={"grey"}>
                   FILTER BY PRICE RANGE
                 </Heading>
-                <FilterPriceRange setPriceRangeFilter={setPriceRangeFilter}/>
+                <FilterPriceRange setPriceRangeFilter={setPriceRangeFilter} />
               </Box>
               <Box>
                 <Heading size="md" color={"grey"}>
                   FILTER BY DISCOUNT
                 </Heading>
-                <FilterDiscount setDiscountFilter={setDiscountFilter}/>
+                <FilterDiscount setDiscountFilter={setDiscountFilter} />
               </Box>
               <Box>
                 <Heading size="md" color={"grey"}>
                   FILTER BY COLOR
                 </Heading>
-                <FilterColor setColorFilter={setColorFilter}/>
+                <FilterColor setColorFilter={setColorFilter} />
               </Box>
             </Grid>
           </Box>
@@ -315,20 +319,19 @@ export default function ProductPage({Mountain, Road, Active, Kids}) {
             <Button
               variant={"outline"}
               colorScheme="yellow"
-              disabled = {page <= 1 ? true : false}
+              disabled={page <= 1 ? true : false}
               onClick={handlePrevPage}
             >
               Prev
             </Button>
             <Button colorScheme="grey">{page}</Button>
             <Button
-              
               variant={"outline"}
               colorScheme="yellow"
-              disabled = {page >= totalPages ? true : false}
+              disabled={page >= totalPages ? true : false}
               onClick={handleNextPage}
             >
-             Next
+              Next
             </Button>
           </Flex>
         </Box>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getWishList } from "../Redux/action";
+import { getWishList } from "../../Redux/action";
 import {
   Box,
   Button,
@@ -10,13 +10,10 @@ import {
   SkeletonText,
   Text,
 } from "@chakra-ui/react";
-// import { AddIcon } from '@chakra-ui/icons'
-import ProductCard from "./ProductCard";
-// import { MinusIcon } from '@chakra-ui/icons';
-import Breadcrumbs from "./Breadcrumb";
+import ProductCard from "../../Components/ProductCard";
 import { Link } from "react-router-dom";
 
-export default function Wishlist() {
+export default function MyWishlist() {
   const data = useSelector((state) => state.wishReducer.WishProducts);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +26,7 @@ export default function Wishlist() {
         <Box
           h="400px"
           border={"1px solid grey"}
-          w={{ base: "90%", sm: "80%", md: "50%", lg: "30%" }}
+          w={{ base: "90%", sm: "80%", md: "50%", lg: "50%" }}
           m="auto"
           borderRadius={"20px"}
           p="10px"
@@ -46,7 +43,7 @@ export default function Wishlist() {
           <SkeletonCircle size="10" mt="4" />
           <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
         </Box>
-        <Box position={'absolute'} top='210px' mx="38%">
+        <Box position={'absolute'} top='220px' mx="20%">
         <Heading color={'yellow'}> Your Wishlist is Empty </Heading>
         <Text my={'15px'}>Add some products to you wishlist</Text>
         <Link to='/productPage'>
@@ -64,13 +61,12 @@ export default function Wishlist() {
         </Heading>
       ) : (
         <Box>
-          <Breadcrumbs w="80%" m="auto" />
           <Heading color={"white"} letterSpacing={"0.2em"}>
             WISHLIST
           </Heading>
           <Box display={"flex"}>
             <Box
-              w={{ base: "90%", sm: "85%", md: "75%" }}
+              w={{ base: "90%", sm: "85%", md: "90%" }}
               m="auto"
               display={"grid"}
               gridTemplateColumns={{
