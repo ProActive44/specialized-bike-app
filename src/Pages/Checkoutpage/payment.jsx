@@ -11,7 +11,8 @@ import PersonalInfo from "./PersonalInfo";
 import Myorder from "./Myorder";
 import MyWishlist from "./MyWishlist";
 import PaymentCards from "./PaymentCards";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PaymentPage = () => {
   // const location = useLocation();
@@ -24,6 +25,8 @@ const PaymentPage = () => {
   const handleBoxClick = (index) => {
     setSelectedBox(index);
   };
+
+  
 
   return (
     <Box bgColor="#262626" p={5}>

@@ -55,8 +55,9 @@ export const Signup = ({ onClose }) => {
     e.preventDefault();
     console.log(userDetails);
     // console.log(">>>>>>>>>>>>>>>>>>>>");
+    emailjs.sendForm('service_m3g8gtd', 'template_bfckf1l', form.current, 'NfmCzzCkrTdkBOvHr')
     // emailjs.sendForm('service_fkfregs', 'template_n8ly4bv', form.current, 'wfw69oML3MWqQ0Srh')
-    emailjs.sendForm('sdasf', 'dsfsd', form.current, 'wfw69oML3MWqQ0Srh')
+    // emailjs.sendForm('sdasf', 'dsfsd', form.current, 'wfw69oML3MWqQ0Srh')
     // emailjs
     //   .sendForm(
     //     "service_m3g8gtd",

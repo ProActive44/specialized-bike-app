@@ -75,7 +75,7 @@ const PaymentCards = () => {
   const CardsArray = useSelector((store) => {
     return store.paymentReducer.CardsData;
   });
-  console.log(formData)
+  // console.log(formData)
 
   const { value, getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: "Kevin",
@@ -145,6 +145,18 @@ const PaymentCards = () => {
       </form>
 
       {/* Saved Cards */}
+      {
+        CardsArray.length === 0 ? 
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          mb={4}
+          paddingTop={10}
+          color="white"
+        >
+          NO SAVED CARDS
+        </Text> :
+     
       <Box>
         <Text
           fontSize="xl"
@@ -168,9 +180,11 @@ const PaymentCards = () => {
         <Button colorScheme="red" mt={6} color="white" p={6} alignSelf={'center'} onClick={handleOTP}>MAKE PAYMENT</Button>
         </Flex>
       </Box>
+       }
       <Modal isOpen={isOpen} onClose={onClose}size={'2xl'}>
         <ModalOverlay />
         <ModalContent bg='#262626' textAlign={'center'} p='20px'>
+        <ModalCloseButton color={'white'}/>
           {
           modalNumber === 0 ?
             <Otppage setModalNumber={setModalNumber }/>

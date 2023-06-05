@@ -183,6 +183,18 @@ const PersonalInfo = ({setSelectedBox}) => {
       </form>
 
       {/* Saved Address */}
+      {
+        AddressArray.length === 0 ? 
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          mb={4}
+          paddingTop={10}
+          color="white"
+        >
+          NO SAVED ADDRESS
+        </Text> :
+
       <Box>
         <Text
           fontSize="xl"
@@ -206,6 +218,7 @@ const PersonalInfo = ({setSelectedBox}) => {
         <Button colorScheme="red" mt={6} color="white" p={6} alignSelf={'center'} onClick={()=>setSelectedBox(1)}>MAKE PAYMENT</Button>
         </Flex>
       </Box>
+}
     </Box>
   );
 };
