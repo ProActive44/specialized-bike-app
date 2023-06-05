@@ -65,7 +65,7 @@ const ProductCard = ({ productData}) => {
     toast({
       title: 'Added To WishList',
       status: 'success',
-      position: 'top-left',
+      position: 'top-center',
       isClosable: true,
     })
   };
@@ -75,7 +75,7 @@ const ProductCard = ({ productData}) => {
     toast({
       title: 'Removed From WishList',
       status: 'warning',
-      position: 'top-left',
+      position: 'top-center',
       isClosable: true,
     })
   };

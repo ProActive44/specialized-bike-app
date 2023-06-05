@@ -45,6 +45,7 @@ import {
   getCartProducts,
   getWishList,
   logOutUser,
+  resetDebouncing,
 } from "../Redux/action";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -97,23 +98,22 @@ const Navbar = () => {
   const debouncingProducts = useSelector((store) => {
     return store.productsReducer.debouncingArr;
   });
-  console.log(debouncingProducts);
+  // console.log(debouncingProducts);
   // Debouncing
   const handleSearch = (e) => {
     const value = e.target.value;
-    if(value !== ""){
-        setSearchQuery(value);
-    }
+      setSearchQuery(value)
   };
 
   useEffect(() => {
-    clearTimeout(timeout.current);
-
     timeout.current = setTimeout(() => {
       if(searchQuery !== ""){
         dispatch(debouncingFunction(searchQuery));
       }
     }, 500);
+    return ()=>{
+      clearTimeout(timeout.current);
+    }
   }, [searchQuery]);
 
 
@@ -121,6 +121,18 @@ const Navbar = () => {
     dispatch(getCartProducts);
     dispatch(getWishList);
   }, []);
+
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+  const handleClick = (event) => {
+     dispatch(resetDebouncing)
+    // alert('Clicked!');
+  };
   return (
     <>
       <Box

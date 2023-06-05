@@ -48,6 +48,33 @@ const Breadcrumbs = () => {
           <BreadcrumbLink color="white">Cart</BreadcrumbLink>
         </BreadcrumbItem>
       );
+    } else if (paths.includes("payment")) {
+      breadcrumbTrail.push(
+        <BreadcrumbItem key="home">
+          <BreadcrumbLink as={Link} to="/" color="white">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>,
+        <BreadcrumbItem key="cart">
+          <BreadcrumbLink as={Link} to="/cart" color="white">
+            Cart
+          </BreadcrumbLink>
+        </BreadcrumbItem>,
+        <BreadcrumbItem key="payment" isCurrentPage>
+          <BreadcrumbLink color="white">Checkout</BreadcrumbLink>
+        </BreadcrumbItem>
+      );
+    } else if (paths.includes("wishlist")) {
+      breadcrumbTrail.push(
+        <BreadcrumbItem key="home">
+          <BreadcrumbLink as={Link} to="/" color="white">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>,
+        <BreadcrumbItem key="wishlist" isCurrentPage>
+          <BreadcrumbLink color="white">Wishlist</BreadcrumbLink>
+        </BreadcrumbItem>
+      );
     } else {
       breadcrumbTrail.push(
         <BreadcrumbItem key="home" isCurrentPage>
