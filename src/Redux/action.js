@@ -18,6 +18,8 @@ import {
   INC_CART_QUANTITY,
   LOG_OUT_USER,
   POST_CART_PRODUCT,
+  POST_NEW_ADDRESS,
+  POST_NEW_CARD,
   POST_NEW_USER,
   REMOVE_FROM_WISHLIST,
   SET_DEBOUNCING_RESET,
@@ -32,9 +34,10 @@ const getProductsRequestAction = () => {
 const getProductsSuccessAction = (data, newTotalPages) => {
   return {
     type: GET_PRODUCT_SUCCESS,
-    payload:{
-      data,totalPages: newTotalPages
-    }
+    payload: {
+      data,
+      totalPages: newTotalPages,
+    },
   };
 };
 const getProductsFailureAction = (payload) => {
@@ -49,44 +52,62 @@ const getSingleProductAction = (payload) => {
   };
 };
 
-
 // Products page dispatch functions
-export const getProducts = (page, sorting, categoryQuery, priceQuery, colorQuery,discountQuery, totalPages) => (dispatch) => {
-  dispatch(getProductsRequestAction());
-  let url = `https://specialized-bike-json-server.onrender.com/products?_page=${page}&_limit=9`;
+export const getProducts =
+  (
+    page,
+    sorting,
+    categoryQuery,
+    priceQuery,
+    colorQuery,
+    discountQuery,
+    totalPages
+  ) =>
+  (dispatch) => {
+    dispatch(getProductsRequestAction());
+    let url = `https://specialized-bike-json-server.onrender.com/products?_page=${page}&_limit=9`;
 
-  if (sorting) {
-    url += `&_sort=price&_order=${sorting}`;
-  }
-  if(categoryQuery !== "") {
-    url += `&${categoryQuery}`
-  }
-  if(priceQuery) {
-    url += `&${priceQuery}`
-  }
-  if(colorQuery) {
-    url += `&${colorQuery}`
-  }
-  if(discountQuery) {
-    url += `&${discountQuery}`
-  }
-  // console.log(url)
-
-  axios
-  .get(url, { headers: { 'Accept-Range': 'items', 'Range-Unit': 'items' } })
-  .then((res) => {
-    const totalCount = res.headers['x-total-count'];
-    const newTotalPages = Math.ceil(totalCount / 9); // Assuming 9 items per page
-    const data = res.data;
-    if(newTotalPages < totalPages){
-      dispatch(getProducts(1, sorting, categoryQuery, priceQuery, colorQuery, discountQuery, newTotalPages))
+    if (sorting) {
+      url += `&_sort=price&_order=${sorting}`;
     }
-    // console.log(totalPages)
-    dispatch(getProductsSuccessAction(data, newTotalPages));
-  })
-  .catch(() => dispatch(getProductsFailureAction()));
-};
+    if (categoryQuery !== "") {
+      url += `&${categoryQuery}`;
+    }
+    if (priceQuery) {
+      url += `&${priceQuery}`;
+    }
+    if (colorQuery) {
+      url += `&${colorQuery}`;
+    }
+    if (discountQuery) {
+      url += `&${discountQuery}`;
+    }
+    // console.log(url)
 
+    axios
+      .get(url, { headers: { "Accept-Range": "items", "Range-Unit": "items" } })
+      .then((res) => {
+        const totalCount = res.headers["x-total-count"];
+        const newTotalPages = Math.ceil(totalCount / 9); // Assuming 9 items per page
+        const data = res.data;
+        if (newTotalPages < totalPages) {
+          dispatch(
+            getProducts(
+              1,
+              sorting,
+              categoryQuery,
+              priceQuery,
+              colorQuery,
+              discountQuery,
+              newTotalPages
+            )
+          );
+        }
+        // console.log(totalPages)
+        dispatch(getProductsSuccessAction(data, newTotalPages));
+      })
+      .catch(() => dispatch(getProductsFailureAction()));
+  };
 
 export const getSingleProduct = (id) => (dispatch) => {
   dispatch(getProductsRequestAction());
@@ -95,7 +116,6 @@ export const getSingleProduct = (id) => (dispatch) => {
     .then((res) => dispatch(getSingleProductAction(res.data)))
     .catch(() => dispatch(getProductsFailureAction()));
 };
-
 
 // -------------------------------------------------------------------------------------- //
 
@@ -134,18 +154,18 @@ const deleteCartDataAction = (payload) => {
     payload,
   };
 };
-const incrementCartQuantityAction = (payload)=>{
+const incrementCartQuantityAction = (payload) => {
   return {
     type: INC_CART_QUANTITY,
-    payload
-  }
-}
-const decrementCartQuantityAction = (payload)=>{
+    payload,
+  };
+};
+const decrementCartQuantityAction = (payload) => {
   return {
-    type : DEC_CART_QUANTITY,
-    payload
-  }
-}
+    type: DEC_CART_QUANTITY,
+    payload,
+  };
+};
 
 // Cart page dispatch functions
 
@@ -171,13 +191,13 @@ export const deleteCartProduct = (id) => (dispatch) => {
     .then((res) => dispatch(deleteCartDataAction(id)));
 };
 
-export const incCartQuantity =(id)=> (dispatch)=>{
-   dispatch(incrementCartQuantityAction(id))
-}
+export const incCartQuantity = (id) => (dispatch) => {
+  dispatch(incrementCartQuantityAction(id));
+};
 
-export const decCartQuantity = (id)=> (dispatch)=>{
-    dispatch(decrementCartQuantityAction(id))
-}
+export const decCartQuantity = (id) => (dispatch) => {
+  dispatch(decrementCartQuantityAction(id));
+};
 
 // --------------------------------------------------------------------------------------------
 
@@ -273,28 +293,59 @@ export const addWish = (newWish) => (dispatch) => {
 
 // ----------------------------------------------------------------------------
 
-
 // Debouncing action obj -------------------------------------------------
 
-const debouncingAction = (payload)=>{
+const debouncingAction = (payload) => {
   return {
-    type : GET_DEBOUNCING_SUCCESS,
-    payload
-  }
-}
+    type: GET_DEBOUNCING_SUCCESS,
+    payload,
+  };
+};
 
-const resetDebouncingAction = ()=>{
+const resetDebouncingAction = () => {
   return {
-    type : SET_DEBOUNCING_RESET
-  }
-}
-
+    type: SET_DEBOUNCING_RESET,
+  };
+};
 
 // Debouncing Function  ------------------------------------------------
 
-export const debouncingFunction = (searchQuery)=> (dispatch)=>{
-  dispatch(resetDebouncingAction())
-  axios.get(`https://specialized-bike-json-server.onrender.com/products?q=${searchQuery}&_page=1&_limit=10`)
-  .then((res)=> dispatch(debouncingAction(res.data)))
-  .catch((error)=> console.log(error))
-}
+export const debouncingFunction = (searchQuery) => (dispatch) => {
+  dispatch(resetDebouncingAction());
+  axios
+    .get(
+      `https://specialized-bike-json-server.onrender.com/products?q=${searchQuery}&_page=1&_limit=10`
+    )
+    .then((res) => dispatch(debouncingAction(res.data)))
+    .catch((error) => console.log(error));
+};
+
+export const resetDebouncing = (dispatch) => {
+  dispatch(resetDebouncingAction());
+};
+
+// -----------------------------------------------------------------
+
+// Paymentpage Action object
+
+const postNewAddressAction = (payload) => {
+  return {
+    type: POST_NEW_ADDRESS,
+    payload,
+  };
+};
+
+const postNewCardAction = (payload) => {
+  return {
+    type: POST_NEW_CARD,
+    payload,
+  };
+};
+
+export const postNewAddress = (payload) => (dispatch) => {
+  dispatch(postNewAddressAction(payload));
+};
+
+export const postnewCard = (paylaod) => (dispatch) => {
+  dispatch(postNewCardAction(paylaod));
+};
