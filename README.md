@@ -1,12 +1,15 @@
 #### To run the App :-
+
 Step-1 Fetch the code using below command -
 **git clone https://github.com/ProActive44/specialized-bike-app.git**
+
 Step-2 use **npm install** to install all the dependencies.
+
 Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm start** to run the app.
 
 #### Live site URL - https://specializedstore.vercel.app/
 
-#### We have used below serivces to build our site.
+#### We have used below services to build our site.
 1. HTML
 2. CSS
 3. ReactJS
@@ -14,7 +17,7 @@ Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm st
 5. EmailJS
 6. Chakra UI
 
-#### Prjoect was contributed by - 
+#### Project was contributed by - 
 1. Prasad Mhaske
 2. Rishabh Gupta
 3. Vanshika Agrawal
