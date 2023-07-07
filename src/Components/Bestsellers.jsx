@@ -5,11 +5,10 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const getData = (setData, setLoading)=>{
-    axios.get(`https://specialized-bike-json-server.onrender.com/products?_page=2&_limit=3`)
-    .then((res)=>{setData(res.data);setLoading(false)})
+    axios.get(`${process.env.REACT_APP_API_URL}/products?_page=2&_limit=3`)
+    .then((res)=>{setData(res.data.data);setLoading(false)})
     .catch((err)=>console.log(err))
 }
 
@@ -36,7 +35,7 @@ const Bestsellers = () => {
                 <Flex gap={{base:'10px',md:'20px'}} direction={{base:'column', md:'row'}}>
                         {
                             data?.map((prod)=>{
-                                return <ProductCard productData={prod} key={prod.id} w="30%"/>
+                                return <ProductCard productData={prod} key={prod._id} w="30%"/>
                             })
                         }
                 </Flex>

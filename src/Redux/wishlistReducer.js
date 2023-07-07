@@ -37,7 +37,7 @@ const wishReducer = ( state = initState, action)=>{
     case REMOVE_FROM_WISHLIST :
         return {
             ...state,
-            WishProducts : state.WishProducts.filter((product) => product.id !== payload)
+            WishProducts : state.WishProducts.filter((product) => product._id !== payload)
         }
     default:
         return state;

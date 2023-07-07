@@ -13,6 +13,7 @@ import {
   Grid,
   useToast,
   Text,
+  Image,
 } from "@chakra-ui/react";
 // import { AddIcon } from "@chakra-ui/icons";
 import ProductCard from "../../Components/ProductCard";
@@ -133,11 +134,14 @@ export default function ProductPage() {
     return store.productsReducer.isError;
   });
 
-  if (totalPages === 0) {
-    return <Box color={'white'} my={'100px'}> <Heading >NO PRODUCTS AVAILABLE</Heading> <Text>Please Refresh the page</Text></Box>
-  }
   if (isError) {
-    return <Box color={'white'} my={'100px'}> <Heading color={'red'}>UNEXPECTED ERROR OCCURED</Heading> <Text>Please Refresh the page</Text></Box>
+    return (
+      <Box color={"white"} my={"100px"}>
+        {" "}
+        <Heading color={"red"}>UNEXPECTED ERROR OCCURED</Heading>{" "}
+        <Text>Please Refresh the page</Text>
+      </Box>
+    );
   }
   return (
     <Box my={"50px"}>
@@ -242,9 +246,25 @@ export default function ProductPage() {
               </Box>
             </Grid>
           </Box>
+          {totalPages === 0 ? (
+            <Box
+              color={"yellow"}
+              my={"20px"}
+              w={{ base: "90%", lg: "75%" }}
+              m="auto"
 
-          {/* Skeleton */}
-          {isLoading ? (
+            >
+              <Heading color={"red"}>NO PRODUCTS AVAILABLE</Heading>
+              <Image
+                src="https://www.aceshoppersworld.com/images/empty_cart.png"
+                w="40%"
+                m="auto"
+                alt="Please refresh the page"
+                my='10px'
+              />
+            </Box>
+          ) : isLoading ? (
+            /* Skeleton */
             <Box
               w={{ base: "90%", lg: "75%" }}
               m="auto"
@@ -265,6 +285,7 @@ export default function ProductPage() {
                     border={"1px solid grey"}
                     borderRadius={"20px"}
                     p="10px"
+                    key={i}
                   >
                     <Skeleton borderRadius={"20px"}>
                       <div>this</div>
@@ -304,8 +325,8 @@ export default function ProductPage() {
                 return (
                   <ProductCard
                     productData={prod}
-                    key={prod.id}
-                    discount={prod.id}
+                    key={prod._id}
+                    discount={prod.discount}
                   />
                 );
               })}

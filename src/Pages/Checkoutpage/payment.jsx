@@ -11,8 +11,6 @@ import PersonalInfo from "./PersonalInfo";
 import Myorder from "./Myorder";
 import MyWishlist from "./MyWishlist";
 import PaymentCards from "./PaymentCards";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const PaymentPage = () => {
   // const location = useLocation();

@@ -107,7 +107,7 @@ const Myorder = ({setSelectedBox}) => {
           {cartItems?.map((item) => (
             //  <Center >
             <Flex
-              key={item.id}
+              key={item._id}
               h={{ base: null, md: "150px" }}
               direction={{ base: "column", md: "row" }}
               align={"center"}
@@ -124,7 +124,7 @@ const Myorder = ({setSelectedBox}) => {
               <Box
                 // border={"1px solid green"}
                 // w="60%"
-                onClick={()=>navigate(`/productPage/details/${item.id}`)}
+                onClick={()=>navigate(`/productPage/details/${item._id}`)}
                 _hover={{cursor:'pointer'}}
                 h={{ base: null, md: "150px" }}
               >
@@ -164,12 +164,12 @@ const Myorder = ({setSelectedBox}) => {
                       fontSize={"xs"}
                     >
                       <Text mt={"-4px"} color="grey">
-                        {item.id * 10}
+                        {item.discount * 10}
                       </Text>
-                      <Text mt="-3px" color={item.id < 10 ? "red" : "green"}>
-                        {item.id < 10 ? "Only few Left" : "In Stocks"}
+                      <Text mt="-3px" color={item.discount < 10 ? "red" : "green"}>
+                        {item.discount < 10 ? "Only few Left" : "In Stocks"}
                       </Text>
-                      {item.id < 10 ? (
+                      {item.discount < 10 ? (
                         <Icon color="red" as={WarningTwoIcon} />
                       ) : (
                         <Icon color={"green"} as={CheckCircleIcon} />
@@ -177,7 +177,7 @@ const Myorder = ({setSelectedBox}) => {
                     </Flex>
                     <Flex>
                       <Text as="del" color={"grey"}>
-                        €{Math.floor(item.price + (item.price / 100) * item.id)}
+                        €{Math.floor(item.price + (item.price / 100) * item.discount)}
                       </Text>
                       <Text
                         color={"white"}
@@ -188,7 +188,7 @@ const Myorder = ({setSelectedBox}) => {
                         px={"5px"}
                         bg={"red.500"}
                       >
-                        {item.id}%off
+                        {item.discount}%off
                       </Text>
                     </Flex>
                     <Box>
@@ -205,7 +205,7 @@ const Myorder = ({setSelectedBox}) => {
                   colorScheme="gray"
                   _hover={{ bgColor: "#f3f0f3" }}
                   bgColor="#f3f0f3"
-                  onClick={() => decreaseQuantity(item.id)}
+                  onClick={() => decreaseQuantity(item._id)}
                   disabled={item.quantity === 1}
                 >
                   <MinusIcon />
@@ -225,7 +225,7 @@ const Myorder = ({setSelectedBox}) => {
                   colorScheme="gray"
                   _hover={{ bgColor: "#f3f0f3" }}
                   bgColor="#f3f0f3"
-                  onClick={() => increaseQuantity(item.id)}
+                  onClick={() => increaseQuantity(item._id)}
                   disabled={item.quantity === 10}
                 >
                   <AddIcon />
@@ -237,7 +237,7 @@ const Myorder = ({setSelectedBox}) => {
                 <IconButton
                   ml={"20px"}
                   colorScheme="red"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item._id)}
                 >
                   <DeleteIcon />
                 </IconButton>

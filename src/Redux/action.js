@@ -20,10 +20,13 @@ import {
   POST_CART_PRODUCT,
   POST_NEW_ADDRESS,
   POST_NEW_CARD,
-  POST_NEW_USER,
+  // POST_NEW_USER,
   REMOVE_FROM_WISHLIST,
   SET_DEBOUNCING_RESET,
 } from "./actionTypes";
+
+let mainUrl = process.env.REACT_APP_API_URL;
+const token = JSON.parse(localStorage.getItem("token")) || "";
 
 // Product page actionObj  ------------------------------------------------------
 const getProductsRequestAction = () => {
@@ -65,7 +68,7 @@ export const getProducts =
   ) =>
   (dispatch) => {
     dispatch(getProductsRequestAction());
-    let url = `https://specialized-bike-json-server.onrender.com/products?_page=${page}&_limit=9`;
+    let url = `${mainUrl}/products?_page=${page}&_limit=9`;
 
     if (sorting) {
       url += `&_sort=price&_order=${sorting}`;
@@ -87,9 +90,10 @@ export const getProducts =
     axios
       .get(url, { headers: { "Accept-Range": "items", "Range-Unit": "items" } })
       .then((res) => {
-        const totalCount = res.headers["x-total-count"];
-        const newTotalPages = Math.ceil(totalCount / 9); // Assuming 9 items per page
-        const data = res.data;
+        // const totalCount = res.headers["x-total-count"];
+        // const newTotalPages = Math.ceil(totalCount / 9); // Assuming 9 items per page
+        const data = res.data.data;
+        const newTotalPages = res.data.totalPages;
         if (newTotalPages < totalPages) {
           dispatch(
             getProducts(
@@ -103,7 +107,7 @@ export const getProducts =
             )
           );
         }
-        // console.log(totalPages)
+        // console.log(res);
         dispatch(getProductsSuccessAction(data, newTotalPages));
       })
       .catch(() => dispatch(getProductsFailureAction()));
@@ -112,7 +116,7 @@ export const getProducts =
 export const getSingleProduct = (id) => (dispatch) => {
   dispatch(getProductsRequestAction());
   axios
-    .get(`https://specialized-bike-json-server.onrender.com/products/${id}`)
+    .get(`${mainUrl}/products/${id}`)
     .then((res) => dispatch(getSingleProductAction(res.data)))
     .catch(() => dispatch(getProductsFailureAction()));
 };
@@ -172,22 +176,29 @@ const decrementCartQuantityAction = (payload) => {
 export const getCartProducts = (dispatch) => {
   dispatch(getCartDataRequestAction());
   axios
-    .get(`https://specialized-bike-json-server.onrender.com/cart`)
+    .get(`${mainUrl}/cart`
+    // , {
+    //   headers: {
+    //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
+    //   },
+    // }
+    )
     .then((res) => dispatch(getCartDataSuccessAction(res.data)))
     .catch(() => dispatch(getCartDataFailureAction()));
 };
 
 export const postCartProduct = (newProduct) => (dispatch) => {
+  console.log(newProduct);
   dispatch(getCartDataRequestAction());
   axios
-    .post(`https://specialized-bike-json-server.onrender.com/cart`, newProduct)
+    .post(`${mainUrl}/cart`, newProduct)
     .then((res) => dispatch(postCartDataAction(res.data)))
     .catch(() => dispatch(getCartDataFailureAction()));
 };
 
 export const deleteCartProduct = (id) => (dispatch) => {
   axios
-    .delete(`https://specialized-bike-json-server.onrender.com/cart/${id}`)
+    .delete(`${mainUrl}/cart/${id}`)
     .then((res) => dispatch(deleteCartDataAction(id)));
 };
 
@@ -203,12 +214,12 @@ export const decCartQuantity = (id) => (dispatch) => {
 
 // Account page actionObj -----------------------------------------------------------------
 
-const postUserAction = (payload) => {
-  return {
-    type: POST_NEW_USER,
-    payload,
-  };
-};
+// const postUserAction = (payload) => {
+//   return {
+//     type: POST_NEW_USER,
+//     payload,
+//   };
+// };
 const loginUserAction = (payload) => {
   return {
     type: GET_CURRENT_USER,
@@ -222,15 +233,64 @@ const logOutUserAction = () => {
 };
 
 // Account page dispatch functions
-export const postNewUser = (newUser) => (dispatch) => {
-  dispatch(postUserAction(newUser));
+export const postNewUser = (newUser) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${mainUrl}/signup`, newUser);
+
+    if (response.data.message === "Signup successful") {
+      // Handle successful signup
+      // dispatch(postUserAction(newUser));
+      return true;
+    } else if (response.data.error === "UserAlreadyExists") {
+      // Display a message indicating that the user already exists
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    // Display a generic error message
+    return "failed";
+  }
 };
 
-export const getCurrentUser = (currUser) => (dispatch) => {
-  dispatch(loginUserAction(currUser));
+export const LoginUser = (currUser) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${mainUrl}/login`, currUser);
+    if (response.data.msg === "Login Successful") {
+      const token = response.data.token;
+      // Handle successful login, e.g., store the token in localStorage or a cookie
+      getCurrentUser(currUser, dispatch);
+      localStorage.setItem("token", JSON.stringify(token));
+      return true;
+    } else {
+      // Handle login failure, e.g., display an error message to the user
+      return false;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle login failure due to a network error or server issue
+    return "failed";
+  }
+};
+
+export const getCurrentUser = async (currUser, dispatch) => {
+  console.log(dispatch);
+  try {
+    const response = await axios.post(`${mainUrl}/signup/getuser`, currUser);
+    if (response.data.msg === "User Found") {
+      const user = response.data.user;
+      dispatch(loginUserAction(user));
+      localStorage.setItem("userEmail", JSON.stringify(user.email));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle login failure due to a network error or server issue
+    return "failed";
+  }
 };
 
 export const logOutUser = (dispatch) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userEmail");
   dispatch(logOutUserAction());
 };
 
@@ -271,7 +331,13 @@ const removeWishAction = (payload) => {
 export const getWishList = (dispatch) => {
   dispatch(getWishRequestAction());
   axios
-    .get(`https://specialized-bike-json-server.onrender.com/wishList`)
+    .get(`${mainUrl}/wishList`
+    // , {
+    //   headers: {
+    //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
+    //   },
+    // }
+    )
     .then((res) => dispatch(getWishSuccessAction(res.data)))
     .catch(() => dispatch(getWishFailureAction()));
 };
@@ -279,7 +345,7 @@ export const getWishList = (dispatch) => {
 export const removeWish = (id) => (dispatch) => {
   dispatch(getWishRequestAction());
   axios
-    .delete(`https://specialized-bike-json-server.onrender.com/wishList/${id}`)
+    .delete(`${mainUrl}/wishList/${id}`)
     .then((res) => dispatch(removeWishAction(id)))
     .catch(() => dispatch(getWishFailureAction()));
 };
@@ -287,7 +353,7 @@ export const removeWish = (id) => (dispatch) => {
 export const addWish = (newWish) => (dispatch) => {
   dispatch(getWishRequestAction());
   axios
-    .post(`https://specialized-bike-json-server.onrender.com/wishList`, newWish)
+    .post(`${mainUrl}/wishList`, newWish)
     .then((res) => dispatch(addWishAction(res.data)));
 };
 
@@ -313,9 +379,7 @@ const resetDebouncingAction = () => {
 export const debouncingFunction = (searchQuery) => (dispatch) => {
   dispatch(resetDebouncingAction());
   axios
-    .get(
-      `https://specialized-bike-json-server.onrender.com/products?q=${searchQuery}&_page=1&_limit=10`
-    )
+    .get(`${mainUrl}/products?q=${searchQuery}&_page=1&_limit=10`)
     .then((res) => dispatch(debouncingAction(res.data)))
     .catch((error) => console.log(error));
 };
