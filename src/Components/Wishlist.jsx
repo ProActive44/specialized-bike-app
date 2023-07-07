@@ -82,7 +82,7 @@ export default function Wishlist() {
               paddingTop={"2em"}
             >
               {data?.map((prod) => {
-                return <ProductCard productData={prod} key={prod.id} />;
+                return <ProductCard productData={prod} key={prod._id} />;
               })}
             </Box>
           </Box>

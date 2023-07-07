@@ -14,7 +14,7 @@ const DebouncingBox = ({isOpen, onClose, debouncingProducts}) => {
             debouncingProducts?.map((ele)=>{
                 return (
                     <>
-                    <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={()=>navigate(`/productPage/details/${ele.id}`)}>
+                    <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={()=>navigate(`/productPage/details/${ele._id}`)}>
                         {ele.name}
                     </Text>
                     <Divider />

@@ -31,14 +31,14 @@ const paymentReducer = (state = initState, action) => {
       };
 
     case SELECT_CURR_ADDRESS:
-      let currA = state.AddressData.find((ele) => ele.id === payload);
+      let currA = state.AddressData.find((ele) => ele._id === payload);
       return {
         ...state,
         currAddress: currA,
       };
 
     case SELECT_CURR_CARD:
-      let currC = state.AddressData.find((ele) => ele.id === payload);
+      let currC = state.AddressData.find((ele) => ele._id === payload);
       return {
         ...state,
         currCard: currC,
@@ -46,7 +46,7 @@ const paymentReducer = (state = initState, action) => {
 
     case DELETE_ADDRESS:
       let newAddressData = state.AddressData.filter(
-        (ele) => ele.id !== payload
+        (ele) => ele._id !== payload
       );
       return {
         ...state,
@@ -54,7 +54,7 @@ const paymentReducer = (state = initState, action) => {
       };
 
     case DELETE_CARD:
-      let newCardData = state.CardsData.filter((ele) => ele.id !== payload);
+      let newCardData = state.CardsData.filter((ele) => ele._id !== payload);
       return {
         ...state,
         CardsData: newCardData,

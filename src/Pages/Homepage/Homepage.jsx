@@ -9,17 +9,11 @@ import Knowmore from "../../Components/Knowmore";
 import Bestsellers from "../../Components/Bestsellers";
 import Discount from "../../Components/Discount";
 
-
 const Homepage = () => {
-
-  // const state = useSelector((store)=>{
-  //   return store
-  // })
-  // console.log(state);
+  
 
   return (
     <Box color="white" maxW={"100%"}>
-
       <Slider />
       <AboutDiv />
       <Bikediv2 />
@@ -28,7 +22,6 @@ const Homepage = () => {
       <Bikediv1 />
       <Discount />
       <Knowmore />
-
     </Box>
   );
 };

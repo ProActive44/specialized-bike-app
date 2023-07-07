@@ -43,6 +43,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   debouncingFunction,
   getCartProducts,
+  getCurrentUser,
   getWishList,
   logOutUser,
   resetDebouncing,
@@ -133,6 +134,16 @@ const Navbar = () => {
      dispatch(resetDebouncing)
     // alert('Clicked!');
   };
+
+
+  useEffect(() => {
+    const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+    if (userEmail) {
+      console.log(userEmail)
+      let currUser = { email : userEmail };
+      getCurrentUser(currUser, dispatch);
+    }
+  }, []);
   return (
     <>
       <Box
@@ -259,7 +270,7 @@ const Navbar = () => {
                 debouncingProducts?.map((ele) => {
                   return (
                     <>
-                      <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={(e)=>{navigate(`/productPage/details/${ele.id}`)}}>
+                      <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={(e)=>{navigate(`/productPage/details/${ele._id}`)}}>
                         {ele.name}
                       </Text>
                       <Divider />

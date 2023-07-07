@@ -14,7 +14,7 @@ import { addWish, postCartProduct, removeWish } from "../Redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BsCart3 } from "react-icons/bs";
+// import { BsCart3 } from "react-icons/bs";
 
 const ProductCard = ({ productData}) => {
   const [imageIdx, setImageIdx] = useState(0);
@@ -37,17 +37,17 @@ const ProductCard = ({ productData}) => {
 
  
   useEffect(() => {
-    const wishProd = wishData.find((prod) => prod.id === productData.id);
+    const wishProd = wishData.find((prod) => prod._id === productData._id);
     if (wishProd) {
       setWish(true);
     } else {
       setWish(false);
     }
-  }, [wishData, productData.id]);
+  }, [wishData, productData._id]);
 
 
  const handleAddToCart = ()=>{
-    const existProd = cartData.find((prod)=>prod.id === productData.id)
+    const existProd = cartData.find((prod)=>prod._id === productData._id)
     if(existProd){
       toastIdRef.current = toast({ description: 'Product Already Present in cart' })
     }else{
@@ -71,7 +71,7 @@ const ProductCard = ({ productData}) => {
   };
 
   const handleRemoveFromWishlist = () => {
-    dispatch(removeWish(productData.id));
+    dispatch(removeWish(productData._id));
     toast({
       title: 'Removed From WishList',
       status: 'warning',
@@ -81,7 +81,7 @@ const ProductCard = ({ productData}) => {
   };
 
   const navigate = useNavigate();
-  const discount = productData.id
+  const discount = productData.discount
 
   return (
     <Box
@@ -100,7 +100,7 @@ const ProductCard = ({ productData}) => {
         m={"auto"}
         p={"10px"}
         _hover={{cursor:"pointer"}}
-        onClick={()=>navigate(`/productPage/details/${productData.id}`)}
+        onClick={()=>navigate(`/productPage/details/${productData._id}`)}
       />
       <Flex my={"10px"}>
         {productData.color.map((color, index) => {

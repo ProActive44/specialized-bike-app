@@ -40,7 +40,7 @@ const cartReducer = (state = initState, action) => {
 
     case DELETE_CART_PRODUCT:
       const newProducts = state.cartProducts.filter(
-        (ele) => ele.id !== payload
+        (ele) => ele._id !== payload
       );
       return { ...state, cartProducts: newProducts }; // Delete from cart
 
@@ -48,7 +48,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         cartProducts: state.cartProducts.map((product) => {
-          if (product.id === payload && product.quantity < 10) {
+          if (product._id === payload && product.quantity < 10) {
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -62,7 +62,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         cartProducts: state.cartProducts.map((product) => {
-          if (product.id === payload && product.quantity > 1) {
+          if (product._id === payload && product.quantity > 1) {
             return {
               ...product,
               quantity: product.quantity - 1,

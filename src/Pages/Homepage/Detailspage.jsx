@@ -65,13 +65,13 @@ const Detailspage = () => {
     return store.wishReducer.WishProducts;
   })
   useEffect(() => {
-    const wishProd = wishData.find((prod) => prod.id === currproduct.id);
+    const wishProd = wishData.find((prod) => prod._id === currproduct._id);
     if (wishProd) {
       setWish(true);
     } else {
       setWish(false);
     }
-  }, [wishData, currproduct.id]);
+  }, [wishData, currproduct._id]);
 
   const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
@@ -80,7 +80,7 @@ const Detailspage = () => {
   const toast = useToast()
   const toastIdRef = useRef()
   const handleAddToCart = ()=>{
-    const existProd = cartData.find((prod)=>prod.id === currproduct.id)
+    const existProd = cartData.find((prod)=>prod._id === currproduct._id)
     if(existProd){
       toastIdRef.current = toast({ description: 'Product Already Present in cart' })
     }else{
@@ -104,7 +104,7 @@ const Detailspage = () => {
   };
 
   const handleRemoveFromWishlist = () => {
-    dispatch(removeWish(currproduct.id));
+    dispatch(removeWish(currproduct._id));
     toast({
       title: 'Removed From WishList',
       status: 'warning',
@@ -118,7 +118,7 @@ const Detailspage = () => {
     navigate("/cart")
   }
 
-  const discount = currproduct.id;
+  const discount = currproduct.discount;
 
   return (
     <Box w={"90%"} m="auto" my={"50px"} color={"white"}>
@@ -264,12 +264,12 @@ const Detailspage = () => {
               </Text>
               </Flex>
               <Flex direction={'row'} gap='20px' mr={'100px'}  > 
-                <Text mt='-3px' color={currproduct.id < 10 ? "red" : 'green'}>{currproduct.id < 10 ? "Only few Left" :"In Stocks"}</Text>
-                { currproduct.id < 10 ?
+                <Text mt='-3px' color={currproduct.discount < 10 ? "red" : 'green'}>{currproduct.discount < 10 ? "Only few Left" :"In Stocks"}</Text>
+                { currproduct.discount < 10 ?
                 <Icon color='red' as={WarningTwoIcon}/>  :
                 <Icon color={'green'} as={CheckCircleIcon}/>
                 }
-                <Text mt={'-4px'} color='grey'>{currproduct.id * 10}</Text>
+                <Text mt={'-4px'} color='grey'>{currproduct.discount * 10}</Text>
               </Flex>
             </Flex>
 
