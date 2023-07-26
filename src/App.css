@@ -1,7 +1,12 @@
-.App {
+.Appdiv {
   text-align: center;
   font-family: 'Raleway', sans-serif;
   background-color: rgb(38,38,38);
   /* background-color: rgb(0,0,38); */
-
+  max-width: 1600px;
+  margin: auto;
+}
+.App{
+  background-color: rgb(38,38,38);
+  /* background-color: aqua; */
 }

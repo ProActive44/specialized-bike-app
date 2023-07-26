@@ -1,7 +1,7 @@
-import './App.css';
-import Footer from './Components/Footer';
-import Navbar from './Components/Navbar';
-import AllRoutes from './Routes/AllRoutes';
+import "./App.css";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
+import AllRoutes from "./Routes/AllRoutes";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -14,9 +14,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      <AllRoutes/>
-      <Footer /> 
+      <div className="Appdiv">
+        <Navbar />
+        <AllRoutes />
+        <Footer />
+      </div>
     </div>
   );
 }
