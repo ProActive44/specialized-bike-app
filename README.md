@@ -16,6 +16,10 @@ Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm st
 4. Redux
 5. EmailJS
 6. Chakra UI
+7. Node JS
+8. Express
+9. Mongo DB
+
 
 #### Project was contributed by - 
 1. Prasad Mhaske
@@ -38,4 +42,3 @@ Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm st
 ![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/de1ae23c-fe69-4fa7-8c13-0f3751cf6e45)
 7. Payment Page - 
 ![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/4268c34c-fa48-404f-9471-4d92effdc867)
-
