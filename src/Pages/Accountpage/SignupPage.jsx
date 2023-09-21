@@ -16,7 +16,6 @@ import {
 import "./accountpage.css";
 import { useDispatch } from "react-redux";
 import { postNewUser } from "../../Redux/action";
-import { useNavigate } from "react-router-dom";
 
 export const Signup = ({ onClose }) => {
   const form = useRef();
@@ -26,15 +25,6 @@ export const Signup = ({ onClose }) => {
   const [contact, setcontact] = useState("");
   const [password, setpassword] = useState("");
 
-  //   const [randomNumber, setRandomNumber] = useState(0);
-  //   useEffect(() => {
-  //     // Generate a random number between 1 and 100
-  //     const newRandomNumber = Math.floor(100000 + Math.random() * 900000);
-  //     setRandomNumber(newRandomNumber);
-  //   }, []);
-  //   console.log(randomNumber);
-
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -52,8 +42,6 @@ export const Signup = ({ onClose }) => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-    // console.log(userDetails);
-    // console.log(">>>>>>>>>>>>>>>>>>>>");
     emailjs
       .sendForm(
         "service_m3g8gtd",
@@ -61,15 +49,6 @@ export const Signup = ({ onClose }) => {
         form.current,
         "NfmCzzCkrTdkBOvHr"
       )
-      // emailjs.sendForm('service_fkfregs', 'template_n8ly4bv', form.current, 'wfw69oML3MWqQ0Srh')
-      // emailjs.sendForm('sdasf', 'dsfsd', form.current, 'wfw69oML3MWqQ0Srh')
-      // emailjs
-      //   .sendForm(
-      //     "service_m3g8gtd",
-      //     "template_bfckf1l",
-      //     form.current,
-      //     "40ZEcegptxkkeCq57"
-      //   )
       .then(
         (result) => {
           console.log(result.text);
@@ -115,16 +94,10 @@ export const Signup = ({ onClose }) => {
         isClosable: true,
       });
     }
-
-    // navigate("/login");
   };
 
   return (
-    <Box
-      className="model_signup"
-      maxW={"100%"}
-      //  w={{base:'90%', md:'100%'}} m='auto'
-    >
+    <Box className="model_signup" maxW={"100%"}>
       <Heading fontWeight="600" fontSize="32px" color={"white"}>
         Create an Account
       </Heading>
@@ -176,7 +149,6 @@ export const Signup = ({ onClose }) => {
         />
         <br />
 
-        {/* <Input display={'none'} type="number" name='otp' focusBorderColor='yellow.600' value={randomNumber}/> */}
         <FormLabel mb={"2px"}> Create Password </FormLabel>
         <InputGroup size="md">
           <Input

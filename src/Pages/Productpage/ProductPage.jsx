@@ -15,9 +15,7 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-// import { AddIcon } from "@chakra-ui/icons";
 import ProductCard from "../../Components/ProductCard";
-// import { MinusIcon } from "@chakra-ui/icons";
 import Breadcrumbs from "../../Components/Breadcrumb";
 import { FilterPriceRange } from "./FilterPrice";
 import FilterCategory from "./FilterCategory";
@@ -158,7 +156,6 @@ export default function ProductPage() {
               m="auto"
               bg={"rgb(38,38,38)"}
               _hover={{ borderColor: "rgb(38,38,38)" }}
-              // _focus={{ borderColor: "rgb(38,38,38)" }}
               onChange={handleSort}
             >
               <option
@@ -198,9 +195,7 @@ export default function ProductPage() {
             color={"white"}
             fontSize={"34px"}
             marginTop={{ base: null, md: "1.5em" }}
-            // paddingTop={{ base: "", md: "", lg: "" }}
             fontWeight={"600"}
-            // border={"1px solid red"}
           >
             {/* filtering */}
             <Grid
@@ -252,7 +247,6 @@ export default function ProductPage() {
               my={"20px"}
               w={{ base: "90%", lg: "75%" }}
               m="auto"
-
             >
               <Heading color={"red"}>NO PRODUCTS AVAILABLE</Heading>
               <Image
@@ -260,7 +254,7 @@ export default function ProductPage() {
                 w="40%"
                 m="auto"
                 alt="Please refresh the page"
-                my='10px'
+                my="10px"
               />
             </Box>
           ) : isLoading ? (
@@ -276,7 +270,6 @@ export default function ProductPage() {
               }}
               gap={{ base: "10px", md: "20px" }}
               paddingTop={{ base: "1em", md: "2em", lg: "3em" }}
-              // border={"1px solid red"}
             >
               {[0, 0, 0, 0, 0, 0, 0, 0, 0].map((ele, i) => {
                 return (
@@ -319,7 +312,6 @@ export default function ProductPage() {
               }}
               gap={{ base: "10px", md: "20px" }}
               paddingTop={{ base: "1em", md: "2em", lg: "3em" }}
-              // border={"1px solid red"}
             >
               {data?.map((prod) => {
                 return (

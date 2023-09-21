@@ -25,9 +25,11 @@ function RadioCard(props) {
           color: "white",
           borderColor: "rgb(38,38,38)",
         }}
-        _focus={{
-          // boxShadow: "outline",
-        }}
+        _focus={
+          {
+            // boxShadow: "outline",
+          }
+        }
       >
         {props.children}
       </Box>
@@ -35,8 +37,8 @@ function RadioCard(props) {
   );
 }
 
-export function FilterDiscount({setDiscountFilter}) {
-  const options = ["0%-10%","10%-20%", "20%-30%", "30%-40%"];
+export function FilterDiscount({ setDiscountFilter }) {
+  const options = ["0%-10%", "10%-20%", "20%-30%", "30%-40%"];
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "priceRange",
     defaultValue: "react",
@@ -50,12 +52,12 @@ export function FilterDiscount({setDiscountFilter}) {
     setValue(""); // Clear the selected value
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setDiscountFilter(value);
-  },[value])
+  }, [value]);
 
   return (
-    <Stack {...group} align="center" my={'10px'}>
+    <Stack {...group} align="center" my={"10px"}>
       {options.map((option) => {
         const radio = getRadioProps({ value: option });
         return (

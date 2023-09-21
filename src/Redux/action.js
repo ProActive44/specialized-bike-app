@@ -26,7 +26,7 @@ import {
 } from "./actionTypes";
 
 let mainUrl = process.env.REACT_APP_API_URL;
-const token = JSON.parse(localStorage.getItem("token")) || "";
+// const token = JSON.parse(localStorage.getItem("token")) || "";
 
 // Product page actionObj  ------------------------------------------------------
 const getProductsRequestAction = () => {
@@ -176,12 +176,13 @@ const decrementCartQuantityAction = (payload) => {
 export const getCartProducts = (dispatch) => {
   dispatch(getCartDataRequestAction());
   axios
-    .get(`${mainUrl}/cart`
-    // , {
-    //   headers: {
-    //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
-    //   },
-    // }
+    .get(
+      `${mainUrl}/cart`
+      // , {
+      //   headers: {
+      //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
+      //   },
+      // }
     )
     .then((res) => dispatch(getCartDataSuccessAction(res.data)))
     .catch(() => dispatch(getCartDataFailureAction()));
@@ -331,12 +332,13 @@ const removeWishAction = (payload) => {
 export const getWishList = (dispatch) => {
   dispatch(getWishRequestAction());
   axios
-    .get(`${mainUrl}/wishList`
-    // , {
-    //   headers: {
-    //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
-    //   },
-    // }
+    .get(
+      `${mainUrl}/wishList`
+      // , {
+      //   headers: {
+      //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
+      //   },
+      // }
     )
     .then((res) => dispatch(getWishSuccessAction(res.data)))
     .catch(() => dispatch(getWishFailureAction()));

@@ -25,39 +25,37 @@ function CustomRadio(props) {
       <input {...getInputProps({})} hidden />
 
       <Box
-              // bg="white"
-              bg={state.isChecked ? "yellow.400" : "white"}
-              color="grey"
-              borderRadius={"10px"}
-              // w="90%"
-              _hover={{cursor:'pointer'}}
-              m="auto"
-              p="10px"
-            >
-              <Text color="black">{ele.name}</Text>
-              <Text>{ele.email}</Text>
-              <Text>phone no: {ele.number}</Text>
-              <Flex gap="5%">
-                {" "}
-                <Text>address: {ele.address}</Text>
-                <Text>{ele.pincode}</Text>
-              </Flex>
-            </Box>
+        bg={state.isChecked ? "yellow.400" : "white"}
+        color="grey"
+        borderRadius={"10px"}
+        _hover={{ cursor: "pointer" }}
+        m="auto"
+        p="10px"
+      >
+        <Text color="black">{ele.name}</Text>
+        <Text>{ele.email}</Text>
+        <Text>phone no: {ele.number}</Text>
+        <Flex gap="5%">
+          {" "}
+          <Text>address: {ele.address}</Text>
+          <Text>{ele.pincode}</Text>
+        </Flex>
+      </Box>
     </label>
   );
 }
 
-const PersonalInfo = ({setSelectedBox}) => {
+const PersonalInfo = ({ setSelectedBox }) => {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
-    if(formData.name !== undefined ){
+    if (formData.name !== undefined) {
       dispatch(postNewAddress(formData));
     }
-    setFormData({})
+    setFormData({});
     // alert("done")
   };
 
@@ -69,8 +67,6 @@ const PersonalInfo = ({setSelectedBox}) => {
     return store.paymentReducer.AddressData;
   });
 
-  // console.log(AddressArray);
-
   const { value, getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: "Kevin",
 
@@ -78,14 +74,7 @@ const PersonalInfo = ({setSelectedBox}) => {
   });
 
   return (
-    <Box
-      p={4}
-      // border="1px solid green"
-      w="90%"
-      m="auto"
-      color={"white"}
-      textAlign={"left"}
-    >
+    <Box p={4} w="90%" m="auto" color={"white"} textAlign={"left"}>
       <Text
         fontSize="xl"
         fontWeight="bold"
@@ -183,8 +172,7 @@ const PersonalInfo = ({setSelectedBox}) => {
       </form>
 
       {/* Saved Address */}
-      {
-        AddressArray.length === 0 ? 
+      {AddressArray.length === 0 ? (
         <Text
           fontSize="xl"
           fontWeight="bold"
@@ -193,32 +181,41 @@ const PersonalInfo = ({setSelectedBox}) => {
           color="white"
         >
           NO SAVED ADDRESS
-        </Text> :
-
-      <Box>
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          mb={4}
-          paddingTop={10}
-          color="white"
-        >
-          SAVED ADDRESS
         </Text>
-        <Flex direction={"column"} gap="10px">
-        {AddressArray.map((ele) => {
-          return (
-            <CustomRadio
-              key={ele.name}
-              ele={ele}
-              {...getRadioProps({ value: ele.name })}
-            />
-          );
-        })}
-        <Button colorScheme="red" mt={6} color="white" p={6} alignSelf={'center'} onClick={()=>setSelectedBox(1)}>MAKE PAYMENT</Button>
-        </Flex>
-      </Box>
-}
+      ) : (
+        <Box>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            mb={4}
+            paddingTop={10}
+            color="white"
+          >
+            SAVED ADDRESS
+          </Text>
+          <Flex direction={"column"} gap="10px">
+            {AddressArray.map((ele) => {
+              return (
+                <CustomRadio
+                  key={ele.name}
+                  ele={ele}
+                  {...getRadioProps({ value: ele.name })}
+                />
+              );
+            })}
+            <Button
+              colorScheme="red"
+              mt={6}
+              color="white"
+              p={6}
+              alignSelf={"center"}
+              onClick={() => setSelectedBox(1)}
+            >
+              MAKE PAYMENT
+            </Button>
+          </Flex>
+        </Box>
+      )}
     </Box>
   );
 };
