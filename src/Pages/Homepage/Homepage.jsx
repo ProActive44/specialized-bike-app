@@ -10,8 +10,6 @@ import Bestsellers from "../../Components/Bestsellers";
 import Discount from "../../Components/Discount";
 
 const Homepage = () => {
-  
-
   return (
     <Box color="white" maxW={"100%"}>
       <Slider />

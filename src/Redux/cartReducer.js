@@ -26,7 +26,7 @@ const cartReducer = (state = initState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        cartProducts: payload
+        cartProducts: payload,
       };
 
     case GET_CART_FAILURE:

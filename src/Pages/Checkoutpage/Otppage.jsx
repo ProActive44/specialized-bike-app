@@ -1,4 +1,10 @@
-import { FormLabel, Input, ButtonGroup, Button, useToast } from "@chakra-ui/react";
+import {
+  FormLabel,
+  Input,
+  ButtonGroup,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 
@@ -9,7 +15,7 @@ export const Otppage = ({ setModalNumber }) => {
   const fourthInputRef = useRef(null);
 
   const formRef = useRef();
-  const toast = useToast()
+  const toast = useToast();
 
   const handleotp = (e) => {
     e.preventDefault();
@@ -25,19 +31,19 @@ export const Otppage = ({ setModalNumber }) => {
       forthnum === "4"
     ) {
       toast({
-                title: 'PAYMENT SUCCESSFULL',
-                status: 'success',
-                position: 'top-left',
-                isClosable: true,
-              })
+        title: "PAYMENT SUCCESSFULL",
+        status: "success",
+        position: "top-left",
+        isClosable: true,
+      });
       setModalNumber(1);
     } else {
       toast({
-        title: 'WRONG OTP',
-        status: 'error',
-        position: 'top-left',
+        title: "WRONG OTP",
+        status: "error",
+        position: "top-left",
         isClosable: true,
-      })
+      });
       e.target.reset();
     }
   };
@@ -127,7 +133,14 @@ export const Otppage = ({ setModalNumber }) => {
           focusBorderColor="yellow.600"
           onChange={(e) => handleInput(fourthInputRef, e)}
           onKeyDown={(e) => handleKeyDown(fourthInputRef, e)}
-        /><Input display={'none'} type="number" name='otp' focusBorderColor='yellow.600' value={randomNumber}/>
+        />
+        <Input
+          display={"none"}
+          type="number"
+          name="otp"
+          focusBorderColor="yellow.600"
+          value={randomNumber}
+        />
         <br />
         <br />
         <ButtonGroup variant="outline" width="50%">

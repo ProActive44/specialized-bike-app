@@ -6,14 +6,13 @@ import { AiOutlineHeart, AiOutlineGift } from "react-icons/ai";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { MdOutlineFeedback } from "react-icons/md";
 import { RiAccountCircleFill } from "react-icons/ri";
+import PersonalInfo from "../Checkoutpage/PersonalInfo";
+import Myorder from "../Checkoutpage/Myorder";
+import PaymentCards from "../Checkoutpage/PaymentCards";
+import MyWishlist from "../Checkoutpage/MyWishlist";
 import Breadcrumbs from "../../Components/Breadcrumb";
-import PersonalInfo from "./PersonalInfo";
-import Myorder from "./Myorder";
-import MyWishlist from "./MyWishlist";
-import PaymentCards from "./PaymentCards";
 
 const PaymentPage = () => {
-  // const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -24,17 +23,11 @@ const PaymentPage = () => {
     setSelectedBox(index);
   };
 
-  
-
   return (
     <Box bgColor="#262626" p={5}>
       <Breadcrumbs />
       <Flex mt={"20px"}>
-        <Box
-          w="30%"
-          p={4}
-          //  border={"1px solid red"}
-        >
+        <Box w="30%" p={4}>
           <Text
             fontSize="4xl"
             fontWeight="bold"
@@ -124,11 +117,11 @@ const PaymentPage = () => {
         </Box>
         <Box w="70%">
           {selectedBox === 0 ? (
-            <PersonalInfo setSelectedBox={setSelectedBox}/>
+            <PersonalInfo setSelectedBox={setSelectedBox} />
           ) : selectedBox === 1 ? (
             <Myorder setSelectedBox={setSelectedBox} />
           ) : selectedBox === 2 ? (
-             <h1>coupon</h1>
+            <h1>coupon</h1>
           ) : selectedBox === 3 ? (
             <PaymentCards />
           ) : (

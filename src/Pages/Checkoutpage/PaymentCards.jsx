@@ -5,11 +5,8 @@ import {
   FormControl,
   Input,
   Modal,
-  ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Stack,
   Text,
@@ -21,7 +18,7 @@ import React, { useState } from "react";
 import { postnewCard } from "../../Redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Ordersuccessfull } from "./Ordersuccessfull";
-import { Otppage } from "./Otppage"
+import { Otppage } from "./Otppage";
 
 function CustomRadio(props) {
   const { ele, ...radioProps } = props;
@@ -34,39 +31,36 @@ function CustomRadio(props) {
       <input {...getInputProps({})} hidden />
 
       <Box
-              // bg="white"
-              bg={state.isChecked ? "yellow.400" : "white"}
-              color="grey"
-              borderRadius={"10px"}
-              // w="90%"
-              _hover={{cursor:'pointer'}}
-              m="auto"
-              p="10px"
-            >
-              <Text color="black">Name: {ele.cardName}</Text>
-              <Text>Card no: {ele.cardNumber}</Text>
-              <Flex gap="5%">
-                <Text>Expires on: {ele.cardDate}</Text>
-                {/* <Text>{ele.CVV}</Text> */}
-              </Flex>
-            </Box>
+        bg={state.isChecked ? "yellow.400" : "white"}
+        color="grey"
+        borderRadius={"10px"}
+        _hover={{ cursor: "pointer" }}
+        m="auto"
+        p="10px"
+      >
+        <Text color="black">Name: {ele.cardName}</Text>
+        <Text>Card no: {ele.cardNumber}</Text>
+        <Flex gap="5%">
+          <Text>Expires on: {ele.cardDate}</Text>
+          {/* <Text>{ele.CVV}</Text> */}
+        </Flex>
+      </Box>
     </label>
   );
 }
 
 const PaymentCards = () => {
-
   const [formData, setFormData] = useState({});
-  const [modalNumber, setModalNumber] = useState(0)
+  const [modalNumber, setModalNumber] = useState(0);
   const dispatch = useDispatch();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
-    if(formData.cardName !== undefined ){
+    if (formData.cardName !== undefined) {
       dispatch(postnewCard(formData));
     }
-    setFormData({})
+    setFormData({});
   };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -75,19 +69,18 @@ const PaymentCards = () => {
   const CardsArray = useSelector((store) => {
     return store.paymentReducer.CardsData;
   });
-  // console.log(formData)
 
   const { value, getRadioProps, getRootProps } = useRadioGroup({
     defaultValue: "Kevin",
     // onChange: handleChange,
   });
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleOTP = ()=>{
+  const handleOTP = () => {
     onOpen();
-  }
-  
+  };
+
   return (
     <Box w="90%" m="auto" color={"white"} textAlign={"left"}>
       <form onSubmit={handleFormSubmit}>
@@ -115,7 +108,7 @@ const PaymentCards = () => {
               onChange={handleChange}
             />
           </FormControl>
-          <Flex gap='20px' justify={'space-between'}>
+          <Flex gap="20px" justify={"space-between"}>
             <FormControl>
               <Input
                 type="date"
@@ -145,8 +138,7 @@ const PaymentCards = () => {
       </form>
 
       {/* Saved Cards */}
-      {
-        CardsArray.length === 0 ? 
+      {CardsArray.length === 0 ? (
         <Text
           fontSize="xl"
           fontWeight="bold"
@@ -155,45 +147,52 @@ const PaymentCards = () => {
           color="white"
         >
           NO SAVED CARDS
-        </Text> :
-     
-      <Box>
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          mb={4}
-          paddingTop={10}
-          color="white"
-        >
-          SAVED CARDS
         </Text>
-        <Flex direction={"column"} gap="10px">
-        {CardsArray.map((ele) => {
-          return (
-            <CustomRadio
-              key={ele.name}
-              ele={ele}
-              {...getRadioProps({ value: ele.cardName })}
-            />
-          );
-        })}
-        <Button colorScheme="red" mt={6} color="white" p={6} alignSelf={'center'} onClick={handleOTP}>MAKE PAYMENT</Button>
-        </Flex>
-      </Box>
-       }
-      <Modal isOpen={isOpen} onClose={onClose}size={'2xl'}>
+      ) : (
+        <Box>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            mb={4}
+            paddingTop={10}
+            color="white"
+          >
+            SAVED CARDS
+          </Text>
+          <Flex direction={"column"} gap="10px">
+            {CardsArray.map((ele) => {
+              return (
+                <CustomRadio
+                  key={ele.name}
+                  ele={ele}
+                  {...getRadioProps({ value: ele.cardName })}
+                />
+              );
+            })}
+            <Button
+              colorScheme="red"
+              mt={6}
+              color="white"
+              p={6}
+              alignSelf={"center"}
+              onClick={handleOTP}
+            >
+              MAKE PAYMENT
+            </Button>
+          </Flex>
+        </Box>
+      )}
+      <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
         <ModalOverlay />
-        <ModalContent bg='#262626' textAlign={'center'} p='20px'>
-        <ModalCloseButton color={'white'}/>
-          {
-          modalNumber === 0 ?
-            <Otppage setModalNumber={setModalNumber }/>
-          :
-            <Ordersuccessfull setModalNumber={setModalNumber }/>
-        }
+        <ModalContent bg="#262626" textAlign={"center"} p="20px">
+          <ModalCloseButton color={"white"} />
+          {modalNumber === 0 ? (
+            <Otppage setModalNumber={setModalNumber} />
+          ) : (
+            <Ordersuccessfull setModalNumber={setModalNumber} />
+          )}
         </ModalContent>
       </Modal>
-      
     </Box>
   );
 };

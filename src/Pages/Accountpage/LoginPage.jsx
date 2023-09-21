@@ -49,7 +49,7 @@ export const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // const user = AllUsers.find(
@@ -67,7 +67,6 @@ export const Login = () => {
         position: "top-left",
         isClosable: true,
       });
-
     } else if (user === "failed") {
       toast({
         title: "Login Failed",

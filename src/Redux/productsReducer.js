@@ -13,7 +13,7 @@ const initState = {
   isLoading: false,
   isError: false,
   currProduct: {},
-  debouncingArr : []
+  debouncingArr: [],
 };
 
 const productsReducer = (state = initState, action) => {
@@ -52,14 +52,14 @@ const productsReducer = (state = initState, action) => {
         isError: false,
         debouncingArr: payload,
       };
-    
-    case SET_DEBOUNCING_RESET :
+
+    case SET_DEBOUNCING_RESET:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        debouncingArr: []
-      }
+        debouncingArr: [],
+      };
 
     default:
       return state;

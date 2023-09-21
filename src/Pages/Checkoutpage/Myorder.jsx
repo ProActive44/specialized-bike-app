@@ -33,7 +33,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import EmptyCartImage from "../../Images/empty_cart.png";
 
-const Myorder = ({setSelectedBox}) => {
+const Myorder = ({ setSelectedBox }) => {
   const [totalBill, setTotalBill] = useState(0);
 
   const cartItems = useSelector((store) => {
@@ -86,8 +86,8 @@ const Myorder = ({setSelectedBox}) => {
             Your cart is <span style={{ color: "red" }}>Empty!</span>
           </Heading>
           <Text my={"10px"}>
-            Looks like you Don't have any orders now. Go ahead &
-            explore top categories.
+            Looks like you Don't have any orders now. Go ahead & explore top
+            categories.
           </Text>
           <Button colorScheme="red" onClick={() => navigate("/productPage")}>
             Return To Shop
@@ -98,7 +98,7 @@ const Myorder = ({setSelectedBox}) => {
   }
 
   return (
-    <Box bgColor={"#262626"} mt={"20px"} >
+    <Box bgColor={"#262626"} mt={"20px"}>
       <Box>
         <Text fontSize="4xl" mb={4} color="white" fontWeight="bold">
           YOUR ORDERS
@@ -124,8 +124,8 @@ const Myorder = ({setSelectedBox}) => {
               <Box
                 // border={"1px solid green"}
                 // w="60%"
-                onClick={()=>navigate(`/productPage/details/${item._id}`)}
-                _hover={{cursor:'pointer'}}
+                onClick={() => navigate(`/productPage/details/${item._id}`)}
+                _hover={{ cursor: "pointer" }}
                 h={{ base: null, md: "150px" }}
               >
                 <Flex align={"center"}>
@@ -166,7 +166,10 @@ const Myorder = ({setSelectedBox}) => {
                       <Text mt={"-4px"} color="grey">
                         {item.discount * 10}
                       </Text>
-                      <Text mt="-3px" color={item.discount < 10 ? "red" : "green"}>
+                      <Text
+                        mt="-3px"
+                        color={item.discount < 10 ? "red" : "green"}
+                      >
                         {item.discount < 10 ? "Only few Left" : "In Stocks"}
                       </Text>
                       {item.discount < 10 ? (
@@ -177,7 +180,10 @@ const Myorder = ({setSelectedBox}) => {
                     </Flex>
                     <Flex>
                       <Text as="del" color={"grey"}>
-                        €{Math.floor(item.price + (item.price / 100) * item.discount)}
+                        €
+                        {Math.floor(
+                          item.price + (item.price / 100) * item.discount
+                        )}
                       </Text>
                       <Text
                         color={"white"}
@@ -314,7 +320,7 @@ const Myorder = ({setSelectedBox}) => {
               mx={"5px"}
               my={"5px"}
               size={"md"}
-              onClick={() =>setSelectedBox(3)}
+              onClick={() => setSelectedBox(3)}
             >
               MAKE AN ORDER
             </Button>

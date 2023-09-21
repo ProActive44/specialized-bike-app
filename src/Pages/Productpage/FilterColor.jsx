@@ -14,7 +14,6 @@ function RadioCard(props) {
       <Box
         {...checkbox}
         cursor="pointer"
-        // borderWidth="2px"
         borderRadius="full"
         boxShadow="md"
         w="2.5rem"
@@ -25,17 +24,19 @@ function RadioCard(props) {
         justifyContent="center"
         fontSize="xl"
         color="white"
-        borderColor= {props.isChecked ? "black" : "rgb(38, 38, 38)"}
+        borderColor={props.isChecked ? "black" : "rgb(38, 38, 38)"}
         bg={props.value.toLowerCase()} // Use the lowercase color value as the background color
         _checked={{
           borderWidth: "2px",
-          borderColor:  "white",
-          w:"2.3rem",
-          h:"2.3rem"
+          borderColor: "white",
+          w: "2.3rem",
+          h: "2.3rem",
         }}
-        _focus={{
-          // boxShadow: "outline",
-        }}
+        _focus={
+          {
+            // boxShadow: "outline",
+          }
+        }
       >
         {/* {props.children} */}
       </Box>
@@ -43,8 +44,18 @@ function RadioCard(props) {
   );
 }
 
-export function FilterColor({setColorFilter}) {
-  const options = ["red", "yellow", "orange", "green", "grey", "blue", "pink", "white", "black"];
+export function FilterColor({ setColorFilter }) {
+  const options = [
+    "red",
+    "yellow",
+    "orange",
+    "green",
+    "grey",
+    "blue",
+    "pink",
+    "white",
+    "black",
+  ];
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "ColorRange",
     defaultValue: [], // Set the initial selected value as an empty array
@@ -58,12 +69,18 @@ export function FilterColor({setColorFilter}) {
     setValue([]); // Clear the selected values
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setColorFilter(value);
-  }, [value])
+  }, [value]);
 
   return (
-    <Grid gap="8px" gridTemplateColumns="repeat(5, 1fr)" my={'10px'} mx='5px' {...group}>
+    <Grid
+      gap="8px"
+      gridTemplateColumns="repeat(5, 1fr)"
+      my={"10px"}
+      mx="5px"
+      {...group}
+    >
       {options.map((option) => {
         const radio = getRadioProps({ value: option });
         return (
@@ -87,7 +104,7 @@ export function FilterColor({setColorFilter}) {
       <Button
         colorScheme="red"
         color="white"
-        size={{base:"xs",md:"sm"}}
+        size={{ base: "xs", md: "sm" }}
         w="100%"
         m="auto"
         onClick={handleClearAll}

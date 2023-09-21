@@ -40,7 +40,6 @@ const CartPage = () => {
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
-  // console.log(cartItems);
 
   const dispatch = useDispatch();
 
@@ -108,7 +107,7 @@ const CartPage = () => {
         </Text>
         <Flex direction={"column"} gap="15px">
           {cartItems?.map((item) => (
-            //  <Center >
+            //  < >
             <Flex
               key={item._id}
               h={{ base: null, md: "150px" }}
@@ -125,10 +124,8 @@ const CartPage = () => {
               gap={{ base: "10px", md: "null" }}
             >
               <Box
-                // border={"1px solid green"}
-                // w="60%"
-                onClick={()=>navigate(`/productPage/details/${item._id}`)}
-                _hover={{cursor:'pointer'}}
+                onClick={() => navigate(`/productPage/details/${item._id}`)}
+                _hover={{ cursor: "pointer" }}
                 h={{ base: null, md: "150px" }}
               >
                 <Flex align={"center"}>
@@ -155,7 +152,6 @@ const CartPage = () => {
                     textAlign={"left"}
                     pl={"10px"}
                     gap={{ base: "0.2em", sm: "0.5em" }}
-                    // border={'1px solid yellow'}
                   >
                     <Text fontWeight="bold" color="black">
                       {item.name}
@@ -169,7 +165,10 @@ const CartPage = () => {
                       <Text mt={"-4px"} color="grey">
                         {item.discount * 10}
                       </Text>
-                      <Text mt="-3px" color={item.discount < 10 ? "red" : "green"}>
+                      <Text
+                        mt="-3px"
+                        color={item.discount < 10 ? "red" : "green"}
+                      >
                         {item.discount < 10 ? "Only few Left" : "In Stocks"}
                       </Text>
                       {item.discount < 10 ? (
@@ -180,7 +179,10 @@ const CartPage = () => {
                     </Flex>
                     <Flex>
                       <Text as="del" color={"grey"}>
-                        €{Math.floor(item.price + (item.price / 100) * item.discount)}
+                        €
+                        {Math.floor(
+                          item.price + (item.price / 100) * item.discount
+                        )}
                       </Text>
                       <Text
                         color={"white"}
@@ -200,10 +202,7 @@ const CartPage = () => {
                   </Flex>
                 </Flex>
               </Box>
-              <Flex
-                alignItems="center"
-                // border={"1px solid red"}
-              >
+              <Flex alignItems="center">
                 <IconButton
                   colorScheme="gray"
                   _hover={{ bgColor: "#f3f0f3" }}
@@ -214,12 +213,9 @@ const CartPage = () => {
                   <MinusIcon />
                 </IconButton>
                 <Input
-                  // type="number"
                   w="50px"
-                  // margin={2}
                   textAlign="center"
                   value={item.quantity}
-                  // readOnly
                   isReadOnly
                   border={"#f3f0f3"}
                   _hover={{ bgColor: "#f3f0f3" }}
@@ -246,8 +242,6 @@ const CartPage = () => {
                 </IconButton>
               </Flex>
             </Flex>
-
-            //    </Center>
           ))}
         </Flex>
         <Divider my={8} borderColor="white" />
