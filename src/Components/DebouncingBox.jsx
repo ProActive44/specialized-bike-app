@@ -18,7 +18,7 @@ const DebouncingBox = ({ isOpen, onClose, debouncingProducts }) => {
         <ModalContent>
           {debouncingProducts?.map((ele) => {
             return (
-              <>
+              <div key={ele._id}>
                 <Text
                   _hover={{ cursor: "pointer" }}
                   my={"5px"}
@@ -27,7 +27,7 @@ const DebouncingBox = ({ isOpen, onClose, debouncingProducts }) => {
                   {ele.name}
                 </Text>
                 <Divider />
-              </>
+              </div>
             );
           })}
         </ModalContent>
