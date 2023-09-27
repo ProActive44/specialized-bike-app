@@ -189,7 +189,7 @@ export const getCartProducts = (dispatch) => {
 
 export const postCartProduct = (newProduct, userId) => (dispatch) => {
   // console.log(newProduct);
-  let product = {...newProduct, userId}
+  let product = { ...newProduct, userId };
   dispatch(getCartDataRequestAction());
   axios
     .post(`${mainUrl}/cart`, product)
@@ -353,7 +353,8 @@ export const removeWish = (id) => (dispatch) => {
 };
 
 export const addWish = (newWish, userId) => (dispatch) => {
-  newWish = {...newWish, userId}
+  newWish = { ...newWish, userId };
+  
   dispatch(getWishRequestAction());
   axios
     .post(`${mainUrl}/wishList`, newWish)

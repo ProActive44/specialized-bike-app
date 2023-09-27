@@ -173,15 +173,20 @@ const PersonalInfo = ({ setSelectedBox }) => {
 
       {/* Saved Address */}
       {AddressArray.length === 0 ? (
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          mb={4}
-          paddingTop={10}
-          color="white"
-        >
-          NO SAVED ADDRESS
-        </Text>
+        <>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            mb={4}
+            paddingTop={10}
+            color="white"
+          >
+            NO SAVED ADDRESS
+          </Text>
+          <Text fontSize={'sm'} color={'yellow'}>
+            You need to save an address in order to continue with the purchase.
+          </Text>
+        </>
       ) : (
         <Box>
           <Text

@@ -83,7 +83,7 @@ const CartPage = () => {
         <Breadcrumbs />
         <Box w="50%" m="auto" mb={"20px"} color="white">
           <Image src={EmptyCartImage} w="100%" />
-          <Heading mt={"-50px"}>
+          <Heading >
             Your cart is <span style={{ color: "red" }}>Empty!</span>
           </Heading>
           <Text my={"10px"}>

@@ -93,7 +93,7 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                 {({ isExpanded }) => (
                   <>
                     <h2>
-                      <AccordionButton as="flex" outline="none">
+                      <AccordionButton outline="none">
                         <Box>Account</Box> <Spacer />
                         {isExpanded ? (
                           <MinusIcon fontSize="12px" />
@@ -185,14 +185,10 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   color: "black",
                 }}
               >
-                {" "}
                 <Link to="/cart" onClick={onClose}>
                   <Button variant={"unstyled"} w={"100%"}>
                     Cart
-                    <span>
-                      {" "}
-                      ({cartNumber > 0 && <span>{cartNumber}</span>})
-                    </span>
+                    <span>{cartNumber > 0 && <span>({cartNumber})</span>}</span>
                   </Button>
                 </Link>
               </AccordionItem>
@@ -203,14 +199,10 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   color: "black",
                 }}
               >
-                {" "}
                 <Link to="/wishlist" onClick={onClose}>
                   <Button variant={"unstyled"} w={"100%"}>
                     Wishlist
-                    <span>
-                      {" "}
-                      ({wishNumber > 0 && <span>{wishNumber}</span>})
-                    </span>
+                    <span>{wishNumber > 0 && <span>({wishNumber})</span>}</span>
                   </Button>
                 </Link>
               </AccordionItem>

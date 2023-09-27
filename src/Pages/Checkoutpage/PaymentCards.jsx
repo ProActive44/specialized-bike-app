@@ -139,6 +139,7 @@ const PaymentCards = () => {
 
       {/* Saved Cards */}
       {CardsArray.length === 0 ? (
+        <>
         <Text
           fontSize="xl"
           fontWeight="bold"
@@ -148,6 +149,10 @@ const PaymentCards = () => {
         >
           NO SAVED CARDS
         </Text>
+        <Text fontSize={'sm'} color={'yellow'}>
+            You need to save an card in order to continue with the purchase.
+          </Text>
+        </>
       ) : (
         <Box>
           <Text
