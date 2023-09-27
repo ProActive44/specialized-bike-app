@@ -187,11 +187,12 @@ export const getCartProducts = (dispatch) => {
     .catch(() => dispatch(getCartDataFailureAction()));
 };
 
-export const postCartProduct = (newProduct) => (dispatch) => {
-  console.log(newProduct);
+export const postCartProduct = (newProduct, userId) => (dispatch) => {
+  // console.log(newProduct);
+  let product = {...newProduct, userId}
   dispatch(getCartDataRequestAction());
   axios
-    .post(`${mainUrl}/cart`, newProduct)
+    .post(`${mainUrl}/cart`, product)
     .then((res) => dispatch(postCartDataAction(res.data)))
     .catch(() => dispatch(getCartDataFailureAction()));
 };
@@ -351,7 +352,8 @@ export const removeWish = (id) => (dispatch) => {
     .catch(() => dispatch(getWishFailureAction()));
 };
 
-export const addWish = (newWish) => (dispatch) => {
+export const addWish = (newWish, userId) => (dispatch) => {
+  newWish = {...newWish, userId}
   dispatch(getWishRequestAction());
   axios
     .post(`${mainUrl}/wishList`, newWish)

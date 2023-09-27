@@ -22,6 +22,9 @@ const ProductCard = ({ productData }) => {
   const [wish, setWish] = useState(false);
   const toast = useToast();
   const toastIdRef = useRef();
+  const currUser = useSelector((store) => store.accountReducer.currUser);
+
+  // console.log(currUser)
 
   const dispatch = useDispatch();
   const cartData = useSelector((store) => {
@@ -51,7 +54,16 @@ const ProductCard = ({ productData }) => {
         description: "Product Already Present in cart",
       });
     } else {
-      dispatch(postCartProduct(productData));
+      if (!currUser) {
+        toast({
+          title: "Need To Login First",
+          status: "error",
+          isClosable: true,
+        });
+        return;
+      }
+      let userId = currUser._id;
+      dispatch(postCartProduct(productData, userId));
       toast({
         title: "Item added to Cart",
         status: "success",
@@ -61,7 +73,16 @@ const ProductCard = ({ productData }) => {
   };
 
   const handleAddToWishlist = () => {
-    dispatch(addWish(productData));
+    if (!currUser) {
+      toast({
+        title: "Need To Login First",
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+    let userId = currUser._id;
+    dispatch(addWish(productData, userId));
     toast({
       title: "Added To WishList",
       status: "success",
