@@ -381,7 +381,10 @@ export const debouncingFunction = (searchQuery) => (dispatch) => {
   dispatch(resetDebouncingAction());
   axios
     .get(`${mainUrl}/products?q=${searchQuery}&_page=1&_limit=10`)
-    .then((res) => dispatch(debouncingAction(res.data)))
+    .then((res) => {
+      dispatch(debouncingAction(res.data.data));
+      // console.log(res);
+    })
     .catch((error) => console.log(error));
 };
 

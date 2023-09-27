@@ -45,6 +45,7 @@ import {
   resetDebouncing,
 } from "../Redux/action";
 import { Link, useNavigate } from "react-router-dom";
+import DebouncingBox from "./DebouncingBox";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Navbar = () => {
   const currUser = useSelector((store) => {
     return store.accountReducer.currUser;
   });
-  
+
   const number = cartReducer.cartProducts.length;
   const wishNumber = wishReducer.WishProducts.length;
 
@@ -256,24 +257,9 @@ const Navbar = () => {
               color="white"
               px={"10px"}
             >
-              {debouncingProducts.length > 0 &&
-                searchQuery &&
-                debouncingProducts?.map((ele) => {
-                  return (
-                    <>
-                      <Text
-                        _hover={{ cursor: "pointer" }}
-                        my={"5px"}
-                        onClick={(e) => {
-                          navigate(`/productPage/details/${ele._id}`);
-                        }}
-                      >
-                        {ele.name}
-                      </Text>
-                      <Divider />
-                    </>
-                  );
-                })}
+              {debouncingProducts.length > 0 && searchQuery && (
+                <DebouncingBox debouncingProducts={debouncingProducts} />
+              )}
             </Box>
           </Box>
           <Spacer />
@@ -324,7 +310,7 @@ const Navbar = () => {
                       <>
                         <MenuButton>
                           <Image
-                            // isActive={isOpen}  
+                            // isActive={isOpen}
                             src={accountIcon}
                             alt="accountIcon"
                             color={"white"}
