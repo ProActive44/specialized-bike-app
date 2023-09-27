@@ -46,12 +46,13 @@ export default function Wishlist() {
           <SkeletonCircle size="10" mt="4" />
           <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
         </Box>
-        <Box position={'absolute'} top='210px' mx="38%">
-        <Heading color={'yellow'}> Your Wishlist is Empty </Heading>
-        <Text my={'15px'}>Add some products to you wishlist</Text>
-        <Link to='/productPage'>
-          <Button colorScheme="red">GO TO ALL PRODUCTS</Button>
-        </Link></Box>
+        <Box position={"absolute"} top="210px" mx="38%">
+          <Heading color={"yellow"}> Your Wishlist is Empty </Heading>
+          <Text my={"15px"}>Add some products to you wishlist</Text>
+          <Link to="/productPage">
+            <Button colorScheme="red">GO TO ALL PRODUCTS</Button>
+          </Link>
+        </Box>
       </Box>
     );
   }

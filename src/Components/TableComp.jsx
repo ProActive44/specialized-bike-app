@@ -1,11 +1,17 @@
-import { TableContainer, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import {
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+} from "@chakra-ui/react";
 
 export function TableComp() {
-
-
   return (
-    <TableContainer >
-      <Table variant='striped' colorScheme="red" size='sm' color='grey' >
+    <TableContainer>
+      <Table variant="striped" colorScheme="red" size="sm" color="grey">
         <Thead>
           <Tr>
             <Th></Th>

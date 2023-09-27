@@ -15,7 +15,7 @@ const AboutDiv = () => {
       borderRadius={"20px"}
     >
       <Box
-      borderRadius={"20px"}
+        borderRadius={"20px"}
         position="absolute" // Position absolute to layer the background image
         top={0}
         left={0}

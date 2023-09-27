@@ -48,8 +48,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  // const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch();
+
   const cartReducer = useSelector((store) => {
     return store.cartReducer;
   });
@@ -59,10 +59,9 @@ const Navbar = () => {
   const currUser = useSelector((store) => {
     return store.accountReducer.currUser;
   });
-  // console.log("curruser", currUser);
+  
   const number = cartReducer.cartProducts.length;
   const wishNumber = wishReducer.WishProducts.length;
-  // console.log(wishNumber);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLogoutAlertOpen, setIsLogoutAlertOpen] = useState(false);
@@ -162,7 +161,7 @@ const Navbar = () => {
           {/* <Spacer /> */}
 
           {/* LogoBox */}
-          <Box ml={"20px"} w={{base:"80px",md:"120px"}} mr={"10px"}>
+          <Box ml={"20px"} w={{ base: "80px", md: "120px" }} mr={"10px"}>
             <Link to="/">
               <Image maxW={"100%"} src={Logo} py={"5px"} />
             </Link>
@@ -243,7 +242,7 @@ const Navbar = () => {
                 borderRadius={"20px"}
                 bg={"none"}
                 color={"grey"}
-                cursor={'pointer'}
+                cursor={"pointer"}
               >
                 <Search2Icon />
               </InputRightAddon>
@@ -325,7 +324,7 @@ const Navbar = () => {
                       <>
                         <MenuButton>
                           <Image
-                            // isActive={isOpen}
+                            // isActive={isOpen}  
                             src={accountIcon}
                             alt="accountIcon"
                             color={"white"}
@@ -426,7 +425,7 @@ const Navbar = () => {
         top={["45px", "55px", "65px", "65px", "65px", "65px"]}
         bg="white"
         maxW={"100%"}
-        h={"0.6px"}
+        h={"1px"}
         mx={["10px", "20px", "30px", "40px"]}
       ></Box>
 

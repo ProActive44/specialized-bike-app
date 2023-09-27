@@ -1,37 +1,35 @@
 /* Category List */
-.categories{
-    text-decoration: 'none';
-    font-size: small;
+.categories {
+  text-decoration: "none";
+  font-size: small;
 }
-.categories:hover{
-    color: red;
+.categories:hover {
+  color: red;
 }
-
 
 /* Search Input ---------------------------*/
-.searchInput::placeholder{
-    color: rgb(172, 184, 184);
-    font-size: 14px;
+.searchInput::placeholder {
+  color: rgb(172, 184, 184);
+  font-size: 14px;
 }
 /* --------------------------------------------- */
 
-
-/* navBelow links --------------------------------- */   
-.navBelow{
-    text-align: center;
-    /* border: 1px solid green; */
-    height: 100%;
+/* navBelow links --------------------------------- */
+.navBelow {
+  text-align: center;
+  /* border: 1px solid green; */
+  height: 100%;
 }
 
-.navBelowLink:hover{
-    font-size: medium;
-   text-decoration: none;
-    color: antiquewhite;
+.navBelowLink:hover {
+  font-size: medium;
+  text-decoration: none;
+  color: antiquewhite;
 }
 
 .navBelowLink {
-    /* border: 1px solid red; */
-    font-size: small;
+  /* border: 1px solid red; */
+  font-size: small;
 }
 
 /* ------------------------------------------------------- */
