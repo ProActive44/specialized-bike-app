@@ -1,4 +1,10 @@
-import { AddIcon, EmailIcon, HamburgerIcon, MinusIcon, PhoneIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  EmailIcon,
+  HamburgerIcon,
+  MinusIcon,
+  PhoneIcon,
+} from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -52,10 +58,10 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
     dispatch(logOutUser);
   };
 
-  const handleGoToProducts = ()=>{
-    navigate("/productPage");
+  const handleGoToProducts = () => {
     onClose();
-  }
+    navigate("/productPage");
+  };
 
   return (
     <Menu border="1px solid red">
@@ -105,22 +111,22 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                             variant="outline"
                             colorScheme="facebook"
                             onClick={() => {
-                              navigate("/login");
                               onClose();
+                              navigate("/login");
                             }}
                           >
                             SIGN IN
                           </Button>
                           <br />
-                          {/* <Button leftIcon={<PhoneIcon />} w="100%" borderRadius={'0'} colorScheme='facebook'>9764584028</Button> */}
+
                           <Button
                             w="100%"
                             borderRadius={"10"}
                             variant="outline"
                             colorScheme="facebook"
                             onClick={() => {
-                              navigate("/login");
                               onClose();
+                              navigate("/login");
                             }}
                           >
                             SIGN UP
@@ -178,10 +184,16 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   borderRadius: "10px",
                   color: "black",
                 }}
-              > <Link to='/cart'>
-                <Button variant={"unstyled"} w={"100%"}>
-                  Cart<span> ({cartNumber > 0 && <span>{cartNumber}</span>})</span>
-                </Button>
+              >
+                {" "}
+                <Link to="/cart" onClick={onClose}>
+                  <Button variant={"unstyled"} w={"100%"}>
+                    Cart
+                    <span>
+                      {" "}
+                      ({cartNumber > 0 && <span>{cartNumber}</span>})
+                    </span>
+                  </Button>
                 </Link>
               </AccordionItem>
               <AccordionItem
@@ -190,27 +202,53 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
                   borderRadius: "10px",
                   color: "black",
                 }}
-              >  <Link to="/wishlist">
-                <Button variant={"unstyled"} w={"100%"}>
-                  Wishlist<span> ({wishNumber > 0 && <span>{wishNumber}</span>})</span>
-                </Button>
+              >
+                {" "}
+                <Link to="/wishlist" onClick={onClose}>
+                  <Button variant={"unstyled"} w={"100%"}>
+                    Wishlist
+                    <span>
+                      {" "}
+                      ({wishNumber > 0 && <span>{wishNumber}</span>})
+                    </span>
+                  </Button>
                 </Link>
               </AccordionItem>
             </Accordion>
             <Flex direction={"column"} my={"20px"}>
-              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
+              <Button
+                colorScheme="facebook"
+                variant="ghost"
+                onClick={handleGoToProducts}
+              >
                 MOUNTAIN
               </Button>
-              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
+              <Button
+                colorScheme="facebook"
+                variant="ghost"
+                onClick={handleGoToProducts}
+              >
                 ROAD
               </Button>
-              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
+              <Button
+                colorScheme="facebook"
+                variant="ghost"
+                onClick={handleGoToProducts}
+              >
                 ACTIVE
               </Button>
-              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
+              <Button
+                colorScheme="facebook"
+                variant="ghost"
+                onClick={handleGoToProducts}
+              >
                 ELECTRIC
               </Button>
-              <Button colorScheme="facebook" variant="ghost" onClick={handleGoToProducts}>
+              <Button
+                colorScheme="facebook"
+                variant="ghost"
+                onClick={handleGoToProducts}
+              >
                 KIDS
               </Button>
             </Flex>
@@ -222,17 +260,15 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
         isOpen={isLogoutAlertOpen}
         leastDestructiveRef={btnRef}
         onClose={cancelLogout}
-        size={{base:'xs', md:'md'}}
+        size={{ base: "xs", md: "md" }}
       >
         <AlertDialogOverlay />
         <AlertDialogContent bg="rgb(28,28,28)">
-          <AlertDialogHeader color="white">
-            Confirm Logout
-          </AlertDialogHeader>
+          <AlertDialogHeader color="white">Confirm Logout</AlertDialogHeader>
           <AlertDialogBody color="white">
             Are you sure you want to log out?
           </AlertDialogBody>
-          <AlertDialogFooter gap={'10px'}>
+          <AlertDialogFooter gap={"10px"}>
             <Button colorScheme="red" onClick={confirmLogout}>
               Logout
             </Button>

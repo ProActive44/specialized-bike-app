@@ -22,16 +22,27 @@ const Footer = () => {
       pb="60px"
       mt="50px"
     >
-      <Flex pb={"90px"} gap="20px" textAlign={"left"} justify={"space-between"} direction={{ base: 'column', md: 'row' }} wrap={'wrap'}>
-        <Box w={{ base: "50%", lg: "15%" }} _hover={{ cursor: "pointer" }} m='auto'>
+      <Flex
+        pb={"90px"}
+        gap="20px"
+        textAlign={"left"}
+        justify={"space-between"}
+        direction={{ base: "column", md: "row" }}
+        wrap={"wrap"}
+      >
+        <Box
+          w={{ base: "50%", lg: "15%" }}
+          _hover={{ cursor: "pointer" }}
+          m="auto"
+        >
           <Box>
-            <Image src={Logo} w={'100%'} />
+            <Image src={Logo} w={"100%"} />
           </Box>
           <Box>
             <Image src={Footer_Logos} />
           </Box>
         </Box>
-        <Flex className="middleFlex" gap="20px" wrap={'wrap'}>
+        <Flex className="middleFlex" gap="20px" wrap={"wrap"}>
           <Box>
             <h2>MOUNTAIN</h2>
             <ul>
@@ -93,19 +104,29 @@ const Footer = () => {
             </ul>
           </Box>
         </Flex>
-        <Box w={{ base: "90%", lg: "20%" }} m='auto' mt='10px' className="newsletterfooter">
+        <Box
+          w={{ base: "90%", lg: "20%" }}
+          m="auto"
+          mt="10px"
+          className="newsletterfooter"
+        >
           <Text fontWeight={800}>NEWSLETTER</Text>
           <InputGroup my={"20px"}>
-            <Input type="tel" placeholder="join our newsletter" focusBorderColor='white'/>
+            <Input
+              type="tel"
+              placeholder="join our newsletter"
+              focusBorderColor="white"
+            />
             <InputRightAddon
               children="JOIN"
               bg={"grey"}
-              _hover={{ cursor: "pointer" }}
+              _hover={{ cursor: "pointer", bg: "#262626" }}
+              _active={{ color: "red" }}
             />
           </InputGroup>
           <Text fontSize={"sm"}>
             By submitting your email address you agree to the{" "}
-            <Text as="u" _hover={{ cursor: "pointer" }}>
+            <Text as="u" _hover={{ cursor: "pointer", color: "red" }}>
               Terms & Conditions
             </Text>
           </Text>

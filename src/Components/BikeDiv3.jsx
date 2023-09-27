@@ -1,9 +1,9 @@
-import React from 'react';
-import { Box,Heading,Text } from "@chakra-ui/react";
+import React from "react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
-const Bikediv3 = ({HeadingText, paraGraph, image}) => {
-    return (
-        <Box
+const Bikediv3 = ({ HeadingText, paraGraph, image }) => {
+  return (
+    <Box
       w={"100%"}
       p={{ base: "3%", md: "5%" }}
       m={"auto"}
@@ -24,19 +24,19 @@ const Bikediv3 = ({HeadingText, paraGraph, image}) => {
         filter="brightness(1) contrast(1) saturate(0.9)"
       ></Box>
       <Box position="relative" zIndex={1}>
-        <Heading my={"20px"}>
-          {HeadingText}
-        </Heading>
-        <Text mx={{ base: "5%", md: "10%" }}
+        <Heading my={"20px"}>{HeadingText}</Heading>
+        <Text
+          mx={{ base: "5%", md: "10%" }}
           lineHeight={{ base: "25px", md: "35px" }}
           letterSpacing={"0.1em"}
           textShadow={"2px 5px 4px black"}
-          color={"white"}>
+          color={"white"}
+        >
           {paraGraph}
         </Text>
-        </Box>
+      </Box>
     </Box>
-    );
+  );
 };
 
 export default Bikediv3;

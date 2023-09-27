@@ -5,7 +5,8 @@ import {
   Heading,
   IconButton,
   Image,
-  Text, useToast
+  Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState, useRef } from "react";
@@ -16,26 +17,24 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { BsCart3 } from "react-icons/bs";
 
-const ProductCard = ({ productData}) => {
+const ProductCard = ({ productData }) => {
   const [imageIdx, setImageIdx] = useState(0);
   const [wish, setWish] = useState(false);
-  const toast = useToast()
-  const toastIdRef = useRef()
+  const toast = useToast();
+  const toastIdRef = useRef();
 
-  const dispatch = useDispatch()
-  const cartData = useSelector((store)=>{
+  const dispatch = useDispatch();
+  const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
-  })
-  const wishData = useSelector((store)=>{
+  });
+  const wishData = useSelector((store) => {
     return store.wishReducer.WishProducts;
-  })
-// console.log(wishData)
+  });
 
   const handleColorClick = (index) => {
     setImageIdx(index);
   };
 
- 
   useEffect(() => {
     const wishProd = wishData.find((prod) => prod._id === productData._id);
     if (wishProd) {
@@ -45,51 +44,52 @@ const ProductCard = ({ productData}) => {
     }
   }, [wishData, productData._id]);
 
-
- const handleAddToCart = ()=>{
-    const existProd = cartData.find((prod)=>prod._id === productData._id)
-    if(existProd){
-      toastIdRef.current = toast({ description: 'Product Already Present in cart' })
-    }else{
-      dispatch(postCartProduct(productData))
+  const handleAddToCart = () => {
+    const existProd = cartData.find((prod) => prod._id === productData._id);
+    if (existProd) {
+      toastIdRef.current = toast({
+        description: "Product Already Present in cart",
+      });
+    } else {
+      dispatch(postCartProduct(productData));
       toast({
-        title: 'Item added to Cart',
-        status: 'success',
+        title: "Item added to Cart",
+        status: "success",
         isClosable: true,
-      })
+      });
     }
-  }
+  };
 
   const handleAddToWishlist = () => {
     dispatch(addWish(productData));
     toast({
-      title: 'Added To WishList',
-      status: 'success',
-      position: 'top-center',
+      title: "Added To WishList",
+      status: "success",
+      position: "top-center",
       isClosable: true,
-    })
+    });
   };
 
   const handleRemoveFromWishlist = () => {
     dispatch(removeWish(productData._id));
     toast({
-      title: 'Removed From WishList',
-      status: 'warning',
-      position: 'top-center',
+      title: "Removed From WishList",
+      status: "warning",
+      position: "top-center",
       isClosable: true,
-    })
+    });
   };
 
   const navigate = useNavigate();
-  const discount = productData.discount
+  const discount = productData.discount;
 
   return (
     <Box
       bg={"#f3f0f3"}
       color={"black"}
       borderRadius={"20px"}
-      p="10px"   
-      textAlign="left" 
+      p="10px"
+      textAlign="left"
       //   w={'250px'}
       //   h={"300px"}
     >
@@ -99,8 +99,8 @@ const ProductCard = ({ productData}) => {
         borderRadius={"20px"}
         m={"auto"}
         p={"10px"}
-        _hover={{cursor:"pointer"}}
-        onClick={()=>navigate(`/productPage/details/${productData._id}`)}
+        _hover={{ cursor: "pointer" }}
+        onClick={() => navigate(`/productPage/details/${productData._id}`)}
       />
       <Flex my={"10px"}>
         {productData.color.map((color, index) => {
@@ -126,8 +126,9 @@ const ProductCard = ({ productData}) => {
         {discount && (
           <Flex gap={"5px"}>
             <Text as="del" color={"grey"}>
-              €{Math.floor(
-                productData.price + productData.price / 100 * discount
+              €
+              {Math.floor(
+                productData.price + (productData.price / 100) * discount
               )}
             </Text>
             <Text color={"red"}>{discount}%off</Text>
@@ -136,35 +137,37 @@ const ProductCard = ({ productData}) => {
         <Text>€{productData.price}</Text>
       </Box>
       <Flex m={"5px"} justify={"space-between"} align={"center"}>
-      <Box>
-                <IconButton
-                  aria-label="Search database"
-                  border=""
-                  icon={
-                    wish ? (
-                      <FaHeart size={"30px"} color="red" />
-                    ) : (
-                      <FaRegHeart size={"30px"} color="red" />
-                    )
-                  }
-                  // variant="outline"
-                  p={""}
-                  bg={"#f3f0f3"}
-                  _hover={{ bg: "#f3f0f3" }}
-                  onClick={() => {
-                    if (wish) {
-                      handleRemoveFromWishlist();
-                    } else {
-                      handleAddToWishlist();
-                    }
-                    setWish((prev) => !prev);
-                  }}
-                />
-              </Box>
-        {/* <Button variant="outline" colorScheme="orange" onClick={handleAddToCart}>
-          Add to cart
-        </Button> */}
-        <Button colorScheme="red" size={{base:'sm', md:'md'}}><Text onClick={handleAddToCart} fontSize={{base:'sm'}}>ADD TO CART</Text></Button>
+        <Box>
+          <IconButton
+            aria-label="Search database"
+            border=""
+            icon={
+              wish ? (
+                <FaHeart size={"30px"} color="red" />
+              ) : (
+                <FaRegHeart size={"30px"} color="red" />
+              )
+            }
+            // variant="outline"
+            p={""}
+            bg={"#f3f0f3"}
+            _hover={{ bg: "#f3f0f3" }}
+            onClick={() => {
+              if (wish) {
+                handleRemoveFromWishlist();
+              } else {
+                handleAddToWishlist();
+              }
+              setWish((prev) => !prev);
+            }}
+          />
+        </Box>
+
+        <Button colorScheme="red" size={{ base: "sm", md: "md" }}>
+          <Text onClick={handleAddToCart} fontSize={{ base: "sm" }}>
+            ADD TO CART
+          </Text>
+        </Button>
       </Flex>
     </Box>
   );

@@ -172,7 +172,6 @@ const decrementCartQuantityAction = (payload) => {
 };
 
 // Cart page dispatch functions
-
 export const getCartProducts = (dispatch) => {
   dispatch(getCartDataRequestAction());
   axios
