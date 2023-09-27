@@ -29,11 +29,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "../Images/Mainlogo.png";
-import {
-  EmailIcon,
-  PhoneIcon,
-  Search2Icon,
-} from "@chakra-ui/icons";
+import { EmailIcon, PhoneIcon, Search2Icon } from "@chakra-ui/icons";
 import wishIcon from "../Images/Wishlist icon.png";
 import cartIcon from "../Images/CartIcon.png";
 import accountIcon from "../Images/AccountIcon.png";
@@ -103,44 +99,41 @@ const Navbar = () => {
   // Debouncing
   const handleSearch = (e) => {
     const value = e.target.value;
-      setSearchQuery(value)
+    setSearchQuery(value);
   };
 
   useEffect(() => {
     timeout.current = setTimeout(() => {
-      if(searchQuery !== ""){
+      if (searchQuery !== "") {
         dispatch(debouncingFunction(searchQuery));
       }
     }, 500);
-    return ()=>{
+    return () => {
       clearTimeout(timeout.current);
-    }
+    };
   }, [searchQuery]);
-
 
   useEffect(() => {
     dispatch(getCartProducts);
     dispatch(getWishList);
   }, []);
 
-
   useEffect(() => {
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
   const handleClick = (event) => {
-     dispatch(resetDebouncing)
+    dispatch(resetDebouncing);
     // alert('Clicked!');
   };
-
 
   useEffect(() => {
     const userEmail = JSON.parse(localStorage.getItem("userEmail"));
     if (userEmail) {
-      console.log(userEmail)
-      let currUser = { email : userEmail };
+      console.log(userEmail);
+      let currUser = { email: userEmail };
       getCurrentUser(currUser, dispatch);
     }
   }, []);
@@ -150,11 +143,10 @@ const Navbar = () => {
         maxW={"100%"}
         bg={"rgb(28,28,28)"}
         // m={"auto"}
-        h={["55px", "55px", "65px", "65px", "65px", "65px"]}
+        h={["45px", "55px", "65px", "65px", "65px", "65px"]}
         position={"sticky"}
         top={0}
         zIndex={"1000"}
-        // border={'1px solid red'}
       >
         <Flex align={"center"} mx={"20px"}>
           {/* Hidden menu */}
@@ -170,7 +162,7 @@ const Navbar = () => {
           {/* <Spacer /> */}
 
           {/* LogoBox */}
-          <Box ml={"20px"} w={"120px"} mr={"10px"}>
+          <Box ml={"20px"} w={{base:"80px",md:"120px"}} mr={"10px"}>
             <Link to="/">
               <Image maxW={"100%"} src={Logo} py={"5px"} />
             </Link>
@@ -227,9 +219,8 @@ const Navbar = () => {
                 className="searchInput"
                 focusBorderColor="none"
                 placeholder="Search"
-                // h={{sm:"2px"}}
                 size={["sm", "sm", "sm", "sm", "xl", "2xl"]}
-                w={["150px", "250px", "200px", "200px", "320px", "400px"]}
+                w={["180px", "250px", "200px", "200px", "320px", "400px"]}
                 style={{
                   fontSize: "small",
                   outline: "none",
@@ -238,7 +229,6 @@ const Navbar = () => {
                   paddingRight: "50px",
                   background: "black",
                   color: "white",
-                  //   width: "400px",
                   borderRadius: "20px",
                 }}
                 onChange={handleSearch}
@@ -253,6 +243,7 @@ const Navbar = () => {
                 borderRadius={"20px"}
                 bg={"none"}
                 color={"grey"}
+                cursor={'pointer'}
               >
                 <Search2Icon />
               </InputRightAddon>
@@ -261,16 +252,23 @@ const Navbar = () => {
               position="absolute"
               top="50px"
               bg="rgb(38,38,38)"
-              borderRadius='10px'
+              borderRadius="10px"
               w={["150px", "250px", "200px", "200px", "320px", "400px"]}
               color="white"
               px={"10px"}
             >
-              {debouncingProducts.length > 0 && searchQuery &&
+              {debouncingProducts.length > 0 &&
+                searchQuery &&
                 debouncingProducts?.map((ele) => {
                   return (
                     <>
-                      <Text _hover={{ cursor: "pointer" }} my={"5px"} onClick={(e)=>{navigate(`/productPage/details/${ele._id}`)}}>
+                      <Text
+                        _hover={{ cursor: "pointer" }}
+                        my={"5px"}
+                        onClick={(e) => {
+                          navigate(`/productPage/details/${ele._id}`);
+                        }}
+                      >
                         {ele.name}
                       </Text>
                       <Divider />
@@ -327,7 +325,7 @@ const Navbar = () => {
                       <>
                         <MenuButton>
                           <Image
-                            isActive={isOpen}
+                            // isActive={isOpen}
                             src={accountIcon}
                             alt="accountIcon"
                             color={"white"}
@@ -364,13 +362,6 @@ const Navbar = () => {
                                   </Text>
                                 </Link>
                               </MenuItem>
-                              {/* <br /> */}
-                              {/* <MenuItem bg={'rgb(38,38,38)'} _hover={{bg:"red"}} borderRadius={'10px'}>
-                             <Link to="/signup">
-                                <Text w='100%' _hover={{bg:"red"}} px={'60px'} >SIGN UP </Text>
-                              </Link>
-                              <br />
-                            </MenuItem> */}
                             </>
                           ) : (
                             <Box borderRadius={"10px"} maxW="300px">
@@ -432,7 +423,7 @@ const Navbar = () => {
       <Box
         position={"sticky"}
         zIndex={200}
-        top={["55px", "55px", "65px", "65px", "65px", "65px"]}
+        top={["45px", "55px", "65px", "65px", "65px", "65px"]}
         bg="white"
         maxW={"100%"}
         h={"0.6px"}
@@ -444,7 +435,7 @@ const Navbar = () => {
         maxW={"100%"}
         h={["35px", "40px", "45px"]}
         position={"sticky"}
-        top={["56px", "56px", "66px", "66px", "66px", "66px"]}
+        top={["0", "0", "66px", "66px", "66px", "66px"]}
         //   border="1px solid white"
         zIndex={"100"}
         bgGradient="linear(rgb(28,28,28) 30%, rgb(32,26,14) 15%, rgb(32,26,14) 0%)"
