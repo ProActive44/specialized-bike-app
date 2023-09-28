@@ -36,17 +36,21 @@ import EmptyCartImage from "../../Images/empty_cart.png";
 
 const CartPage = () => {
   const [totalBill, setTotalBill] = useState(0);
+  const dispatch = useDispatch();
+
+  const currUser = useSelector((store) => {
+    return store.accountReducer.currUser;
+  });
+  let userId = currUser._id;
+  
+  useEffect(() => {
+    dispatch(getCartProducts(userId));
+  }, [dispatch]);
+
 
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCartProducts);
-  }, [dispatch]);
-
   const increaseQuantity = (id) => {
     dispatch(incCartQuantity(id));
   };
@@ -83,7 +87,7 @@ const CartPage = () => {
         <Breadcrumbs />
         <Box w="50%" m="auto" mb={"20px"} color="white">
           <Image src={EmptyCartImage} w="100%" />
-          <Heading mt={"-50px"}>
+          <Heading>
             Your cart is <span style={{ color: "red" }}>Empty!</span>
           </Heading>
           <Text my={"10px"}>

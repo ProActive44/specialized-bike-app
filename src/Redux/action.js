@@ -3,6 +3,8 @@ import {
   ADD_TO_WISHLIST,
   DEC_CART_QUANTITY,
   DELETE_CART_PRODUCT,
+  EMPTY_CART,
+  EMPTY_WISHLIST,
   GET_CART_FAILURE,
   GET_CART_REQUEST,
   GET_CART_SUCCESS,
@@ -172,24 +174,22 @@ const decrementCartQuantityAction = (payload) => {
 };
 
 // Cart page dispatch functions
-export const getCartProducts = (dispatch) => {
+export const getCartProducts = (userId) => (dispatch) => {
   dispatch(getCartDataRequestAction());
   axios
-    .get(
-      `${mainUrl}/cart`
-      // , {
-      //   headers: {
-      //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
-      //   },
-      // }
-    )
+    .get(`${mainUrl}/cart`, {
+      headers: {
+        // autherization: `Bearer ${token}`, // Set the Authorization header with the token
+        userId,
+      },
+    })
     .then((res) => dispatch(getCartDataSuccessAction(res.data)))
     .catch(() => dispatch(getCartDataFailureAction()));
 };
 
 export const postCartProduct = (newProduct, userId) => (dispatch) => {
   // console.log(newProduct);
-  let product = {...newProduct, userId}
+  let product = { ...newProduct, productId: newProduct._id, userId };
   dispatch(getCartDataRequestAction());
   axios
     .post(`${mainUrl}/cart`, product)
@@ -274,13 +274,14 @@ export const LoginUser = (currUser) => async (dispatch) => {
 };
 
 export const getCurrentUser = async (currUser, dispatch) => {
-  console.log(dispatch);
   try {
     const response = await axios.post(`${mainUrl}/signup/getuser`, currUser);
     if (response.data.msg === "User Found") {
       const user = response.data.user;
       dispatch(loginUserAction(user));
       localStorage.setItem("userEmail", JSON.stringify(user.email));
+      dispatch(getCartProducts(user._id));
+      dispatch(getWishList(user._id));
     }
   } catch (error) {
     console.error("Error:", error);
@@ -293,6 +294,8 @@ export const logOutUser = (dispatch) => {
   localStorage.removeItem("token");
   localStorage.removeItem("userEmail");
   dispatch(logOutUserAction());
+  dispatch({ type: EMPTY_CART });
+  dispatch({ type: EMPTY_WISHLIST });
 };
 
 // --------------------------------------------------------------------------------------------
@@ -329,22 +332,21 @@ const removeWishAction = (payload) => {
 };
 
 // wishlist page dispatch function
-export const getWishList = (dispatch) => {
+export const getWishList = (userId) => (dispatch) => {
   dispatch(getWishRequestAction());
   axios
-    .get(
-      `${mainUrl}/wishList`
-      // , {
-      //   headers: {
-      //     autherization: `Bearer ${token}`, // Set the Authorization header with the token
-      //   },
-      // }
-    )
+    .get(`${mainUrl}/wishList`, {
+      headers: {
+        // autherization: `Bearer ${token}`, // Set the Authorization header with the token
+        userId,
+      },
+    })
     .then((res) => dispatch(getWishSuccessAction(res.data)))
     .catch(() => dispatch(getWishFailureAction()));
 };
 
 export const removeWish = (id) => (dispatch) => {
+  console.log(id)
   dispatch(getWishRequestAction());
   axios
     .delete(`${mainUrl}/wishList/${id}`)
@@ -353,7 +355,8 @@ export const removeWish = (id) => (dispatch) => {
 };
 
 export const addWish = (newWish, userId) => (dispatch) => {
-  newWish = {...newWish, userId}
+  newWish = { ...newWish, productId: newWish._id, userId };
+
   dispatch(getWishRequestAction());
   axios
     .post(`${mainUrl}/wishList`, newWish)

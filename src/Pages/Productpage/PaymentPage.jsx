@@ -9,8 +9,8 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import PersonalInfo from "../Checkoutpage/PersonalInfo";
 import Myorder from "../Checkoutpage/Myorder";
 import PaymentCards from "../Checkoutpage/PaymentCards";
-import MyWishlist from "../Checkoutpage/MyWishlist";
 import Breadcrumbs from "../../Components/Breadcrumb";
+import Wishlist from "../../Components/Wishlist";
 
 const PaymentPage = () => {
   useEffect(() => {
@@ -121,11 +121,13 @@ const PaymentPage = () => {
           ) : selectedBox === 1 ? (
             <Myorder setSelectedBox={setSelectedBox} />
           ) : selectedBox === 2 ? (
-            <h1>coupon</h1>
+            <Text color={"red"} fontSize={"xl"}>
+              <Text color={"yellow"}>Sorry!!</Text> No Coupons
+            </Text>
           ) : selectedBox === 3 ? (
             <PaymentCards />
           ) : (
-            <MyWishlist />
+            <Wishlist />
           )}
         </Box>
       </Flex>

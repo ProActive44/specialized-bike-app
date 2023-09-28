@@ -1,6 +1,7 @@
 import {
   DEC_CART_QUANTITY,
   DELETE_CART_PRODUCT,
+  EMPTY_CART,
   GET_CART_FAILURE,
   GET_CART_REQUEST,
   GET_CART_SUCCESS,
@@ -70,6 +71,13 @@ const cartReducer = (state = initState, action) => {
           }
           return product;
         }),
+      };
+
+    case EMPTY_CART:
+      return {
+        cartProducts: [],
+        isLoading: false,
+        isError: false,
       };
 
     default:

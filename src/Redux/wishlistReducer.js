@@ -1,5 +1,6 @@
 import {
   ADD_TO_WISHLIST,
+  EMPTY_CART,
   GET_WISHLIST_FAILURE,
   GET_WISHLIST_REQUEST,
   GET_WISHLIST_SUCCESS,
@@ -47,6 +48,14 @@ const wishReducer = (state = initState, action) => {
           (product) => product._id !== payload
         ),
       };
+
+    case EMPTY_CART:
+      return {
+        WishProducts: [],
+        isLoading: false,
+        isError: false,
+      };
+      
     default:
       return state;
   }

@@ -132,7 +132,7 @@ const Navbar = () => {
   useEffect(() => {
     const userEmail = JSON.parse(localStorage.getItem("userEmail"));
     if (userEmail) {
-      console.log(userEmail);
+      // console.log(userEmail);
       let currUser = { email: userEmail };
       getCurrentUser(currUser, dispatch);
     }
