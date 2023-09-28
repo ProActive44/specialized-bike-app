@@ -95,7 +95,7 @@ const Navbar = () => {
   const debouncingProducts = useSelector((store) => {
     return store.productsReducer.debouncingArr;
   });
-  // console.log(debouncingProducts);
+
   // Debouncing
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -132,7 +132,6 @@ const Navbar = () => {
   useEffect(() => {
     const userEmail = JSON.parse(localStorage.getItem("userEmail"));
     if (userEmail) {
-      // console.log(userEmail);
       let currUser = { email: userEmail };
       getCurrentUser(currUser, dispatch);
     }

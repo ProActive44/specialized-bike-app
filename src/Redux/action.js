@@ -346,7 +346,6 @@ export const getWishList = (userId) => (dispatch) => {
 };
 
 export const removeWish = (id) => (dispatch) => {
-  console.log(id)
   dispatch(getWishRequestAction());
   axios
     .delete(`${mainUrl}/wishList/${id}`)

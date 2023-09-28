@@ -25,8 +25,6 @@ const ProductCard = ({ productData }) => {
   const dispatch = useDispatch();
   const currUser = useSelector((store) => store.accountReducer.currUser);
 
-  // console.log(currUser)
-
   const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
@@ -37,13 +35,15 @@ const ProductCard = ({ productData }) => {
   const wishProd = wishData.find((prod) => {
     return prod.productId === productData._id || prod._id === productData._id;
   });
+  const existProdInCart = cartData.find((prod) => {
+    return prod.productId === productData._id || prod._id === productData._id;
+  });
 
   const handleColorClick = (index) => {
     setImageIdx(index);
   };
 
   useEffect(() => {
-    console.log(wishProd)
     if (wishProd) {
       setWish(true);
     } else {
@@ -52,29 +52,27 @@ const ProductCard = ({ productData }) => {
   }, [wishData, productData._id]);
 
   const handleAddToCart = () => {
-    const existProd = cartData.find(
-      (prod) => prod.productId === productData.productId
-    );
-    if (existProd) {
-      toastIdRef.current = toast({
-        description: "Product Already Present in cart",
-      });
-    } else {
-      if (!currUser) {
-        toast({
-          title: "Need To Login First",
-          status: "error",
-          isClosable: true,
-        });
-        return;
-      }
-      let userId = currUser._id;
-      dispatch(postCartProduct(productData, userId));
+    // If user is not logged in
+    if (!currUser || Object.keys(currUser).length === 0) {
       toast({
-        title: "Item added to Cart",
-        status: "success",
+        title: "Need To Login First",
+        status: "error",
         isClosable: true,
       });
+    } else {
+      if (existProdInCart) {
+        toastIdRef.current = toast({
+          description: "Product Already Present in cart",
+        });
+      } else {
+        let userId = currUser._id;
+        dispatch(postCartProduct(productData, userId));
+        toast({
+          title: "Item added to Cart",
+          status: "success",
+          isClosable: true,
+        });
+      }
     }
   };
 
@@ -103,7 +101,7 @@ const ProductCard = ({ productData }) => {
     toast({
       title: "Removed From WishList",
       status: "warning",
-      position: "top-center",
+      position: "top-left",
       isClosable: true,
     });
   };
@@ -190,10 +188,12 @@ const ProductCard = ({ productData }) => {
           />
         </Box>
 
-        <Button colorScheme="red" size={{ base: "sm", md: "md" }}>
-          <Text onClick={handleAddToCart} fontSize={{ base: "sm" }}>
-            ADD TO CART
-          </Text>
+        <Button
+          colorScheme="red"
+          size={{ base: "sm", md: "md" }}
+          onClick={handleAddToCart}
+        >
+          <Text fontSize={{ base: "sm" }}>ADD TO CART</Text>
         </Button>
       </Flex>
     </Box>

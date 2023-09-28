@@ -44,33 +44,42 @@ import Breadcrumbs from "../../Components/Breadcrumb";
 const Detailspage = () => {
   const [wish, setWish] = useState(false);
   const [imageIdx, setImageIdx] = useState(0);
-
-  const handleColorClick = (index) => {
-    setImageIdx(index);
-  };
-
+  const toast = useToast();
+  const toastIdRef = useRef();
   const dispatch = useDispatch();
-
+  const currUser = useSelector((store) => store.accountReducer.currUser);
   const currproduct = useSelector((store) => {
     return store.productsReducer.currProduct;
   });
-
   const isLoading = useSelector((store) => {
     return store.productsReducer.isLoading;
+  });
+  const wishData = useSelector((store) => {
+    return store.wishReducer.WishProducts;
+  });
+  const cartData = useSelector((store) => {
+    return store.cartReducer.cartProducts;
+  });
+
+  const wishProd = wishData.find((prod) => {
+    return prod.productId === currproduct._id || prod._id === currproduct._id;
+  });
+  const existProdInCart = cartData.find((prod) => {
+    return prod.productId === currproduct._id || prod._id === currproduct._id;
   });
 
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const handleColorClick = (index) => {
+    setImageIdx(index);
+  };
+
   useEffect(() => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
 
-  const wishData = useSelector((store) => {
-    return store.wishReducer.WishProducts;
-  });
   useEffect(() => {
-    const wishProd = wishData.find((prod) => prod._id === currproduct._id);
     if (wishProd) {
       setWish(true);
     } else {
@@ -78,40 +87,53 @@ const Detailspage = () => {
     }
   }, [wishData, currproduct._id]);
 
-  const cartData = useSelector((store) => {
-    return store.cartReducer.cartProducts;
-  });
-
-  const toast = useToast();
-  const toastIdRef = useRef();
   const handleAddToCart = () => {
-    const existProd = cartData.find((prod) => prod._id === currproduct._id);
-    if (existProd) {
-      toastIdRef.current = toast({
-        description: "Product Already Present in cart",
+    // If user is not logged in
+    if (!currUser || Object.keys(currUser).length === 0) {
+      toast({
+        title: "Need To Login First",
+        status: "error",
+        isClosable: true,
       });
     } else {
-      dispatch(postCartProduct(currproduct));
+      if (existProdInCart) {
+        toastIdRef.current = toast({
+          description: "Product Already Present in cart",
+        });
+      } else {
+        let userId = currUser._id;
+        dispatch(postCartProduct(currproduct, userId));
+        toast({
+          title: "Item added to Cart",
+          status: "success",
+          isClosable: true,
+        });
+      }
+    }
+  };
+
+  const handleAddToWishlist = () => {
+    // If user is not logged in
+    if (!currUser || Object.keys(currUser).length === 0) {
       toast({
-        title: "Item added to Cart",
+        title: "Need To Login First",
+        status: "error",
+        isClosable: true,
+      });
+    } else {
+      let userId = currUser._id;
+      dispatch(addWish(currproduct, userId));
+      toast({
+        title: "Added To WishList",
         status: "success",
+        position: "top-left",
         isClosable: true,
       });
     }
   };
 
-  const handleAddToWishlist = () => {
-    dispatch(addWish(currproduct));
-    toast({
-      title: "Added To WishList",
-      status: "success",
-      position: "top-left",
-      isClosable: true,
-    });
-  };
-
   const handleRemoveFromWishlist = () => {
-    dispatch(removeWish(currproduct._id));
+    dispatch(removeWish(wishProd._id));
     toast({
       title: "Removed From WishList",
       status: "warning",
@@ -340,7 +362,7 @@ const Detailspage = () => {
                   <Text as="del" color={"grey"}>
                     €
                     {Math.floor(
-                      currproduct.price + currproduct.price / discount
+                      currproduct.price + (discount / 100) * currproduct.price
                     )}
                   </Text>
                   <Text color={"red"} ml={"5px"}>
@@ -384,7 +406,6 @@ const Detailspage = () => {
                       } else {
                         handleAddToWishlist();
                       }
-                      setWish((prev) => !prev);
                     }}
                   />
                 </Box>

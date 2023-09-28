@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+.env
+env
+
 # production
 /build
 
@@ -28,5 +31,3 @@ yarn-error.log*
 
 .vercel
 
-.env
-env

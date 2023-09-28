@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const DebouncingBox = ({ debouncingProducts }) => {
   const navigate = useNavigate();
-  // console.log(debouncingProducts);
   return (
     <>
       {debouncingProducts?.map((ele) => {

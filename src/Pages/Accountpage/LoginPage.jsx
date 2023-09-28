@@ -30,15 +30,9 @@ export const Login = () => {
   const [password, setpassword] = useState("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  // const AllUsers = useSelector((store) => store.accountReducer.AllUsers)
   const isLogin = useSelector((store) => store.accountReducer.isLogin);
 
-  // const currUser = useSelector((store) => store.accountReducer.currUser);
-  // console.log(AllUsers)
-
   const toast = useToast();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,12 +46,8 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const user = AllUsers.find(
-    //     (user) => user.email === email && user.password === password
-    //   );
     const currUser = { email, password };
 
-    // console.log(currUser);
     const user = await dispatch(LoginUser(currUser));
 
     if (user === true) {
