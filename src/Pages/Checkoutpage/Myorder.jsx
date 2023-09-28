@@ -39,7 +39,6 @@ const Myorder = ({ setSelectedBox }) => {
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
-  // console.log(cartItems);
 
   const dispatch = useDispatch();
 

@@ -55,7 +55,7 @@ const wishReducer = (state = initState, action) => {
         isLoading: false,
         isError: false,
       };
-      
+
     default:
       return state;
   }

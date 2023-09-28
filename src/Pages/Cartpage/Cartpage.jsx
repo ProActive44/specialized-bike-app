@@ -42,11 +42,10 @@ const CartPage = () => {
     return store.accountReducer.currUser;
   });
   let userId = currUser._id;
-  
+
   useEffect(() => {
     dispatch(getCartProducts(userId));
   }, [dispatch]);
-
 
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
