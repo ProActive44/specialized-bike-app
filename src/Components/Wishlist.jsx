@@ -18,9 +18,14 @@ import { Link } from "react-router-dom";
 
 export default function Wishlist() {
   const data = useSelector((state) => state.wishReducer.WishProducts);
+  const currUser = useSelector((store) => {
+    return store.accountReducer.currUser;
+  });
   const dispatch = useDispatch();
+
+  let userId = currUser._id;
   useEffect(() => {
-    dispatch(getWishList);
+    dispatch(getWishList(userId));
   }, [dispatch]);
 
   if (data.length === 0) {

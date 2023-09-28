@@ -22,11 +22,11 @@ const ProductCard = ({ productData }) => {
   const [wish, setWish] = useState(false);
   const toast = useToast();
   const toastIdRef = useRef();
+  const dispatch = useDispatch();
   const currUser = useSelector((store) => store.accountReducer.currUser);
 
   // console.log(currUser)
 
-  const dispatch = useDispatch();
   const cartData = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
@@ -34,12 +34,16 @@ const ProductCard = ({ productData }) => {
     return store.wishReducer.WishProducts;
   });
 
+  const wishProd = wishData.find((prod) => {
+    return prod.productId === productData._id || prod._id === productData._id;
+  });
+
   const handleColorClick = (index) => {
     setImageIdx(index);
   };
 
   useEffect(() => {
-    const wishProd = wishData.find((prod) => prod._id === productData._id);
+    console.log(wishProd)
     if (wishProd) {
       setWish(true);
     } else {
@@ -48,7 +52,9 @@ const ProductCard = ({ productData }) => {
   }, [wishData, productData._id]);
 
   const handleAddToCart = () => {
-    const existProd = cartData.find((prod) => prod._id === productData._id);
+    const existProd = cartData.find(
+      (prod) => prod.productId === productData.productId
+    );
     if (existProd) {
       toastIdRef.current = toast({
         description: "Product Already Present in cart",
@@ -73,26 +79,27 @@ const ProductCard = ({ productData }) => {
   };
 
   const handleAddToWishlist = () => {
-    if (!currUser) {
+    // If user is not logged in
+    if (!currUser || Object.keys(currUser).length === 0) {
       toast({
         title: "Need To Login First",
         status: "error",
         isClosable: true,
       });
-      return;
+    } else {
+      let userId = currUser._id;
+      dispatch(addWish(productData, userId));
+      toast({
+        title: "Added To WishList",
+        status: "success",
+        position: "top-center",
+        isClosable: true,
+      });
     }
-    let userId = currUser._id;
-    dispatch(addWish(productData, userId));
-    toast({
-      title: "Added To WishList",
-      status: "success",
-      position: "top-center",
-      isClosable: true,
-    });
   };
 
   const handleRemoveFromWishlist = () => {
-    dispatch(removeWish(productData._id));
+    dispatch(removeWish(wishProd._id));
     toast({
       title: "Removed From WishList",
       status: "warning",
@@ -149,7 +156,7 @@ const ProductCard = ({ productData }) => {
             <Text as="del" color={"grey"}>
               €
               {Math.floor(
-                productData.price + (productData.price / 100) * discount
+                productData.price + (discount / 100) * productData.price
               )}
             </Text>
             <Text color={"red"}>{discount}%off</Text>
@@ -179,7 +186,6 @@ const ProductCard = ({ productData }) => {
               } else {
                 handleAddToWishlist();
               }
-              setWish((prev) => !prev);
             }}
           />
         </Box>
