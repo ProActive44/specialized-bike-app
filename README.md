@@ -31,7 +31,7 @@ Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm st
 1. Home Page - 
 ![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/bff4214a-9a2c-4540-b51a-59a486f7d183)
  2. SignIn/Login Page 
-![image](https://github.com/ProActive44/specialized-bike-app/assets/105164976/523c7e4a-cc62-465d-b4d0-90bbe2a9985d)
+![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/cbd8d04a-d6a2-4b81-a6ce-4b06d3b91d27)
 3. WishList Page -
 ![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/4a0efe99-a8b5-43ba-b548-435eb2ee56bf)
 4. Product Page -
@@ -41,4 +41,4 @@ Step-3 Navigate to app folder using **cd specialized-bike-app** and run **npm st
 6. Cart page - 
 ![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/3dda008e-63fd-4b2b-9cbe-9a49ac6d4559)
 7. Payment Page - 
-![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/2a7f04e7-f6b2-455e-bcf6-e530d0a9c4e4)
+![image](https://github.com/ProActive44/specialized-bike-app/assets/125894779/1ce72902-4b11-4fae-bfd6-c51134da71e2)
