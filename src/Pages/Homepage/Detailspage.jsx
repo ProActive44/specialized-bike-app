@@ -358,24 +358,23 @@ const Detailspage = () => {
               <Box
                 bg={"#f3f0f3"}
                 color="black"
-                p="20px"
+                p={{ base: "10px", sm: "20px" }}
                 borderRadius={"10px"}
-                my={"20px"}
+                my={{ base: "5px", sm: "20px" }}
               >
-                <Flex gap="20px" align={"center"}>
+                <Flex gap="10px" align={"center"}>
                   <IoWalletOutline size={30} color="green" />
                   <Text>PAYMENT</Text>
                 </Flex>
                 <Flex
-                  gap="10px"
-                  w="90%"
+                  w={{ base: "100%", sm: "90%" }}
                   m={"20px auto"}
                   textAlign={"center"}
                   justify={"space-evenly"}
                 >
                   <Flex
                     direction={"column"}
-                    w="30%"
+                    w={{ base: "33%", sm: "30%" }}
                     border={"1px solid grey"}
                     p="10px"
                     borderRadius={"10px"}
@@ -385,7 +384,7 @@ const Detailspage = () => {
                   </Flex>
                   <Flex
                     direction={"column"}
-                    w="30%"
+                    w={{ base: "32%", sm: "30%" }}
                     border={"1px solid grey"}
                     p="10px"
                     borderRadius={"10px"}
@@ -395,7 +394,7 @@ const Detailspage = () => {
                   </Flex>
                   <Flex
                     direction={"column"}
-                    w="30%"
+                    w={{ base: "33%", sm: "30%" }}
                     border={"1px solid grey"}
                     p="10px"
                     borderRadius={"10px"}
@@ -432,10 +431,12 @@ const Detailspage = () => {
                 borderRadius={"10px"}
                 my={"20px"}
               >
-                <Flex gap="10px">
-                  <GiReturnArrow color="green" size={24} />
-                  <Text>EXCHANGE & RETURN: </Text>
-                  <Text>within 14 days</Text>
+                <Flex>
+                  <Flex gap={{ base: "5px", sm: "10px" }}>
+                    <GiReturnArrow color="green" size={24} />
+                    <Text>EXCHANGE & RETURN: </Text>
+                  </Flex>
+                  <Text ml={{ base: "5px", sm: "10px" }}>within 14 days</Text>
                 </Flex>
               </Box>
             </Box>
@@ -448,6 +449,7 @@ const Detailspage = () => {
               pt={"10px"}
               p={"30px"}
               borderRadius={"10px"}
+              overflow={"scroll"}
             >
               <Text fontSize={"2xl"} mb={"30px"} letterSpacing={"0.1em"}>
                 DESCRIPTION
@@ -489,7 +491,7 @@ const Detailspage = () => {
                         </AccordionButton>
                       </h2>
                       <AccordionPanel>
-                        <TableComp w="100%" overflow={"hidden"} />
+                        <TableComp />
                       </AccordionPanel>
                     </>
                   )}
