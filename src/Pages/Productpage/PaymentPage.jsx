@@ -24,15 +24,16 @@ const PaymentPage = () => {
   };
 
   return (
-    <Box bgColor="#262626" p={5}>
+    <Box bgColor="#262626" p={{ base: null, sm: 5 }} m={"auto"}>
       <Breadcrumbs />
-      <Flex mt={"20px"}>
-        <Box w="30%" p={4}>
+      <Flex mt={"20px"} wrap={"wrap"}>
+        <Box p={4}>
           <Text
             fontSize="4xl"
             fontWeight="bold"
             marginBottom={10}
             color="white"
+            minW={"300px"}
           >
             ACCOUNT EDIT
           </Text>
@@ -42,6 +43,8 @@ const PaymentPage = () => {
             color="white"
             fontSize={"xl"}
             _hover={{ cursor: "pointer" }}
+            textAlign={"left"}
+            minWidth={"300px"}
           >
             <Box onClick={() => handleBoxClick(0)}>
               <Flex
@@ -115,7 +118,7 @@ const PaymentPage = () => {
             </Box>
           </Container>
         </Box>
-        <Box w="70%">
+        <Box flex={"1"} minW={"300px"}>
           {selectedBox === 0 ? (
             <PersonalInfo setSelectedBox={setSelectedBox} />
           ) : selectedBox === 1 ? (
@@ -127,7 +130,7 @@ const PaymentPage = () => {
           ) : selectedBox === 3 ? (
             <PaymentCards />
           ) : (
-            <Wishlist />
+            <Wishlist onOrder={true} />
           )}
         </Box>
       </Flex>

@@ -9,6 +9,7 @@ import {
   SkeletonCircle,
   SkeletonText,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 // import { AddIcon } from '@chakra-ui/icons'
 import ProductCard from "./ProductCard";
@@ -16,7 +17,7 @@ import ProductCard from "./ProductCard";
 import Breadcrumbs from "./Breadcrumb";
 import { Link } from "react-router-dom";
 
-export default function Wishlist() {
+export default function Wishlist({ onOrder }) {
   const data = useSelector((state) => state.wishReducer.WishProducts);
   const currUser = useSelector((store) => {
     return store.accountReducer.currUser;
@@ -26,7 +27,7 @@ export default function Wishlist() {
   let userId = currUser._id;
   useEffect(() => {
     dispatch(getWishList(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (data.length === 0) {
     return (
@@ -77,20 +78,29 @@ export default function Wishlist() {
         </Heading>
       ) : (
         <Box>
-          <Breadcrumbs w="80%" m="auto" />
+          {!onOrder && <Breadcrumbs w="80%" m="auto" />}
           <Heading color={"white"} letterSpacing={"0.2em"}>
             WISHLIST
           </Heading>
-          <Box display={"flex"}>
+          <Flex>
             <Box
               w={{ base: "90%", sm: "85%", md: "75%" }}
               m="auto"
               display={"grid"}
-              gridTemplateColumns={{
-                base: "repeat(1fr)",
-                sm: "repeat(2, 1fr)",
-                md: "repeat(3, 1fr)",
-              }}
+              gridTemplateColumns={
+                onOrder
+                  ? {
+                      base: "repeat(1fr)",
+                      // sm: "repeat(2, 1fr)",
+                      lg: "repeat(2, 1fr)",
+                      xl: "repeat(3, 1fr)",
+                    }
+                  : {
+                      base: "repeat(1fr)",
+                      sm: "repeat(2, 1fr)",
+                      md: "repeat(3, 1fr)",
+                    }
+              }
               gap="20px"
               paddingTop={"2em"}
             >
@@ -98,7 +108,7 @@ export default function Wishlist() {
                 return <ProductCard productData={prod} key={prod._id} />;
               })}
             </Box>
-          </Box>
+          </Flex>
         </Box>
       )}
     </Box>

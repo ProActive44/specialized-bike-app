@@ -98,7 +98,7 @@ export const Otppage = ({ setModalNumber }) => {
           type="number"
           ref={firstInputRef}
           name="firstnum"
-          maxWidth={"7%"}
+          w={"41px"}
           maxLength={"1"}
           focusBorderColor="yellow.600"
           onChange={(e) => handleInput(firstInputRef, e)}
@@ -108,7 +108,7 @@ export const Otppage = ({ setModalNumber }) => {
           type="number"
           ref={secondInputRef}
           name="secnum"
-          maxWidth={"7%"}
+          w={"42px"}
           maxLength={"1"}
           focusBorderColor="yellow.600"
           onChange={(e) => handleInput(secondInputRef, e)}
@@ -118,7 +118,7 @@ export const Otppage = ({ setModalNumber }) => {
           type="number"
           ref={thirdInputRef}
           name="thirdnum"
-          maxWidth={"7%"}
+          w={"42px"}
           maxLength={"1"}
           focusBorderColor="yellow.600"
           onChange={(e) => handleInput(thirdInputRef, e)}
@@ -128,7 +128,7 @@ export const Otppage = ({ setModalNumber }) => {
           type="number"
           ref={fourthInputRef}
           name="forthnum"
-          maxWidth={"7%"}
+          w={"42px"}
           maxLength={"1"}
           focusBorderColor="yellow.600"
           onChange={(e) => handleInput(fourthInputRef, e)}

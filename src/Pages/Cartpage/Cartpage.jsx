@@ -45,7 +45,7 @@ const CartPage = () => {
 
   useEffect(() => {
     dispatch(getCartProducts(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;

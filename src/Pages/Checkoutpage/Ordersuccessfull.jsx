@@ -28,7 +28,7 @@ export const Ordersuccessfull = ({ setModalNumber }) => {
       <h6 style={{ fontSize: "small" }}>
         Please keep this Order ID for future reference{" "}
       </h6>
-      <ButtonGroup variant="outline" width="40%" margin="20px">
+      <ButtonGroup variant="outline" margin="20px">
         <Button
           onClick={() => {
             navigate("/");
