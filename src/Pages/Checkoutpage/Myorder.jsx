@@ -35,16 +35,19 @@ import EmptyCartImage from "../../Images/empty_cart.png";
 
 const Myorder = ({ setSelectedBox }) => {
   const [totalBill, setTotalBill] = useState(0);
+  const dispatch = useDispatch();
 
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
   });
-
-  const dispatch = useDispatch();
+  const currUser = useSelector((store) => {
+    return store.accountReducer.currUser;
+  });
+  let userId = currUser._id;
 
   useEffect(() => {
-    dispatch(getCartProducts);
-  }, [dispatch]);
+    dispatch(getCartProducts(userId));
+  }, [dispatch, userId]);
 
   const increaseQuantity = (id) => {
     dispatch(incCartQuantity(id));
@@ -81,12 +84,12 @@ const Myorder = ({ setSelectedBox }) => {
       <Box mt="30px">
         <Box w="50%" m="auto" mb={"20px"} color="white">
           <Image src={EmptyCartImage} w="100%" />
-          <Heading mt={"-50px"}>
+          <Heading>
             Your cart is <span style={{ color: "red" }}>Empty!</span>
           </Heading>
           <Text my={"10px"}>
-            Looks like you Don't have any orders now. Go ahead & explore top
-            categories.
+            Looks like you have not added anything to your cart. Go ahead &
+            explore top categories.
           </Text>
           <Button colorScheme="red" onClick={() => navigate("/productPage")}>
             Return To Shop
@@ -107,10 +110,9 @@ const Myorder = ({ setSelectedBox }) => {
             //  <Center >
             <Flex
               key={item._id}
-              h={{ base: null, md: "150px" }}
-              direction={{ base: "column", md: "row" }}
+              h={{ base: null, xl: "150px" }}
+              direction={{ base: "column", xl: "row" }}
               align={"center"}
-              // border={"1px solid red"}
               borderRadius={"10px"}
               justifyContent="space-between"
               w={{ base: "95%", sm: "90%", md: "90%", lg: "85%", xl: "90%" }}
@@ -119,9 +121,9 @@ const Myorder = ({ setSelectedBox }) => {
               px={{ base: "5px", md: "20px" }}
               bgColor={"#f3f0f3"}
               gap={{ base: "10px", md: "null" }}
+              minW={"300px"}
             >
               <Box
-                // border={"1px solid green"}
                 // w="60%"
                 onClick={() => navigate(`/productPage/details/${item._id}`)}
                 _hover={{ cursor: "pointer" }}
@@ -135,6 +137,7 @@ const Myorder = ({ setSelectedBox }) => {
                     h={{ base: null, md: "130px" }}
                     m="auto"
                     mt={{ base: null, md: "10px" }}
+                    minW={"160px"}
                   >
                     <Image
                       src={item.images[0]}
@@ -259,8 +262,8 @@ const Myorder = ({ setSelectedBox }) => {
           w={{ base: "95%", sm: "90%", md: "90%", lg: "85%", xl: "90%" }}
           m="auto"
           gap={"20px"}
-          h={{ base: "380px", sm: "350px", md: "155px" }}
-          direction={{ base: "column", md: "row" }}
+          h={{ base: "380px", sm: "350px", xl: "155px" }}
+          direction={{ base: "column", xl: "row" }}
           align={"center"}
         >
           <Box bgColor={"white"} borderRadius="10px">

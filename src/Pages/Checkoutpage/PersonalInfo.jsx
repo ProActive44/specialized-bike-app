@@ -82,7 +82,7 @@ const PersonalInfo = ({ setSelectedBox }) => {
         paddingTop={10}
         color="white"
       >
-        MAIN PERSONAL INFO
+        PERSONAL INFO
       </Text>
       <form onSubmit={handleFormSubmit}>
         <Stack spacing={4}>
@@ -141,7 +141,7 @@ const PersonalInfo = ({ setSelectedBox }) => {
           </Flex>
         </Stack>
         <Text fontSize="xl" fontWeight="bold" mt={10} mb={4} color="white">
-          MY DELIVERY ADDRESS
+          DELIVERY ADDRESS
         </Text>
         <Stack spacing={4} w="102%">
           <FormControl>
@@ -183,7 +183,7 @@ const PersonalInfo = ({ setSelectedBox }) => {
           >
             NO SAVED ADDRESS
           </Text>
-          <Text fontSize={'sm'} color={'yellow'}>
+          <Text fontSize={"sm"} color={"yellow"}>
             You need to save an address in order to continue with the purchase.
           </Text>
         </>

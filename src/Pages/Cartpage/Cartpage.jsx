@@ -45,7 +45,7 @@ const CartPage = () => {
 
   useEffect(() => {
     dispatch(getCartProducts(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   const cartItems = useSelector((store) => {
     return store.cartReducer.cartProducts;
@@ -106,7 +106,7 @@ const CartPage = () => {
       <Breadcrumbs />
       <Box>
         <Text fontSize="4xl" mb={4} color="white" fontWeight="bold">
-          YOUR ORDER
+          YOUR ORDERS
         </Text>
         <Flex direction={"column"} gap="15px">
           {cartItems?.map((item) => (

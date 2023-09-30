@@ -140,16 +140,16 @@ const PaymentCards = () => {
       {/* Saved Cards */}
       {CardsArray.length === 0 ? (
         <>
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          mb={4}
-          paddingTop={10}
-          color="white"
-        >
-          NO SAVED CARDS
-        </Text>
-        <Text fontSize={'sm'} color={'yellow'}>
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            mb={4}
+            paddingTop={10}
+            color="white"
+          >
+            NO SAVED CARDS
+          </Text>
+          <Text fontSize={"sm"} color={"yellow"}>
             You need to save an card in order to continue with the purchase.
           </Text>
         </>
@@ -190,7 +190,7 @@ const PaymentCards = () => {
       <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
         <ModalOverlay />
         <ModalContent bg="#262626" textAlign={"center"} p="20px">
-          <ModalCloseButton color={"white"} />
+          {modalNumber === 0 && <ModalCloseButton color={"white"} />}
           {modalNumber === 0 ? (
             <Otppage setModalNumber={setModalNumber} />
           ) : (
