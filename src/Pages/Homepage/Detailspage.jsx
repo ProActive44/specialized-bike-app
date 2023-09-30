@@ -182,7 +182,7 @@ const Detailspage = () => {
 
               {/* Starts and Available Items */}
               <Flex
-                my={{ base: "2px", sm: "10px", md: "20px" }}
+                my={{ base: "10px", sm: "10px", md: "20px" }}
                 justify={"space-between"}
               >
                 <Flex>
