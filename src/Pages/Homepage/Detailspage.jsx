@@ -150,145 +150,41 @@ const Detailspage = () => {
   const discount = currproduct.discount;
 
   return (
-    <Box w={"90%"} m="auto" my={"50px"} color={"white"}>
+    <Box
+      w={{ base: "98%", sm: "95%", md: "90%" }}
+      m="auto"
+      my={"50px"}
+      color={"white"}
+    >
       {!isLoading && currproduct.images !== undefined ? (
         <Box>
           <Breadcrumbs />
-          <Flex gap={"40px"} mt="30px">
-            <Box className="firstDiv" w={"50%"}>
-              <Box p={"40px"} bg={"#f3f0f3"} borderRadius={"10px"}>
-                <Image src={currproduct.images[imageIdx]} />
-              </Box>
-              <Box
-                bg={"#f3f0f3"}
-                color={"black"}
-                p={"30px"}
-                borderRadius={"10px"}
-                textAlign={"left"}
-                my={"20px"}
-              >
-                <Flex direction={"column"} gap={"10px"}>
-                  <Text fontSize={"2xl"} mb={"30px"} letterSpacing={"0.1em"}>
-                    CHARACTERISTICS
-                  </Text>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                  <Flex justify={"space-between"}>
-                    <Text>Front wheel</Text> <Text>Traverse SL 29</Text>
-                  </Flex>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                  <Flex justify={"space-between"}>
-                    <Text>Rear Wheel</Text> <Text>TRAVERSE SL 29</Text>
-                  </Flex>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                  <Flex justify={"space-between"}>
-                    <Text>Front Tire</Text>{" "}
-                    <Text>BUTCHER GRID TRAIL T9 29×2.3"</Text>
-                  </Flex>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                  <Flex justify={"space-between"}>
-                    <Text>Inner Tubes</Text> <Text>STANDARD, PRESTA VALUE</Text>
-                  </Flex>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                  <Flex justify={"space-between"}>
-                    <Text>Front wheel</Text>{" "}
-                    <Text>BUTCHER GRID TRAIL T7 29 × 2.3"</Text>
-                  </Flex>{" "}
-                  <Divider h={"1px"} bg={"grey"} />
-                </Flex>
-              </Box>
-              <Box
-                bg={"#f3f0f3"}
-                color={"black"}
-                textAlign={"left"}
-                pt={"10px"}
-                p={"30px"}
-                borderRadius={"10px"}
-              >
-                <Text fontSize={"2xl"} mb={"30px"} letterSpacing={"0.1em"}>
-                  DESCRIPTION
-                </Text>
-                <Text my={"15px"}>
-                  Power up to trail riding's next level and dominate any and all
-                  trail monsters the Turbo Kenevo Super Light melds the
-                  legendary handling and all-around big trail prowess of the
-                  Enduro with our Super Light electric support to deliver
-                  indomitable capability, light weight, and power to conquer
-                  more and bigger trails.
-                </Text>
-                <Text my={"15px"}>
-                  The Turbo Kenevo Super Light puts the "E" in our Enduro,
-                  delivering more of what you want from your trail ride-more
-                  capability everywhere, more power to climb, more pop when you
-                  really need it, more adrenaline. More laps, more jumps, more
-                  drops, faster rides with fresher legs.
-                </Text>
-                <Text my={"15px"}>
-                  And it does all this with less. Carrying much less weight than
-                  bulkier e-MTBs. the Turbo Kenevo Super Light is
-                  hyper-responsive and just as willing and able to redefine big
-                  trail performance as our Enduro. Level up your trail game.
-                </Text>
-                <Accordion allowMultiple>
-                  <AccordionItem>
-                    {({ isExpanded }) => (
-                      <>
-                        <h2>
-                          <AccordionButton>
-                            <Box as="span" flex="1" textAlign="left">
-                              Bike Geometry
-                            </Box>
-                            {isExpanded ? (
-                              <MinusIcon fontSize="12px" />
-                            ) : (
-                              <AddIcon fontSize="12px" />
-                            )}
-                          </AccordionButton>
-                        </h2>
-                        <AccordionPanel>
-                          <TableComp w="100%" overflow={"hidden"} />
-                        </AccordionPanel>
-                      </>
-                    )}
-                  </AccordionItem>
-                  <AccordionItem>
-                    {({ isExpanded }) => (
-                      <>
-                        <h2>
-                          <AccordionButton>
-                            <Box as="span" flex="1" textAlign="left">
-                              Manual Downloads
-                            </Box>
-                            {isExpanded ? (
-                              <MinusIcon fontSize="12px" />
-                            ) : (
-                              <AddIcon fontSize="12px" />
-                            )}
-                          </AccordionButton>
-                        </h2>
-                        <AccordionPanel>
-                          <a
-                            href="https://media.specialized.com/support/collateral/Future_Shock_Retrofit_Compatibility_Tech_Bulletin_Swedish.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <Text as={"p"} color="grey" ml="10px">
-                              {currproduct.name}.pdf
-                            </Text>
-                          </a>
-                        </AccordionPanel>
-                      </>
-                    )}
-                  </AccordionItem>
-                </Accordion>
-              </Box>
+          <Flex
+            columnGap={"40px"}
+            rowGap={{ base: "10px", md: null }}
+            mt="30px"
+            flexWrap={"wrap"}
+          >
+            {/* Image Div */}
+            <Box
+              p={{ base: "10px", sm: "20px", md: "40px" }}
+              bg={"#f3f0f3"}
+              borderRadius={"10px"}
+              w="48%"
+              flexGrow={"1"}
+            >
+              <Image src={currproduct.images[imageIdx]} />
             </Box>
 
-            {/* Second Div */}
-            <Box className="secondDiv" w={"50%"} textAlign={"left"}>
+            {/* Heading Div */}
+            <Box w="48%" flexGrow={"1"} textAlign={"left"} pl={"10px"}>
               <Heading color={"white"}>{currproduct.name}</Heading>
 
               {/* Starts and Available Items */}
-              <Flex my={"20px"} justify={"space-between"}>
+              <Flex
+                my={{ base: "2px", sm: "10px", md: "20px" }}
+                justify={"space-between"}
+              >
                 <Flex>
                   {currproduct.rating >= 1 ? (
                     <AiFillStar size={"20px"} color="#eda515" />
@@ -319,7 +215,10 @@ const Detailspage = () => {
                     {currproduct.rating}
                   </Text>
                 </Flex>
-                <Flex direction={"row"} gap="20px" mr={"100px"}>
+                <Flex
+                  gap={{ base: "10px", sm: "20px" }}
+                  mr={{ base: "20px", sm: "50px", md: "100px" }}
+                >
                   <Text
                     mt="-3px"
                     color={currproduct.discount < 10 ? "red" : "green"}
@@ -375,12 +274,10 @@ const Detailspage = () => {
               <Divider orientation="horizontal" />
 
               {/* Cart and Order Buttons */}
-              <Flex my={"20px"} gap={"20px"}>
-                <Button colorScheme="red">
+              <Flex my={"20px"} gap={{ base: "10px", sm: "20px" }}>
+                <Button colorScheme="red" onClick={handleAddToCart}>
                   <BsCart3 size={20} />
-                  <Text ml={"10px"} onClick={handleAddToCart}>
-                    ADD TO CART
-                  </Text>
+                  <Text ml={{ base: "0", sm: "10px" }}>ADD TO CART</Text>
                 </Button>
                 <Button colorScheme="yellow" onClick={handlequickOrder}>
                   QUICK ORDER
@@ -412,7 +309,51 @@ const Detailspage = () => {
               </Flex>
 
               <Divider orientation="horizontal" />
+            </Box>
 
+            {/* CHARACTERISTICS Div */}
+            <Box
+              w="48%"
+              flexGrow={"1"}
+              bg={"#f3f0f3"}
+              color={"black"}
+              p={"30px"}
+              borderRadius={"10px"}
+              textAlign={"left"}
+              mt={"20px"}
+            >
+              <Flex direction={"column"} gap={"10px"}>
+                <Text fontSize={"2xl"} mb={"30px"} letterSpacing={"0.1em"}>
+                  CHARACTERISTICS
+                </Text>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+                <Flex justify={"space-between"}>
+                  <Text>Front wheel</Text> <Text>Traverse SL 29</Text>
+                </Flex>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+                <Flex justify={"space-between"}>
+                  <Text>Rear Wheel</Text> <Text>TRAVERSE SL 29</Text>
+                </Flex>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+                <Flex justify={"space-between"}>
+                  <Text>Front Tire</Text>{" "}
+                  <Text>BUTCHER GRID TRAIL T9 29×2.3"</Text>
+                </Flex>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+                <Flex justify={"space-between"}>
+                  <Text>Inner Tubes</Text> <Text>STANDARD, PRESTA VALUE</Text>
+                </Flex>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+                <Flex justify={"space-between"}>
+                  <Text>Front wheel</Text>{" "}
+                  <Text>BUTCHER GRID TRAIL T7 29 × 2.3"</Text>
+                </Flex>{" "}
+                <Divider h={"1px"} bg={"grey"} />
+              </Flex>
+            </Box>
+
+            {/**/}
+            <Box w="48%" flexGrow={"1"} textAlign={"left"}>
               {/* Payment Div */}
               <Box
                 bg={"#f3f0f3"}
@@ -498,10 +439,99 @@ const Detailspage = () => {
                 </Flex>
               </Box>
             </Box>
-          </Flex>{" "}
+
+            {/* Description Div */}
+            <Box
+              bg={"#f3f0f3"}
+              color={"black"}
+              textAlign={"left"}
+              pt={"10px"}
+              p={"30px"}
+              borderRadius={"10px"}
+            >
+              <Text fontSize={"2xl"} mb={"30px"} letterSpacing={"0.1em"}>
+                DESCRIPTION
+              </Text>
+              <Text my={"15px"}>
+                Power up to trail riding's next level and dominate any and all
+                trail monsters the Turbo Kenevo Super Light melds the legendary
+                handling and all-around big trail prowess of the Enduro with our
+                Super Light electric support to deliver indomitable capability,
+                light weight, and power to conquer more and bigger trails.
+              </Text>
+              <Text my={"15px"}>
+                The Turbo Kenevo Super Light puts the "E" in our Enduro,
+                delivering more of what you want from your trail ride-more
+                capability everywhere, more power to climb, more pop when you
+                really need it, more adrenaline. More laps, more jumps, more
+                drops, faster rides with fresher legs.
+              </Text>
+              <Text my={"15px"}>
+                And it does all this with less. Carrying much less weight than
+                bulkier e-MTBs. the Turbo Kenevo Super Light is hyper-responsive
+                and just as willing and able to redefine big trail performance
+                as our Enduro. Level up your trail game.
+              </Text>
+              <Accordion allowMultiple>
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <h2>
+                        <AccordionButton>
+                          <Box as="span" flex="1" textAlign="left">
+                            Bike Geometry
+                          </Box>
+                          {isExpanded ? (
+                            <MinusIcon fontSize="12px" />
+                          ) : (
+                            <AddIcon fontSize="12px" />
+                          )}
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel>
+                        <TableComp w="100%" overflow={"hidden"} />
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <h2>
+                        <AccordionButton>
+                          <Box as="span" flex="1" textAlign="left">
+                            Manual Downloads
+                          </Box>
+                          {isExpanded ? (
+                            <MinusIcon fontSize="12px" />
+                          ) : (
+                            <AddIcon fontSize="12px" />
+                          )}
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel>
+                        <a
+                          href="https://media.specialized.com/support/collateral/Future_Shock_Retrofit_Compatibility_Tech_Bulletin_Swedish.pdf"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Text as={"p"} color="grey" ml="10px">
+                            {currproduct.name}.pdf
+                          </Text>
+                        </a>
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              </Accordion>
+            </Box>
+            {/* </Box> */}
+          </Flex>
         </Box>
       ) : (
-        <Heading fontSize={"9xl"}>Loading...</Heading>
+        <Heading fontSize={{ base: "5xl", sm: "7xl", md: "9xl" }}>
+          Loading...
+        </Heading>
       )}
     </Box>
   );
