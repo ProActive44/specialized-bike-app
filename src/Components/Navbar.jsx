@@ -147,9 +147,9 @@ const Navbar = () => {
         top={0}
         zIndex={"1000"}
       >
-        <Flex align={"center"} mx={"20px"}>
+        <Flex align={"center"} mx={{base:null,sm:"20px"}}>
           {/* Hidden menu */}
-          <Box position="relative" ml={"10px"}>
+          <Box position="relative" ml={{base:null,sm:"10px"}}>
             <Show below="lg">
               <MenuBtn
                 cartNumber={number}
@@ -158,10 +158,9 @@ const Navbar = () => {
               />
             </Show>
           </Box>
-          {/* <Spacer /> */}
 
           {/* LogoBox */}
-          <Box ml={"20px"} w={{ base: "80px", md: "120px" }} mr={"10px"}>
+          <Box ml={{base:'2px',sm:"10px"}} w={{ base: "80px", md: "120px" }} mr={{base:null,sm:"10px"}}>
             <Link to="/">
               <Image maxW={"100%"} src={Logo} py={"5px"} />
             </Link>
@@ -209,7 +208,7 @@ const Navbar = () => {
               </HStack>
             </Hide>
           </Box>
-          <Spacer />
+          <Spacer/>
 
           {/* Search Box */}
           <Box mx={[null, "sm", "md", "lg", "xl", "2xl"]} pt="5px">
@@ -427,8 +426,8 @@ const Navbar = () => {
         <HStack
           color="grey"
           justify={"flex-end"}
-          mx={"40px"}
-          spacing={"15px"}
+          mx={{base:"10px",sm:"40px"}}
+          spacing={{base:"5px",sm:"15px"}}
           className="navBelow"
         >
           <Link className="navBelowLink" _hover={{ underLine: "none" }}>

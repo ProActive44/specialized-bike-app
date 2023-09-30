@@ -64,15 +64,16 @@ const MenuBtn = ({ cartNumber, currUser, wishNumber }) => {
   };
 
   return (
-    <Menu border="1px solid red">
+    <Menu border="100px solid red">
       <MenuButton
         as={IconButton}
         aria-label="Options"
-        icon={<HamburgerIcon />}
+        icon={<HamburgerIcon fontSize={{base:'lg',md:'xl'}}/>}
         variant="outline"
         colorScheme="black"
         color={"white"}
-        size={["sm", "sm", "md", "lg", "xl", "2xl"]}
+        size={["sm", "sm", "md", "md", "md", "xl"]}
+        border={{base:'none',sm:'1px'}}
         ref={btnRef}
         onClick={onOpen}
       />
