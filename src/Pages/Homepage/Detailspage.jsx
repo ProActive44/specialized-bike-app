@@ -275,11 +275,13 @@ const Detailspage = () => {
 
               {/* Cart and Order Buttons */}
               <Flex my={"20px"} gap={{ base: "10px", sm: "20px" }}>
-                <Button colorScheme="red" onClick={handleAddToCart}>
+                <Button colorScheme="red" onClick={handleAddToCart} fontSize={{base:'small', sm:"medium"}}>
                   <BsCart3 size={20} />
                   <Text ml={{ base: "0", sm: "10px" }}>ADD TO CART</Text>
                 </Button>
-                <Button colorScheme="yellow" onClick={handlequickOrder}>
+                <Button colorScheme="yellow" onClick={handlequickOrder} 
+                fontSize={{base:'small', sm:"medium"}}
+                >
                   QUICK ORDER
                 </Button>
                 <Box>
