@@ -133,7 +133,7 @@ const Footer = () => {
         </Box>
       </Flex>
       <Text className="footerlast">
-        © 1997 - 2023. Specialized Bicycle Components, Inc. All Rights Reserved
+        © 1997 - {new Date().getFullYear()}. Specialized Bicycle Components, Inc. All Rights Reserved
       </Text>
     </Box>
   );
